@@ -1,14 +1,67 @@
 ﻿<Page
-    x:Class="WebTeamWindows.MainPage"
+    x:Class="WebTeam_ENSEA_Universal.MainPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:WebTeamWindows"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:local="using:WebTeam_ENSEA_Universal"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource TextStyleLargeFontSize}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+    >
 
-    <Grid>
 
+    <!--LayoutRoot est la grille racine où tout le contenu de la page est placé-->
+    <Grid x:Name="LayoutRoot">
+        <Grid.Background>
+            <ImageBrush ImageSource="/assets/Background.png"/>
+        </Grid.Background>
+        <!--Contrôle Pivot-->
+        <Pivot Title="L'ENSEApp">
+            <!--Élément un de tableau croisé dynamique-->
+            <PivotItem x:Name="WebTeamHub" Header="WebTeam">
+                <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+                    <StackPanel>
+                        <TextBlock HorizontalAlignment="Center" Margin="0 15 0 0" >Nom d'utilisateur</TextBlock>
+                        <TextBox x:Name="login" KeyDown="login_KeyDown"/>
+                        <TextBlock HorizontalAlignment="Center" Margin="0 10 0 0">Mot de passe</TextBlock>
+                        <PasswordBox x:Name="password" KeyDown="password_KeyDown"/>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 -17 -140 0">
+                            <TextBlock Text="Se souvenir de mon identifiant " Margin="0 15 0 0"/>
+                            <CheckBox x:Name="rememberPassword" Margin="10 0 0 0" IsEnabled="False"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <Button x:Name="Connexion" HorizontalAlignment="Center" Width="315" Grid.Row="1" Content="Connexion" Click="Connexion_Click" Background="Black"/>
+                </Grid>
+            </PivotItem>
+
+            <!--Élément deux de tableau croisé dynamique-->
+            <PivotItem Header="Caligula">
+                <Grid Margin="12 0 12 0">
+                    <StackPanel VerticalAlignment="Bottom">
+                        <Button Name="ConnexionCaligula" HorizontalAlignment="Center" Width="315" Grid.Row="1" Content="Connexion" Click="ConnexionCaligula_Click" Background="Black"/>
+                    </StackPanel>
+                </Grid>
+            </PivotItem>
+        </Pivot>
     </Grid>
+    
+    <Page.BottomAppBar>
+        <CommandBar>
+            <CommandBar.SecondaryCommands>
+                <AppBarButton Label="paramètres / à propos" IsCompact="True" Click="SettingsAbout_ApplicationBarMenuItem_Click">
+                </AppBarButton>
+            </CommandBar.SecondaryCommands>
+        </CommandBar>
+    </Page.BottomAppBar>
+
 </Page>
