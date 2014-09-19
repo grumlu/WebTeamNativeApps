@@ -1,9 +1,9 @@
 ﻿<Page
-    x:Class="WebTeam_ENSEA_Universal.MainPage"
+    x:Class="WebTeamWindow.MainPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
-    xmlns:local="using:WebTeam_ENSEA_Universal"
+    xmlns:local="using:WebTeamWindows"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
@@ -21,7 +21,7 @@
             <ImageBrush ImageSource="/assets/Background.png"/>
         </Grid.Background>
         <!--Contrôle Pivot-->
-        <Pivot Title="L'ENSEApp">
+        <Pivot x:Uid="AppNamePivot" Title="AppName">
             <!--Élément un de tableau croisé dynamique-->
             <PivotItem x:Name="WebTeamHub" Header="WebTeam">
                 <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
@@ -30,12 +30,12 @@
                         <RowDefinition Height="auto" />
                     </Grid.RowDefinitions>
                     <StackPanel>
-                        <TextBlock HorizontalAlignment="Center" Margin="0 15 0 0" >Nom d'utilisateur</TextBlock>
+                        <TextBlock x:Uid="WT_USERNAME" HorizontalAlignment="Center" Margin="0 15 0 0" >WT_USERNAME</TextBlock>
                         <TextBox x:Name="login" KeyDown="login_KeyDown"/>
-                        <TextBlock HorizontalAlignment="Center" Margin="0 10 0 0">Mot de passe</TextBlock>
+                        <TextBlock x:Uid="WT_PASSWORD" HorizontalAlignment="Center" Margin="0 10 0 0">WT_PASSWORD</TextBlock>
                         <PasswordBox x:Name="password" KeyDown="password_KeyDown"/>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 -17 -140 0">
-                            <TextBlock Text="Se souvenir de mon identifiant " Margin="0 15 0 0"/>
+                            <TextBlock x:Uid="WT_REMEMBERPWD" Margin="0 15 0 0">WT_REMEMBERPWD</TextBlock>
                             <CheckBox x:Name="rememberPassword" Margin="10 0 0 0" IsEnabled="False"/>
                         </StackPanel>
                     </StackPanel>

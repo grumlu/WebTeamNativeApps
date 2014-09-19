@@ -14,12 +14,12 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using WebTeam_ENSEA_Universal.Resources;
 using Windows.UI.ViewManagement;
+using WebTeamWindows.Ressources;
 
 // Pour en savoir plus sur le modèle d'élément Page vierge, consultez la page http://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace WebTeam_ENSEA_Universal
+namespace WebTeamWindow
 {
     /// <summary>
     /// Une page vide peut être utilisée seule ou constituer une page de destination au sein d'un frame.
@@ -97,7 +97,14 @@ namespace WebTeam_ENSEA_Universal
         #region Boutons et Champs de texte
         private async void Connexion_Click(object sender, RoutedEventArgs e)
         {
-            ERROR rs;
+            desactiverControles();
+            await StatusBar.GetForCurrentView().ProgressIndicator.ShowAsync();
+            if (!await APIWebTeam.initiateConnection(login.Text, password.Password))
+            {
+                activerControles();
+                await StatusBar.GetForCurrentView().ProgressIndicator.HideAsync();
+            }
+            /*ERROR rs;
             MessageDialog messageDialog;
             desactiverControles();
             StatusBar.GetForCurrentView().ProgressIndicator.ShowAsync();
@@ -130,7 +137,7 @@ namespace WebTeam_ENSEA_Universal
                     StatusBar.GetForCurrentView().ProgressIndicator.HideAsync();
                     activerControles();
                     break;
-            }
+            }*/
         }
 
         private void ConnexionCaligula_Click(object sender, RoutedEventArgs e)

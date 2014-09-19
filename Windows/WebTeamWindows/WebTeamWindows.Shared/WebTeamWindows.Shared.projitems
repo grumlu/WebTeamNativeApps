@@ -15,6 +15,11 @@
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Ressources\APICaligula.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Ressources\APIWebTeam.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Ressources\AppSettings.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Ressources\Utilisateur.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Ressources\UtilisateurAppli.cs" />
   </ItemGroup>
   <ItemGroup>
     <PRIResource Include="$(MSBuildThisFileDirectory)Strings\fr-FR\Resources.resw" />

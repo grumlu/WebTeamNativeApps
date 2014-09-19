@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using WebTeamWindows.Ressources;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Popups;
@@ -16,7 +17,7 @@ using Windows.UI.Xaml.Navigation;
 
 // Pour en savoir plus sur le modèle d'élément Page vierge, consultez la page http://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace WebTeam_ENSEA_Universal
+namespace WebTeamWindows
 {
     /// <summary>
     /// Une page vide peut être utilisée seule ou constituer une page de destination au sein d'un frame.
@@ -78,6 +79,11 @@ namespace WebTeam_ENSEA_Universal
         #region Boutons et Champs de texte
        private async void Connexion_Click(object sender, RoutedEventArgs e)
         {
+            desactiverControles();
+            if (!await APIWebTeam.initiateConnection(login.Text, password.Password))
+            {
+                activerControles();
+            }
         /* 
             MessageDialog messageDialog;
             desactiverControles();
