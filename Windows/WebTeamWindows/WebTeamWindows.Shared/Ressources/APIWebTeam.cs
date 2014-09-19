@@ -194,6 +194,7 @@ namespace WebTeamWindows.Ressources
 
         public static async Task<ERROR> BeginCheckLogin(string login, string password)
         {
+            //Utilisation des paramètres locaux pour garder les infos
             var applicationData = Windows.Storage.ApplicationData.Current;
 
             var localSettings = applicationData.LocalSettings;
@@ -210,62 +211,38 @@ namespace WebTeamWindows.Ressources
 
             else
             {
-                HttpClient httpClient = new HttpClient();
-                string request = "https://webteam.ensea.fr/api_login_check";
+                //Refus des redirections
+                HttpClientHandler httpClientHandler = new HttpClientHandler();
+                httpClientHandler.AllowAutoRedirect = false;
+
+                //Création du httpClient pour envoi des données
+                HttpClient httpClient = new HttpClient(httpClientHandler);
+                httpClient.BaseAddress = new Uri("https://webteam.ensea.fr");
+
+                //Variables post
                 var content = new FormUrlEncodedContent(new[]
                 {
                     new KeyValuePair<string, string>("_username", login),
                     new KeyValuePair<string, string>("_password", password),
                     new KeyValuePair<string, string>("_apiKey", "55340427148d33f57ee48be681fb4868f9fef60ad90b30033739e983939a9689d7a8f37db8403212c83db9bca89c6119982654387836e14132ced2a9a9ff07dc")
                 });
-                var response = await httpClient.GetAsync(new Uri(request));
-                System.Diagnostics.Debug.WriteLine("Q: " + request);
-                System.Diagnostics.Debug.WriteLine("R: " + response.Content);
+
+                //Envoi et enregistrement de la réponse
+                var response = httpClient.PostAsync("/api_login_check", content).Result;
 
                 Newtonsoft.Json.Linq.JObject list;
-
-                System.Diagnostics.Debug.WriteLine("Status Code : " + response.StatusCode);
-                /*
-                try
-                {
-                    list = Newtonsoft.Json.Linq.JObject.Parse(response);
-
-
+                
+                //Si le code de retour indique OK, le MDP est juste
+                if (response.StatusCode == System.Net.HttpStatusCode.OK){
+                    string jsonReturn = await response.Content.ReadAsStringAsync();
+                    list = Newtonsoft.Json.Linq.JObject.Parse(jsonReturn);
                 }
-
-                if ((string)list["erreur"] == "1")
-                {
-                    localSettings.Values["utilisateurAppliID"] = int.Parse((string)list["id"]);
-                    localSettings.Values["login"] = login;
-                    localSettings.Values["hashedPwd"] = MD5Core.GetHashString(password).ToLower();
-                    //utilisateurAppli.id = int.Parse((string)list["id"]);
-                    return ERROR.NO_ERR;
-                }
-                else if ((string)list["erreur"] == "22")
-                {
+                  
+                //MDP Faux ==> redirection. on renvoit une erreur
+                else if (response.StatusCode == System.Net.HttpStatusCode.Redirect)
                     return ERROR.INCORRECT_LOGIN_OR_PWD;
-                }
 
-                /*
-                WebClient client = new WebClient();
-                client.DownloadStringCompleted += client_DownloadStringCompleted;
-                client.DownloadStringAsync(new Uri("http://webteam.ensea.fr/api/?page=login&pseudo=" + utilisateurAppli.userLogin + "&mdp=" + utilisateurAppli.userHashedPassword + "&appli=WebteamWindowsPhone_V0&iso88591"));
-
-                TimerCallback timerCallback = c =>
-                {
-                    WebClient webClient = c as WebClient;
-                    if (!webClient.IsBusy) { return; }
-                    webClient.CancelAsync();
-                    Dispatcher.BeginInvoke(() =>
-                    {
-                        activerControles();
-                        progressIndicator.IsVisible = false;
-                        MessageBox.Show("Vous ne semblez pas être en ligne, ou la WebTeam est indisponible.");
-                        System.Diagnostics.Debug.WriteLine("TimedOut");
-                    });
-                };
-                Timer timerDownload = new Timer(timerCallback, client, App.TIMEOUTMS, 0);
-                */
+                //Erreur inconnue
                 return ERROR.ERR_UNKNOWN;
             }
 
