@@ -16,6 +16,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Windows.UI.ViewManagement;
 using WebTeamWindows.Ressources;
+using System.Threading.Tasks;
 
 // Pour en savoir plus sur le modèle d'élément Page vierge, consultez la page http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -95,15 +96,17 @@ namespace WebTeamWindow
         #endregion
 
         #region Boutons et Champs de texte
-        private async void Connexion_Click(object sender, RoutedEventArgs e)
+        private void Connexion_Click(object sender, RoutedEventArgs e)
         {
             desactiverControles();
-            await StatusBar.GetForCurrentView().ProgressIndicator.ShowAsync();
-            if (!await APIWebTeam.initiateConnection(login.Text, password.Password))
-            {
-                activerControles();
-                await StatusBar.GetForCurrentView().ProgressIndicator.HideAsync();
-            }
+            StatusBar.GetForCurrentView().ProgressIndicator.ShowAsync();
+           if (!await APIWebTeam.initiateConnection(login.Text, password.Password))
+                {
+                    activerControles();
+                    StatusBar.GetForCurrentView().ProgressIndicator.HideAsync();
+                }
+            
+            
             /*ERROR rs;
             MessageDialog messageDialog;
             desactiverControles();
@@ -167,10 +170,14 @@ namespace WebTeamWindow
 
         private void desactiverControles()
         {
-            login.IsEnabled = false;
-            password.IsEnabled = false;
-            Connexion.IsEnabled = false;
-            ConnexionCaligula.IsEnabled = false;
+            Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, async () => {
+                login.IsEnabled = false;
+                password.IsEnabled = false;
+                Connexion.IsEnabled = false;
+                ConnexionCaligula.IsEnabled = false;
+            });
+
+            
         }
 
         private void activerControles()

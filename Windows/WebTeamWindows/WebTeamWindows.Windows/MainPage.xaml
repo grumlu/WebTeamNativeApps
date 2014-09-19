@@ -13,55 +13,80 @@
         <Grid.Background>
             <ImageBrush ImageSource="/Assets/Background.png" Stretch="UniformToFill" AlignmentX="Left"/>
         </Grid.Background>
-        <TextBlock x:Uid="AppName" Name="AppName" FontSize="100" Margin="20 10 0 0">APP_NAME</TextBlock>
 
-        <Grid Margin="50 160 50 50">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="50*"/>
-                <ColumnDefinition Width="50*"/>
-            </Grid.ColumnDefinitions>
+        <!--Title-->
+        <StackPanel>
+            <!--Title-->
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="120"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
 
-            <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0" Grid.Column="0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="auto" />
-                </Grid.RowDefinitions>
-                <StackPanel>
-                    <Viewbox Stretch="Uniform" HorizontalAlignment="Left" Height="80" Margin="0 0 0 50">
-                        <TextBlock FontSize="70" Margin="0 0 0 0">WebTeam</TextBlock>
-                    </Viewbox>
-                    <TextBlock x:Uid="WT_USERNAME" HorizontalAlignment="Center" Margin="0 15 0 0">WT_USERNAME</TextBlock>
-                    <TextBox Name="login" KeyDown="login_KeyDown"/>
-                    <TextBlock x:Uid="WT_PASSWORD" HorizontalAlignment="Center" Margin="0 10 0 0">WT_PASSWORD</TextBlock>
-                    <PasswordBox Name="password" KeyDown="password_KeyDown"/>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 5 0 10">
-                        <TextBlock x:Uid="WT_REMEMBERPWD" Margin="0 5 0 0">WT_REMEMBERPWD</TextBlock>
-                        <CheckBox x:Name="rememberPassword" Margin="10 0 0 0" IsEnabled="False"/>
+                <TextBlock x:Uid="AppName" x:Name="AppName" Style="{StaticResource HeaderTextBlockStyle}" 
+    			IsHitTestVisible="false" TextWrapping="NoWrap" VerticalAlignment="Bottom" Margin="0,59,30,40" Grid.Column="2">
+    			<Run Text="APP_NAME"/>
+                </TextBlock>
+            </Grid>
+
+            <Grid Margin="39,90,39,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50*"/>
+                    <ColumnDefinition Width="50*"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0" Grid.Column="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+                    <StackPanel>
+
+                        <TextBlock FontSize="70" Margin="0 0 0 80" HorizontalAlignment="Center" Foreground="#FFF6E2E2" Style="{StaticResource SubtitleTextBlockStyle}" >
+    							<Run Text="WebTeam"/>
+                        </TextBlock>
+                        <TextBlock x:Uid="WT_USERNAME" HorizontalAlignment="Center" Margin="0 15 0 0">
+    						<Run Text="WT_USERNAME"/>
+                        </TextBlock>
+                        <TextBox x:Name="login" KeyDown="login_KeyDown"/>
+                        <TextBlock x:Uid="WT_PASSWORD" HorizontalAlignment="Center" Margin="0 10 0 0">
+    						<Run Text="WT_PASSWORD"/>
+                        </TextBlock>
+                        <PasswordBox x:Name="password" KeyDown="password_KeyDown"/>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 5 0 10">
+                            <TextBlock x:Uid="WT_REMEMBERPWD" Margin="0 5 0 0">
+    							<Run Text="WT_REMEMBERPWD"/>
+                            </TextBlock>
+                            <CheckBox x:Name="rememberPassword" Margin="10 0 0 0" IsEnabled="False"/>
+                        </StackPanel>
+                        <ProgressRing x:Name="progressRingWebTeam" HorizontalAlignment="Center" VerticalAlignment="Top" Height="61" Width="61" Margin="0,45,0,0" IsActive="False"/>
+                        <ProgressBar x:Name="progressBarWebTeam" Height="10" VerticalAlignment="Stretch" Margin="20" Visibility="Collapsed"/>
                     </StackPanel>
-                    <ProgressRing Name="progressRingWebTeam" HorizontalAlignment="Center" VerticalAlignment="Top" Height="61" Width="61" Margin="0,45,0,0" IsActive="False"/>
-                    <ProgressBar Name="progressBarWebTeam" Height="10" VerticalAlignment="Stretch" Margin="20" Visibility="Collapsed"/>
-                </StackPanel>
-                <StackPanel Grid.Row="1" HorizontalAlignment="Center">
-                    <Button Name="Connexion" Width="auto" Grid.Row="1" Content="Connexion" Click="Connexion_Click" Background="Black"/>
-                </StackPanel>
+                    <StackPanel Grid.Row="1" HorizontalAlignment="Center">
+                        <Button x:Name="Connexion" Width="auto" Grid.Row="1" Content="Connexion" Click="Connexion_Click" Background="Black"/>
+                    </StackPanel>
+                </Grid>
+
+                <!--Élément deux de tableau croisé dynamique-->
+
+                <Grid Margin="12 0 12 0" Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+                    <TextBlock FontSize="70" Margin="0 0 0 0" HorizontalAlignment="Center" Style="{StaticResource SubtitleTextBlockStyle}">
+    						<Run Text="Caligula"/>
+                    </TextBlock>
+                    <Button x:Name="ConnexionCaligula" Grid.Row="1" Width="auto" Content="Connexion" Click="ConnexionCaligula_Click" Background="Black" HorizontalAlignment="Center"/>
+
+                </Grid>
             </Grid>
+        </StackPanel>
 
-            <!--Élément deux de tableau croisé dynamique-->
 
-            <Grid Margin="12 0 12 0" Grid.Column="1">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="auto" />
-                </Grid.RowDefinitions>
-                <Viewbox Stretch="Uniform" HorizontalAlignment="Left" VerticalAlignment="Top" Height="80" Margin="0 0 0 50">
-                    <TextBlock FontSize="70" Margin="0 0 0 0">Caligula</TextBlock>
-                </Viewbox>
-
-                    <Button Name="ConnexionCaligula" Grid.Row="1" Width="auto" Content="Connexion" Click="ConnexionCaligula_Click" Background="Black" HorizontalAlignment="Center"/>
-                
-            </Grid>
-        </Grid>
-        <TextBlock x:Uid="AppVersion" Name="Version" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="5">APP_VERSION</TextBlock>
+        <TextBlock x:Uid="AppVersion" x:Name="Version" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="5">
+    		<Run Text="APP_VERSION"/>
+        </TextBlock>
     </Grid>
 
 
