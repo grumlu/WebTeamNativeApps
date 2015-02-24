@@ -101,7 +101,21 @@ namespace WebTeamWindows.Ressources
 			{
 #if WINDOWS_APP
 				WebAuthenticationResult webAuthenticationResult =
-					await WebAuthenticationBroker.AuthenticateAsync(WebAuthenticationOptions.UseTitle, new Uri(WeCASUrl), new Uri(WTAuthDoneUrl));
+					await WebAuthenticationBroker.AuthenticateAsync(WebAuthenticationOptions.None, new Uri(WeCASUrl), new Uri(WTAuthDoneUrl));
+
+				if (webAuthenticationResult.ResponseStatus == WebAuthenticationStatus.Success)
+				{
+					string token = webAuthenticationResult.ResponseData;
+					await GetAccessTokenAsync(token);
+				}
+				else if (webAuthenticationResult.ResponseStatus == WebAuthenticationStatus.ErrorHttp)
+				{
+					// do something when the request failed
+				}
+				else
+				{
+					// do something when an unknown error occurred
+				}
 #endif
 #if WINDOWS_PHONE_APP
 				//string oAuth_Token = await GetWeCASRequestTokenAsync(WeCASCallBackUri, WeCASConsumerKey);
@@ -119,7 +133,49 @@ namespace WebTeamWindows.Ressources
 
 		}
 
-		
+		public static async Task GetAccessTokenAsync(string webAuthResultResponseData)
+		{
+			//La réponse du serveur
+			string responseData = webAuthResultResponseData.Substring(webAuthResultResponseData.IndexOf("code"));
+			//Une chaine qui contient le code de retour de l'API serveur Webteam
+			string request_token = responseData.Split('=')[1];
+
+
+			string request_url = APIWebTeam.WTTokenUrl + "?";
+
+			request_url += "client_id" + "=" + APIWebTeam.WTClientID;
+			request_url += "&" + "client_secret" + "=" + APIWebTeam.WTSecretID;
+			request_url += "&" + "grant_type" + "=" + "authorization_code";
+			request_url += "&" + "redirect_uri" + "=" + APIWebTeam.WTAuthDoneUrl;
+			request_url += "&" + "code" + "=" + request_token;
+
+			System.Diagnostics.Debug.WriteLine(request_url);
+
+
+			HttpClient httpClient = new HttpClient();
+
+			var httpResponseMesage = await httpClient.GetAsync(new Uri(request_url));
+			string response = await httpResponseMesage.Content.ReadAsStringAsync();
+
+			System.Diagnostics.Debug.WriteLine(response);
+			/*
+
+			if (oauth_token != null)
+			{
+				App.SettingsStore.TwitteroAuthToken = oauth_token;
+			}
+
+			if (oauth_token_secret != null)
+			{
+				App.SettingsStore.TwitteroAuthTokenSecret = oauth_token_secret;
+			}
+			if (screen_name != null)
+			{
+				App.SettingsStore.TwitterName = screen_name;
+			}*/
+		}
+
+
 		/*public static async Task<Newtonsoft.Json.Linq.JObject> sendRequest(RequestType requestType, string getSupplementaire = "", string post = "")
         {
             var applicationData = Windows.Storage.ApplicationData.Current;
