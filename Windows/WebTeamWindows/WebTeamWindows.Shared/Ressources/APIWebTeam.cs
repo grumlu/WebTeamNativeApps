@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 using System.Net.Http;
 using Windows.UI.Popups;
-
+using Windows.Security.Authentication.Web;
 
 namespace WebTeamWindows.Ressources
 {
@@ -42,7 +42,7 @@ namespace WebTeamWindows.Ressources
     /// Classe permettant de faciliter les requêtes à la WT au sein de l'application
     /// </summary>
     public static class APIWebTeam
-    {
+	{
         public static async Task<bool> initiateConnection(string login, string password)
         {
             ERROR rs;
@@ -79,7 +79,87 @@ namespace WebTeamWindows.Ressources
             return false;
         }
 
-        /*public static async Task<Newtonsoft.Json.Linq.JObject> sendRequest(RequestType requestType, string getSupplementaire = "", string post = "")
+		public static async void RequestToken()
+		{
+			const string clientID = "2_49cibza0l4kkwcgs8cw0cw4kok0g04oc0wcss8cc4gccockgww";
+            const string url = "https://webteam.ensea.fr/oauth/v2/auth_login";
+
+			Uri endUri = new Uri("https://webteam.ensea.fr/oauth/v2/done");
+			string WeCASUrl = "https://webteam.ensea.fr/oauth/v2/auth";
+			WeCASUrl += "?" + "client_id=" + clientID;
+			WeCASUrl += "&" + "response_type=code";
+			WeCASUrl += "&" + "scope=user";
+			WeCASUrl += "&" + "redirect_uri=" + endUri;
+
+			try
+			{
+#if WINDOWS_APP
+				WebAuthenticationResult webAuthenticationResult =
+					await WebAuthenticationBroker.AuthenticateAsync(WebAuthenticationOptions.UseTitle, new Uri(WeCASUrl), endUri);
+#endif
+#if WINDOWS_PHONE_APP
+				//string oAuth_Token = await GetWeCASRequestTokenAsync(WeCASCallBackUri, WeCASConsumerKey);
+
+
+				System.Diagnostics.Debug.WriteLine(WeCASUrl);
+
+				WebAuthenticationBroker.AuthenticateAndContinue(new Uri(WeCASUrl), endUri);
+#endif
+			}
+			catch (Exception)
+			{
+				// do something when an exception occurred
+			}
+
+		}
+
+#if WINDOWS_PHONE_APP
+		/*private static async Task<string> GetWeCASRequestTokenAsync(string callbackUrl, string consumerKey)
+        {
+            //
+            // Acquiring a request token
+            //
+            string TwitterUrl = "https://api.twitter.com/oauth/request_token";
+
+            string nonce = GetNonce();
+            string timeStamp = GetTimeStamp();
+            string SigBaseStringParams = "oauth_callback=" + Uri.EscapeDataString(twitterCallbackUrl);
+            SigBaseStringParams += "&" + "oauth_consumer_key=" + consumerKey;
+            SigBaseStringParams += "&" + "oauth_nonce=" + nonce;
+            SigBaseStringParams += "&" + "oauth_signature_method=HMAC-SHA1";
+            SigBaseStringParams += "&" + "oauth_timestamp=" + timeStamp;
+            SigBaseStringParams += "&" + "oauth_version=1.0";
+            string SigBaseString = "GET&";
+            SigBaseString += Uri.EscapeDataString(TwitterUrl) + "&" + Uri.EscapeDataString(SigBaseStringParams);
+            string Signature = GetSignature(SigBaseString, TwitterConsumerSecret);
+
+            TwitterUrl += "?" + SigBaseStringParams + "&oauth_signature=" + Uri.EscapeDataString(Signature);
+            HttpClient httpClient = new HttpClient();
+            string GetResponse = await httpClient.GetStringAsync(new Uri(TwitterUrl));
+
+            string request_token = null;
+            string oauth_token_secret = null;
+            string[] keyValPairs = GetResponse.Split('&');
+
+            for (int i = 0; i < keyValPairs.Length; i++)
+            {
+                string[] splits = keyValPairs[i].Split('=');
+                switch (splits[0])
+                {
+                    case "oauth_token":
+                        request_token = splits[1];
+                        break;
+                    case "oauth_token_secret":
+                        oauth_token_secret = splits[1];
+                        break;
+                }
+            }
+
+            return request_token;
+        }*/
+
+#endif
+		/*public static async Task<Newtonsoft.Json.Linq.JObject> sendRequest(RequestType requestType, string getSupplementaire = "", string post = "")
         {
             var applicationData = Windows.Storage.ApplicationData.Current;
 
@@ -161,11 +241,11 @@ namespace WebTeamWindows.Ressources
             };
             Timer timerDownload = new Timer(timerCallback, client, App.TIMEOUTMS, 0);*/
 
-        /*return list;
+		/*return list;
     }*/
 
 
-        /*private static void client_UploadStringCompleted(object sender, UploadStringCompletedEventArgs e)
+		/*private static void client_UploadStringCompleted(object sender, UploadStringCompletedEventArgs e)
         {
             Newtonsoft.Json.Linq.JObject list;
             if (e.Cancelled == true)
@@ -192,7 +272,7 @@ namespace WebTeamWindows.Ressources
             }
         }*/
 
-        public static async Task<ERROR> BeginCheckLogin(string login, string password)
+		public static async Task<ERROR> BeginCheckLogin(string login, string password)
         {
             //Utilisation des paramètres locaux pour garder les infos
             var applicationData = Windows.Storage.ApplicationData.Current;

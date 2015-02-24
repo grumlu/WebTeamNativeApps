@@ -14,6 +14,7 @@ namespace WebTeamWindows.Resources
     {
         public int id { get; set; }
         public string prenom { get; set; }
+		public string pseudo { get; set; }
         public string nom { get; set; }
         public string NOMPrenom { get; set; }
         public string groupe { get; set; }

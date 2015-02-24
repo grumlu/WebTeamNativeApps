@@ -1,7 +1,5 @@
-﻿<Application
-    x:Class="WebTeamWindows.App"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:WebTeamWindows">
-
+<Application x:Class="WebTeamWindows.App" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:local="using:WebTeamWindows">
+  <!--<Application.Resources>
+    <vm:ViewModelLocator x:Key="Locator" xmlns:vm="using:WebTeamWindows.ViewModel" /> 
+  </Application.Resources> -->
 </Application>

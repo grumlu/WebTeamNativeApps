@@ -1,0 +1,19 @@
+﻿client_id
+
+2_49cibza0l4kkwcgs8cw0cw4kok0g04oc0wcss8cc4gccockgww
+
+secret_id
+
+5ugzch5c28g8g0okswswk4gk448c8okw04c8c4c0kg88wkokk4
+
+redirect_uri
+
+https://webteam.ensea.fr/oauth/v2/done
+
+récupération profile (renvoyé en get):
+https://webteam.ensea.fr/api/profile
+
+avec token en argument
+
+
+il faut ?scope=user dans le /auth aussi

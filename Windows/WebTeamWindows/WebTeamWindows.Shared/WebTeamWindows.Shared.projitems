@@ -15,13 +15,21 @@
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Common\NavigationHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\ObservableDictionary.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\RelayCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\SuspensionManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\UtilisateurAppli.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Ressources\APICaligula.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Ressources\APIWebTeam.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Ressources\AppSettings.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Ressources\ContinuationManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Ressources\Utilisateur.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Ressources\UtilisateurAppli.cs" />
   </ItemGroup>
   <ItemGroup>
     <PRIResource Include="$(MSBuildThisFileDirectory)Strings\fr-FR\Resources.resw" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="$(MSBuildThisFileDirectory)assets\anonymous.jpg" />
   </ItemGroup>
 </Project>
