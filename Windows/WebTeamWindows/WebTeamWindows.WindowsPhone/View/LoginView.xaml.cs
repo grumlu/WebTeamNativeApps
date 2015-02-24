@@ -89,7 +89,7 @@ namespace WebTeamWindows
         #endregion
 
         #region Boutons et Champs de texte
-        async private void Connexion_Click(object sender, RoutedEventArgs e)
+        private void Connexion_Click(object sender, RoutedEventArgs e)
         {
 			WebTeamWindows.Ressources.APIWebTeam.RequestToken();
         }
