@@ -8,6 +8,8 @@ using Windows.UI.ViewManagement;
 using WebTeamWindows.Ressources;
 using Windows.ApplicationModel.Activation;
 using Windows.Security.Authentication.Web;
+using System.Threading.Tasks;
+using Windows.Web.Http;
 
 // Pour en savoir plus sur le modèle d'élément Page vierge, consultez la page http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -129,6 +131,8 @@ namespace WebTeamWindows
 			if (result.ResponseStatus == WebAuthenticationStatus.Success)
 			{
 				System.Diagnostics.Debug.WriteLine("Cool.");
+				System.Diagnostics.Debug.WriteLine(result.ResponseData.ToString());
+				await GetAccessTokenAsync(result.ResponseData.ToString());
 			}
 			else if (result.ResponseStatus == WebAuthenticationStatus.ErrorHttp)
 			{
@@ -140,6 +144,48 @@ namespace WebTeamWindows
 				MessageDialog ErrMsg = new MessageDialog(string.Format("Error returned: \n{0}", result.ResponseStatus.ToString()), "Sorry");
 				await ErrMsg.ShowAsync();
 			}
+		}
+
+		private async Task GetAccessTokenAsync(string webAuthResultResponseData)
+		{
+			//La réponse du serveur
+			string responseData = webAuthResultResponseData.Substring(webAuthResultResponseData.IndexOf("code"));
+			//Une chaine qui contient le code de retour de l'API serveur Webteam
+			string request_token = responseData.Split('=')[1]; 
+
+
+			string request_url = APIWebTeam.WTTokenUrl + "?";
+
+			request_url += "client_id" + "=" + APIWebTeam.WTClientID;
+			request_url += "&" + "client_secret" + "=" + APIWebTeam.WTSecretID;
+			request_url += "&" + "grant_type" + "=" + "authorization_code";
+			request_url += "&" + "redirect_uri" + "=" + APIWebTeam.WTAuthDoneUrl;
+			request_url += "&" + "code" + "=" + request_token;
+
+			System.Diagnostics.Debug.WriteLine(request_url);
+
+
+			HttpClient httpClient = new HttpClient();
+			
+			var httpResponseMesage = await httpClient.GetAsync(new Uri(request_url));
+			string response = await httpResponseMesage.Content.ReadAsStringAsync();
+
+			System.Diagnostics.Debug.WriteLine(response);
+			/*
+
+			if (oauth_token != null)
+			{
+				App.SettingsStore.TwitteroAuthToken = oauth_token;
+			}
+
+			if (oauth_token_secret != null)
+			{
+				App.SettingsStore.TwitteroAuthTokenSecret = oauth_token_secret;
+			}
+			if (screen_name != null)
+			{
+				App.SettingsStore.TwitterName = screen_name;
+			}*/
 		}
 
 	}
