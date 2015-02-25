@@ -22,7 +22,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Model\UtilisateurAppli.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Resources\APICaligula.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Resources\APIWebTeam.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Resources\AppSettings.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Resources\ContinuationManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Resources\Utilisateur.cs" />
   </ItemGroup>

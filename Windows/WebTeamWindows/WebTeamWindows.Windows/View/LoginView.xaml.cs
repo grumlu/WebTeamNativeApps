@@ -1,5 +1,5 @@
 ﻿using System;
-using WebTeamWindows.Ressources;
+using WebTeamWindows.Resources;
 using WebTeamWindows.ViewModel;
 using Windows.Foundation;
 using Windows.UI.Popups;
@@ -13,30 +13,38 @@ using Windows.UI.Xaml.Media.Imaging;
 
 namespace WebTeamWindows
 {
-	/// <summary>
-	/// Une page vide peut être utilisée seule ou constituer une page de destination au sein d'un frame.
-	/// </summary>
-	public sealed partial class LoginView : Page
+    /// <summary>
+    /// Une page vide peut être utilisée seule ou constituer une page de destination au sein d'un frame.
+    /// </summary>
+    public sealed partial class LoginView : Page
     {
         public LoginView()
         {
             this.InitializeComponent();
-			DataContext = new LoginViewModel();
+            DataContext = new LoginViewModel();
         }
 
 
-#region Boutons
-       private async void Connexion_Click(object sender, RoutedEventArgs e)
+        #region Boutons
+        private async void Connexion_Click(object sender, RoutedEventArgs e)
         {
             progressRingWebTeam.IsActive = true;
 
-			ERROR err = await WebTeamWindows.Ressources.APIWebTeam.RequestToken();
+            ERROR err = await APIWebTeam.RequestToken();
+
+            if (err != ERROR.NO_ERR)
+            {
+                progressRingWebTeam.IsActive = false;
+                return;
+            }
+
+            Utilisateur appUser = await APIWebTeam.GetUser();
 
         }
-#endregion
+        #endregion
 
 
-		private void SettingsAbout_ApplicationBarMenuItem_Click(object sender, RoutedEventArgs e)
+        private void SettingsAbout_ApplicationBarMenuItem_Click(object sender, RoutedEventArgs e)
         {
             //NavigationService.Navigate(new Uri("/Settings.xaml", UriKind.Relative));
         }

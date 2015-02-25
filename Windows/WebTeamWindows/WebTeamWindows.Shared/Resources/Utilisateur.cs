@@ -16,21 +16,15 @@ namespace WebTeamWindows.Resources
         public string prenom { get; set; }
 		public string pseudo { get; set; }
         public string nom { get; set; }
-        public string NOMPrenom { get; set; }
+        public string promo { get; set; }
         public string groupe { get; set; }
-        public string dateDeNaissance { get; set; }
+        public DateTime dateDeNaissance { get; set; }
         public string numeroPortable { get; set; }
-        public string numeroFixe { get; set; }
-        public string numeroParents { get; set; }
-        public string email { get; set; }
-        public string residence { get; set; }
-        public string adresseParents { get; set; }
-        public string siteInternet { get; set; }
-        public BitmapImage avatar { get; set; }
+        public string email { get; set; }    
+        public string adresse { get; set; }
         public string avatarURL { get; set; }
-        public string signature { get; set; }
-        public string age { get; set; }
 
+        public BitmapImage avatar { get; set; }
 
         public Utilisateur()
         {
@@ -73,7 +67,7 @@ namespace WebTeamWindows.Resources
                 }, "&idProfil=" + id);
             */
         }
-
+        /*
         public void processInfos(Newtonsoft.Json.Linq.JObject reponse)
         {
             //System.Diagnostics.Debug.WriteLine("Analyse de la réponse");
@@ -94,7 +88,7 @@ namespace WebTeamWindows.Resources
             DateTime dateDeNaissanceDateTime = new DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(int.Parse(((string)reponse["dateDeNaissance"])));
             dateDeNaissance = dateDeNaissanceDateTime.ToLocalTime().ToString().Substring(0, 10);
             age = (DateTime.Today.Year - dateDeNaissanceDateTime.Year) + " ans";
-        }
+        }*/
 
         public void getAvatar()
         {

@@ -5,8 +5,10 @@ using System.Threading.Tasks;
 using System.Net.Http;
 using Windows.UI.Popups;
 using Windows.Security.Authentication.Web;
+using Newtonsoft.Json.Linq;
+using System.Globalization;
 
-namespace WebTeamWindows.Ressources
+namespace WebTeamWindows.Resources
 {
     /// <summary>
     ///  Différents types de requête
@@ -43,71 +45,55 @@ namespace WebTeamWindows.Ressources
     /// </summary>
     public static class APIWebTeam
 	{
-		public static string WTAuthUrl = "https://webteam.ensea.fr/oauth/v2/auth";
-
-		public static string WTAuthDoneUrl = "https://webteam.ensea.fr/oauth/v2/done";
-
-		public static string WTTokenUrl = "https://webteam.ensea.fr/oauth/v2/token";
-
-		public static string WTClientID = "2_49cibza0l4kkwcgs8cw0cw4kok0g04oc0wcss8cc4gccockgww";
-
-		public static string WTSecretID = "5ugzch5c28g8g0okswswk4gk448c8okw04c8c4c0kg88wkokk4";
-
-		public static async Task<bool> initiateConnection(string login, string password)
+        /// <summary>
+        /// Ensemble de liens utiles pour accéder à la Webteam
+        /// </summary>
+        public struct Links
         {
-            ERROR rs;
-            MessageDialog messageDialog;
-            try
-            {
-                rs = await APIWebTeam.BeginCheckLogin(login, password);
-            }
-            catch
-            {
-                rs = ERROR.TIMEOUT;
-            }
-            switch (rs)
-            {
+            public static string WTAuthUrl = "https://webteam.ensea.fr/oauth/v2/auth";
 
-                case ERROR.INCORRECT_LOGIN_OR_PWD:
-                    messageDialog = new MessageDialog("Login ou mot de passe incorrect.");
-                    await messageDialog.ShowAsync();
-                    break;
-                case ERROR.NO_LOGIN_OR_PWD:
-                    messageDialog = new MessageDialog("Login ou mot de passe manquant.");
-                    await messageDialog.ShowAsync();
-                    break;
-                case ERROR.TIMEOUT:
-                    messageDialog = new MessageDialog("Problème de connexion Internet. Reessayez");
-                    await messageDialog.ShowAsync();
-                    break;
-                case ERROR.NO_ERR:
-                    //goToWebTeamPage(this);
-                    return true;
-                default:
-                    break;
-            }
-            return false;
+            public static string WTAuthDoneUrl = "https://webteam.ensea.fr/oauth/v2/done";
+
+            public static string WTTokenUrl = "https://webteam.ensea.fr/oauth/v2/token";
+
+            public static string WTProfileUrl = "https://webteam.ensea.fr/api/profile";
         }
 
+        public static string WTClientID = "2_49cibza0l4kkwcgs8cw0cw4kok0g04oc0wcss8cc4gccockgww";
+
+        public static string WTSecretID = "5ugzch5c28g8g0okswswk4gk448c8okw04c8c4c0kg88wkokk4";
+
+        /// <summary>
+        /// Demande du token s'il n'est pas déjà donné
+        /// </summary>
+        /// <returns>Erreur de connexion</returns>
+        /// TODO : vérifier la présence d'un refresh_token pour se reconnecter automatiquement
 		public static async Task<ERROR> RequestToken()
 		{
-			string WeCASUrl = WTAuthUrl;
-			WeCASUrl += "?" + "client_id=" + WTClientID;
+			string WeCASUrl = Links.WTAuthUrl;
+            WeCASUrl += "?" + "client_id=" + WTClientID;
 			WeCASUrl += "&" + "response_type=code";
 			WeCASUrl += "&" + "scope=user";
-			WeCASUrl += "&" + "redirect_uri=" + WTAuthDoneUrl;
+            WeCASUrl += "&" + "redirect_uri=" + Links.WTAuthDoneUrl;
 
 			try
 			{
 #if WINDOWS_APP
 				WebAuthenticationResult webAuthenticationResult =
-					await WebAuthenticationBroker.AuthenticateAsync(WebAuthenticationOptions.None, new Uri(WeCASUrl), new Uri(WTAuthDoneUrl));
+					await WebAuthenticationBroker.AuthenticateAsync(WebAuthenticationOptions.None, new Uri(WeCASUrl), new Uri(Links.WTAuthDoneUrl));
 
 				if (webAuthenticationResult.ResponseStatus == WebAuthenticationStatus.Success)
 				{
+                    //La réponse du serveur
 					string response = webAuthenticationResult.ResponseData;
-                    var jsonResponse = await GetAccessTokenAsync(response);
-                    ParseAndStore(jsonResponse);
+                    //extraction du token de request
+                    string request_token = response.Substring(response.IndexOf("code")).Split('=')[1];
+
+                    //Récupération de la réponse du serveur
+                    var jsonResponse = await GetAccessTokenAsync(request_token);
+
+                    //plutot explicite
+                    ParseTokenAndStore(jsonResponse);
                     return ERROR.NO_ERR;
 				}
 				else if (webAuthenticationResult.ResponseStatus == WebAuthenticationStatus.ErrorHttp)
@@ -138,33 +124,36 @@ namespace WebTeamWindows.Ressources
 
 		}
 
-		public static async Task<string> GetAccessTokenAsync(string webAuthResultResponseData)
+        /// <summary>
+        /// Récupère l'access_token, et autres fioritures à partir du token d'authorisation après avoir entré le login
+        /// </summary>
+        /// <param name="request_token">réponse du serveur</param>
+        /// <returns></returns>
+        private static async Task<string> GetAccessTokenAsync(string request_token)
 		{
-			//La réponse du serveur
-			string responseData = webAuthResultResponseData.Substring(webAuthResultResponseData.IndexOf("code"));
-			//Une chaine qui contient le code de retour de l'API serveur Webteam
-			string request_token = responseData.Split('=')[1];
-
-
             //Préparation de l'URL de demande du token
-			string request_url = APIWebTeam.WTTokenUrl + "?";
+            string request_url = APIWebTeam.Links.WTTokenUrl + "?";
 
-			request_url += "client_id" + "=" + APIWebTeam.WTClientID;
-			request_url += "&" + "client_secret" + "=" + APIWebTeam.WTSecretID;
+            request_url += "client_id" + "=" + APIWebTeam.WTClientID;
+            request_url += "&" + "client_secret" + "=" + APIWebTeam.WTSecretID;
 			request_url += "&" + "grant_type" + "=" + "authorization_code";
-			request_url += "&" + "redirect_uri" + "=" + APIWebTeam.WTAuthDoneUrl;
+            request_url += "&" + "redirect_uri" + "=" + APIWebTeam.Links.WTAuthDoneUrl;
 			request_url += "&" + "code" + "=" + request_token;
 
             //Récupération du JSON avec le token
 			HttpClient httpClient = new HttpClient();
 
-			var httpResponseMesage = await httpClient.GetAsync(new Uri(request_url));
-			string response = await httpResponseMesage.Content.ReadAsStringAsync();
+			var httpResponseMessage = await httpClient.GetAsync(new Uri(request_url));
+			string response = await httpResponseMessage.Content.ReadAsStringAsync();
 
             return response;
         }
 
-        private static void ParseAndStore(string jsonString){
+        /// <summary>
+        /// Parse la réponse du serveur WebTeam et range ça dans les settings de l'app
+        /// </summary>
+        /// <param name="jsonString">réponse du serveur WT</param>
+        private static void ParseTokenAndStore(string jsonString){
             Newtonsoft.Json.Linq.JObject list = Newtonsoft.Json.Linq.JObject.Parse(jsonString);
 
             //Enregistrement des valeurs dans les settings de l'app
@@ -177,7 +166,63 @@ namespace WebTeamWindows.Ressources
             DateTime expirationDate = DateTime.Now.AddSeconds(list.Value<double>("expires_in"));
             roamingSettings.Values["expiration_date"] = expirationDate.Ticks;
         }
-			
+    
+        /// <summary>
+        /// Récupération d'un User
+        /// </summary>
+        /// <param name="id">id de l'utilisateur</param>
+        /// <returns>objet utilisateur avec les infos dedans</returns>
+        /// TODO : une fois que l'API prendra en charge d'autres utilisateurs, les prendre aussi
+        public async static Task<Utilisateur> GetUser(int id = 0)
+        {
+            //Vérification de l'âge de l'access_token
+            //TODO : vérifier que l'access_token est toujours valable
+            var roamingSettings = Windows.Storage.ApplicationData.Current.RoamingSettings;
+
+            //Préparation de l'URL de récupération de l'user suivant l'ID
+            string request_url = APIWebTeam.Links.WTProfileUrl + "?";
+
+            request_url += "access_token" + "=" + roamingSettings.Values["access_token"];
+
+            //Récupération du JSON pour l'utilisateur
+            HttpClient httpClient = new HttpClient();
+
+            var httpResponseMessage = await httpClient.GetAsync(new Uri(request_url));
+            string response = await httpResponseMessage.Content.ReadAsStringAsync();
+
+            System.Diagnostics.Debug.WriteLine(response);
+
+
+            return ParseUser(response);
+        }
+
+        /// <summary>
+        /// Parse la réponse d'un user de la webteam pour la transformer en utilisateur
+        /// </summary>
+        /// <param name="json_user">réponse du serveur</param>
+        /// <returns>un user tout frais</returns>
+        private static Utilisateur ParseUser(string jsonString)
+        {
+            JObject list = JObject.Parse(jsonString);
+
+            Utilisateur user = new Utilisateur();
+
+            user.email = (string)list["email"];
+            user.nom = (string)list["name"]["lastName"];
+            user.prenom = (string)list["name"]["firstName"];
+            user.numeroPortable = (string)list["phone"];
+            user.adresse = (string)list["address"];
+            user.groupe = (string)list["group"];
+            user.id = (int)list["id"];
+            user.pseudo = (string)list["username"];
+            user.promo = (string)list["promo"];
+            user.avatarURL = (string)list["photo"];
+
+            user.dateDeNaissance = DateTime.ParseExact((string)list["birthday"]["date"], "yyyy-MM-dd hh:mm:ss", CultureInfo.InvariantCulture);
+
+            return user;
+
+        }
 
 		/*public static async Task<Newtonsoft.Json.Linq.JObject> sendRequest(RequestType requestType, string getSupplementaire = "", string post = "")
         {
