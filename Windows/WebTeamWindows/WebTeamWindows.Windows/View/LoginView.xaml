@@ -60,7 +60,7 @@
                             </TextBlock>
                             <CheckBox x:Name="rememberPassword" Margin="10 0 0 0" IsEnabled="False"/>
                         </StackPanel> -->
-                        <ProgressRing x:Name="progressRingWebTeam" HorizontalAlignment="Center" VerticalAlignment="Top" Height="61" Width="61" Margin="0,45,0,0" IsActive="False"/>
+                        <ProgressRing x:Name="progressRingWebTeam" HorizontalAlignment="Center" VerticalAlignment="Top" Height="61" Width="61" Margin="0,45,0,45" Foreground="Black"/>
                         <ProgressBar x:Name="progressBarWebTeam" Height="10" VerticalAlignment="Stretch" Margin="20" Visibility="Collapsed"/>
                     </StackPanel>
 

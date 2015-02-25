@@ -20,11 +20,11 @@
     <Compile Include="$(MSBuildThisFileDirectory)Common\RelayCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Common\SuspensionManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\UtilisateurAppli.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Ressources\APICaligula.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Ressources\APIWebTeam.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Ressources\AppSettings.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Ressources\ContinuationManager.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Ressources\Utilisateur.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Resources\APICaligula.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Resources\APIWebTeam.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Resources\AppSettings.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Resources\ContinuationManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Resources\Utilisateur.cs" />
   </ItemGroup>
   <ItemGroup>
     <PRIResource Include="$(MSBuildThisFileDirectory)Strings\fr-FR\Resources.resw" />

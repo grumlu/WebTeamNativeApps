@@ -28,7 +28,10 @@ namespace WebTeamWindows
 #region Boutons
        private async void Connexion_Click(object sender, RoutedEventArgs e)
         {
-			WebTeamWindows.Ressources.APIWebTeam.RequestToken();
+            progressRingWebTeam.IsActive = true;
+
+			ERROR err = await WebTeamWindows.Ressources.APIWebTeam.RequestToken();
+
         }
 #endregion
 

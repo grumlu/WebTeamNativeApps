@@ -17,3 +17,5 @@ avec token en argument
 
 
 il faut ?scope=user dans le /auth aussi
+
+{"access_token":"MjVmZjFmZTRiMGQ0YWNlZmM3ZjU1MWQyZTc0MDRlNGI0ZjI1MGZlMWY4OWEzMGM3ZWU1MjM3NjQ1ZTU3YWY3Nw","expires_in":3600,"token_type":"bearer","scope":"user","refresh_token":"ZTY1YTdlMTI1Yjc2NmE3ZTNkNmFhYWNjNzljZTQxMzgyOGFmMTFiMzNkYjdhZTZiNmU2NTNmZWNmY2FhNjg0OA"}

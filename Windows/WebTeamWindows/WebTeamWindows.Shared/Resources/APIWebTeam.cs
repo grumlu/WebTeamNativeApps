@@ -89,7 +89,7 @@ namespace WebTeamWindows.Ressources
             return false;
         }
 
-		public static async void RequestToken()
+		public static async Task<ERROR> RequestToken()
 		{
 			string WeCASUrl = WTAuthUrl;
 			WeCASUrl += "?" + "client_id=" + WTClientID;
@@ -105,35 +105,40 @@ namespace WebTeamWindows.Ressources
 
 				if (webAuthenticationResult.ResponseStatus == WebAuthenticationStatus.Success)
 				{
-					string token = webAuthenticationResult.ResponseData;
-					await GetAccessTokenAsync(token);
+					string response = webAuthenticationResult.ResponseData;
+                    var jsonResponse = await GetAccessTokenAsync(response);
+                    ParseAndStore(jsonResponse);
+                    return ERROR.NO_ERR;
 				}
 				else if (webAuthenticationResult.ResponseStatus == WebAuthenticationStatus.ErrorHttp)
 				{
 					// do something when the request failed
+                    return ERROR.ERR_UNKNOWN;
 				}
 				else
 				{
 					// do something when an unknown error occurred
+                    return ERROR.ERR_UNKNOWN;
 				}
 #endif
 #if WINDOWS_PHONE_APP
 				//string oAuth_Token = await GetWeCASRequestTokenAsync(WeCASCallBackUri, WeCASConsumerKey);
-
-
 				System.Diagnostics.Debug.WriteLine(WeCASUrl);
 
 				WebAuthenticationBroker.AuthenticateAndContinue(new Uri(WeCASUrl), new Uri(WTAuthDoneUrl));
+
+                return ERROR.NO_ERR;
 #endif
-			}
+            }
 			catch (Exception)
 			{
 				// do something when an exception occurred
+                return ERROR.ERR_UNKNOWN;
 			}
 
 		}
 
-		public static async Task GetAccessTokenAsync(string webAuthResultResponseData)
+		public static async Task<string> GetAccessTokenAsync(string webAuthResultResponseData)
 		{
 			//La réponse du serveur
 			string responseData = webAuthResultResponseData.Substring(webAuthResultResponseData.IndexOf("code"));
@@ -141,6 +146,7 @@ namespace WebTeamWindows.Ressources
 			string request_token = responseData.Split('=')[1];
 
 
+            //Préparation de l'URL de demande du token
 			string request_url = APIWebTeam.WTTokenUrl + "?";
 
 			request_url += "client_id" + "=" + APIWebTeam.WTClientID;
@@ -149,32 +155,29 @@ namespace WebTeamWindows.Ressources
 			request_url += "&" + "redirect_uri" + "=" + APIWebTeam.WTAuthDoneUrl;
 			request_url += "&" + "code" + "=" + request_token;
 
-			System.Diagnostics.Debug.WriteLine(request_url);
-
-
+            //Récupération du JSON avec le token
 			HttpClient httpClient = new HttpClient();
 
 			var httpResponseMesage = await httpClient.GetAsync(new Uri(request_url));
 			string response = await httpResponseMesage.Content.ReadAsStringAsync();
 
-			System.Diagnostics.Debug.WriteLine(response);
-			/*
+            return response;
+        }
 
-			if (oauth_token != null)
-			{
-				App.SettingsStore.TwitteroAuthToken = oauth_token;
-			}
+        private static void ParseAndStore(string jsonString){
+            Newtonsoft.Json.Linq.JObject list = Newtonsoft.Json.Linq.JObject.Parse(jsonString);
 
-			if (oauth_token_secret != null)
-			{
-				App.SettingsStore.TwitteroAuthTokenSecret = oauth_token_secret;
-			}
-			if (screen_name != null)
-			{
-				App.SettingsStore.TwitterName = screen_name;
-			}*/
-		}
-
+            //Enregistrement des valeurs dans les settings de l'app
+            var roamingSettings = Windows.Storage.ApplicationData.Current.RoamingSettings;
+           
+            roamingSettings.Values["access_token"] = list.Value<string>("access_token");
+            roamingSettings.Values["refresh_token"] = list.Value<string>("refresh_token");
+            
+            //expiration date
+            DateTime expirationDate = DateTime.Now.AddSeconds(list.Value<double>("expires_in"));
+            roamingSettings.Values["expiration_date"] = expirationDate.Ticks;
+        }
+			
 
 		/*public static async Task<Newtonsoft.Json.Linq.JObject> sendRequest(RequestType requestType, string getSupplementaire = "", string post = "")
         {
