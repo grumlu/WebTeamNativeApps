@@ -50,12 +50,26 @@ namespace WebTeamWindows.Resources
         /// </summary>
         public struct Links
         {
+            /// <summary>
+            /// Adresse d'authentification de l'utilisateur
+            /// </summary>
             public static string WTAuthUrl = "https://webteam.ensea.fr/oauth/v2/auth";
 
+            /// <summary>
+            /// Adresse de Callback après authentification de l'utilisateur
+            /// Le retour n'est jamais chargé, mais contiendra à sa suite "/code=CODE" qu'il
+            /// faut échanger avec l'accesstoken grace à WTTokenURL
+            /// </summary>
             public static string WTAuthDoneUrl = "https://webteam.ensea.fr/oauth/v2/done";
 
+            /// <summary>
+            /// Recuperation du token une fois l'authentification effectuée
+            /// </summary>
             public static string WTTokenUrl = "https://webteam.ensea.fr/oauth/v2/token";
 
+            /// <summary>
+            /// Demande d'un profil
+            /// </summary>
             public static string WTProfileUrl = "https://webteam.ensea.fr/api/profile";
         }
 
@@ -166,6 +180,49 @@ namespace WebTeamWindows.Resources
             DateTime expirationDate = DateTime.Now.AddSeconds(list.Value<double>("expires_in"));
             roamingSettings.Values["expiration_date"] = expirationDate.Ticks;
         }
+
+        private static async Task<ERROR> RefreshToken()
+        {
+            var roamingSettings = Windows.Storage.ApplicationData.Current.RoamingSettings;
+
+            //S'il n'y a plus d'access_token, ou si on a pas de refresh, on recommence toute la procédure
+            if((roamingSettings.Values["access_token"] == null) ||
+                (roamingSettings.Values["refresh_token"] == null) ||
+                (roamingSettings.Values["expiration_date"] == null))
+            {
+                ERROR err;
+                if ((err = await RequestToken()) != ERROR.NO_ERR)
+                {
+                    return err;
+                }
+
+            }
+
+            ///Sinon, on vérifie que le token est toujours valable.
+            ///Le cas contraire, on fait un refresh
+            else if (DateTime.Now.Ticks > (long)roamingSettings.Values["expiration_date"])
+            {
+                string request_url = Links.WTAuthUrl + "?";
+                request_url += "client_id" + "=" + WTClientID;
+                request_url += "&" + "client_secret" + "=" + WTSecretID;
+                request_url += "&" + "grand_type" + "=" + "refresh_token";
+                request_url += "&" + "refresh_token" + "=" + roamingSettings.Values["refresh_token"];
+
+
+                HttpClient httpClient = new HttpClient();
+
+                var httpResponseMessage = await httpClient.GetAsync(new Uri(request_url));
+                string response = await httpResponseMessage.Content.ReadAsStringAsync();
+
+                ParseTokenAndStore(response);
+
+                return ERROR.NO_ERR;
+            }
+
+            ///Sinon tout va bien
+            return ERROR.NO_ERR;
+
+        }
     
         /// <summary>
         /// Récupération d'un User
@@ -176,7 +233,9 @@ namespace WebTeamWindows.Resources
         public async static Task<Utilisateur> GetUser(int id = 0)
         {
             //Vérification de l'âge de l'access_token
-            //TODO : vérifier que l'access_token est toujours valable
+            if (await RefreshToken() != ERROR.NO_ERR)
+                return null;
+           
             var roamingSettings = Windows.Storage.ApplicationData.Current.RoamingSettings;
 
             //Préparation de l'URL de récupération de l'user suivant l'ID
