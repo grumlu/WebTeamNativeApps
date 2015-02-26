@@ -11,7 +11,7 @@ using Windows.UI.Xaml.Media.Imaging;
 
 // Pour en savoir plus sur le modèle d'élément Page vierge, consultez la page http://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace WebTeamWindows
+namespace WebTeamWindows.View
 {
     /// <summary>
     /// Une page vide peut être utilisée seule ou constituer une page de destination au sein d'un frame.
@@ -39,6 +39,8 @@ namespace WebTeamWindows
             }
 
             Utilisateur appUser = await APIWebTeam.GetUser();
+
+            this.Frame.Navigate(typeof(WebTeamView), appUser);
 
         }
         #endregion
