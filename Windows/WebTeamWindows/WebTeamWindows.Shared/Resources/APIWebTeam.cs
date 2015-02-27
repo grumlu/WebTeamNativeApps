@@ -292,6 +292,19 @@ namespace WebTeamWindows.Resources
 
         }
 
+        /// <summary>
+        /// Retire l'utilisateur courant (pour changer se déconnecter)
+        /// </summary>
+        public static void Disconnect()
+        {
+            var roamingSettings = Windows.Storage.ApplicationData.Current.RoamingSettings;
+
+            roamingSettings.Values["user_firstName"] = null;
+            roamingSettings.Values["user_lastName"] = null;
+
+            roamingSettings.Values["access_token"] = null;
+        }
+
 		/*public static async Task<Newtonsoft.Json.Linq.JObject> sendRequest(RequestType requestType, string getSupplementaire = "", string post = "")
         {
             var applicationData = Windows.Storage.ApplicationData.Current;
