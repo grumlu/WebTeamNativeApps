@@ -30,7 +30,7 @@ namespace WebTeamWindows.View
         {
             progressRingWebTeam.IsActive = true;
 
-            ERROR err = await APIWebTeam.RequestToken();
+            ERROR err = await APIWebTeam.CheckToken();
 
             if (err != ERROR.NO_ERR)
             {
@@ -49,6 +49,11 @@ namespace WebTeamWindows.View
         private void SettingsAbout_ApplicationBarMenuItem_Click(object sender, RoutedEventArgs e)
         {
             //NavigationService.Navigate(new Uri("/Settings.xaml", UriKind.Relative));
+        }
+
+        private void changeUser_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+
         }
 
 

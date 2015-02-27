@@ -82,7 +82,7 @@ namespace WebTeamWindows.Resources
         /// </summary>
         /// <returns>Erreur de connexion</returns>
         /// TODO : vérifier la présence d'un refresh_token pour se reconnecter automatiquement
-		public static async Task<ERROR> RequestToken()
+		private static async Task<ERROR> RequestToken()
 		{
 			string WeCASUrl = Links.WTAuthUrl;
             WeCASUrl += "?" + "client_id=" + WTClientID;
@@ -181,7 +181,7 @@ namespace WebTeamWindows.Resources
             roamingSettings.Values["expiration_date"] = expirationDate.Ticks;
         }
 
-        private static async Task<ERROR> RefreshToken()
+        public static async Task<ERROR> CheckToken()
         {
             var roamingSettings = Windows.Storage.ApplicationData.Current.RoamingSettings;
 
@@ -230,10 +230,10 @@ namespace WebTeamWindows.Resources
         /// <param name="id">id de l'utilisateur</param>
         /// <returns>objet utilisateur avec les infos dedans</returns>
         /// TODO : une fois que l'API prendra en charge d'autres utilisateurs, les prendre aussi
-        public async static Task<Utilisateur> GetUser(int id = 0)
+        public async static Task<Utilisateur> GetUser(int id = -1)
         {
             //Vérification de l'âge de l'access_token
-            if (await RefreshToken() != ERROR.NO_ERR)
+            if (await CheckToken() != ERROR.NO_ERR)
                 return null;
            
             var roamingSettings = Windows.Storage.ApplicationData.Current.RoamingSettings;
@@ -251,8 +251,17 @@ namespace WebTeamWindows.Resources
 
             System.Diagnostics.Debug.WriteLine(response);
 
+            //lecture du JSON
+            Utilisateur user = ParseUser(response);
 
-            return ParseUser(response);
+            //Si on cherche l'utilisateur de l'application, on entre son nom dans les settings de l'app
+            if (id == -1)
+            {
+                roamingSettings.Values["user_firstName"] = user.prenom;
+                roamingSettings.Values["user_lastName"] = user.nom;
+            }
+
+            return user;
         }
 
         /// <summary>

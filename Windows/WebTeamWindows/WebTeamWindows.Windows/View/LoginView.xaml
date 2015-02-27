@@ -41,7 +41,7 @@
                     <StackPanel Grid.Column="0">
 
                         <TextBlock  Text="WebTeam" Margin="0 0 0 3" HorizontalAlignment="Center" Foreground="#FFF6E2E2" Style="{StaticResource HeaderTextBlockStyle}" />
-                        <TextBlock Text="Via WeCAS" HorizontalAlignment="Center" Style="{StaticResource SubheaderTextBlockStyle}"/>
+                        <TextBlock Text="Bonjour, " HorizontalAlignment="Center" Style="{StaticResource SubheaderTextBlockStyle}"/>
 
                         <!--
                         <Image x:Name="StoredUserImage" Width="100" Height="100" Source="assets\anonymous.jpg"/>
@@ -65,7 +65,8 @@
                     </StackPanel>
 
                     <StackPanel Grid.Row="1" HorizontalAlignment="Center">
-                        <Button x:Name="Connexion" Width="200" Grid.Column="1" Content="Connexion" Click="Connexion_Click" Background="Black" />
+                        <Button x:Name="Connexion" Width="240" Grid.Column="1" Content="Connexion via WeCAS" Click="Connexion_Click" Background="Black" />
+                        <TextBlock x:Name="changeUser" HorizontalAlignment="Center" Tapped="changeUser_Tapped">Il y a erreur sur la personne?</TextBlock> 
                     </StackPanel>
                 </Grid>
 
