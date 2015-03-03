@@ -83,7 +83,7 @@ namespace WebTeamWindows.Resources
         /// </summary>
         /// <returns>Erreur de connexion</returns>
         /// TODO : vérifier la présence d'un refresh_token pour se reconnecter automatiquement
-        private static async Task<ERROR> RequestToken()
+        private static async Task<ERROR> RequestTokenAsync()
         {
             string WeCASUrl = Links.WTAuthUrl;
             WeCASUrl += "?" + "client_id=" + WTClientID;
@@ -123,10 +123,7 @@ namespace WebTeamWindows.Resources
                 }
 #endif
 #if WINDOWS_PHONE_APP
-				//string oAuth_Token = await GetWeCASRequestTokenAsync(WeCASCallBackUri, WeCASConsumerKey);
-				System.Diagnostics.Debug.WriteLine(WeCASUrl);
-
-				WebAuthenticationBroker.AuthenticateAndContinue(new Uri(WeCASUrl), new Uri(Links.WTAuthDoneUrl));
+                WebAuthenticationBroker.AuthenticateAndContinue(new Uri(WeCASUrl), new Uri(Links.WTAuthDoneUrl));
 
                 return ERROR.NO_ERR;
 #endif
@@ -141,9 +138,10 @@ namespace WebTeamWindows.Resources
 
         /// <summary>
         /// Récupère l'access_token, et autres fioritures à partir du token d'authorisation après avoir entré le login
+        /// Le retour est renvoyé brut (JSON)
         /// </summary>
         /// <param name="request_token">réponse du serveur</param>
-        /// <returns></returns>
+        /// <returns>Réponse JSON du serveur</returns>
         private static async Task<string> GetAccessTokenAsync(string request_token)
         {
             //Préparation de l'URL de demande du token
@@ -158,42 +156,43 @@ namespace WebTeamWindows.Resources
             //Récupération du JSON avec le token
             HttpClient httpClient = new HttpClient();
 
-            var httpResponseMessage = await httpClient.GetAsync(new Uri(request_url));
-            string response = await httpResponseMessage.Content.ReadAsStringAsync();
+            try
+            {
+                var httpResponseMessage = await httpClient.GetStringAsync(new Uri(request_url));
+                //string response = await httpResponseMessage.Content.ReadAsStringAsync();
+                //return response;
+                return httpResponseMessage;
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine(e.StackTrace.ToString());
+            }
 
-            return response;
+            return null;
+
         }
 
         /// <summary>
         /// Parse la réponse du serveur WebTeam et range ça dans les settings de l'app
         /// </summary>
         /// <param name="jsonString">réponse du serveur WT</param>
-        private static ERROR ParseTokenAndStore(string jsonString)
+        private static void ParseTokenAndStore(string jsonString)
         {
-            try
-            {
-                Newtonsoft.Json.Linq.JObject list = Newtonsoft.Json.Linq.JObject.Parse(jsonString);
-                //Enregistrement des valeurs dans les settings de l'app
-                var roamingSettings = Windows.Storage.ApplicationData.Current.RoamingSettings;
 
-                roamingSettings.Values["access_token"] = list.Value<string>("access_token");
-                roamingSettings.Values["refresh_token"] = list.Value<string>("refresh_token");
+            Newtonsoft.Json.Linq.JObject list = Newtonsoft.Json.Linq.JObject.Parse(jsonString);
+            //Enregistrement des valeurs dans les settings de l'app
+            var roamingSettings = Windows.Storage.ApplicationData.Current.RoamingSettings;
 
-                //expiration date
-                DateTime expirationDate = DateTime.Now.AddSeconds(list.Value<double>("expires_in"));
-                roamingSettings.Values["expiration_date"] = expirationDate.Ticks;
+            roamingSettings.Values["access_token"] = list.Value<string>("access_token");
+            roamingSettings.Values["refresh_token"] = list.Value<string>("refresh_token");
 
-                return ERROR.NO_ERR;
-            }
-
-            catch(Newtonsoft.Json.JsonReaderException e){
-                System.Diagnostics.Debug.WriteLine(e.ToString());
-                return ERROR.UNEXPECTED_ANSWER;
-            }
+            //expiration date
+            DateTime expirationDate = DateTime.Now.AddSeconds(list.Value<double>("expires_in"));
+            roamingSettings.Values["expiration_date"] = expirationDate.Ticks;
 
         }
 
-        public static async Task<ERROR> CheckToken()
+        public static async Task<ERROR> CheckTokenAsync()
         {
             var roamingSettings = Windows.Storage.ApplicationData.Current.RoamingSettings;
 
@@ -203,7 +202,7 @@ namespace WebTeamWindows.Resources
                 (roamingSettings.Values["expiration_date"] == null))
             {
                 ERROR err;
-                if ((err = await RequestToken()) != ERROR.NO_ERR)
+                if ((err = await RequestTokenAsync()) != ERROR.NO_ERR)
                 {
                     return err;
                 }
@@ -242,10 +241,10 @@ namespace WebTeamWindows.Resources
         /// <param name="id">id de l'utilisateur</param>
         /// <returns>objet utilisateur avec les infos dedans</returns>
         /// TODO : une fois que l'API prendra en charge d'autres utilisateurs, les prendre aussi
-        public async static Task<Utilisateur> GetUser(int id = -1)
+        public async static Task<Utilisateur> GetUserAsync(int id = -1)
         {
             //Vérification de l'âge de l'access_token
-            if (await CheckToken() != ERROR.NO_ERR)
+            if (await CheckTokenAsync() != ERROR.NO_ERR)
                 return null;
 
             var roamingSettings = Windows.Storage.ApplicationData.Current.RoamingSettings;
@@ -317,6 +316,40 @@ namespace WebTeamWindows.Resources
             roamingSettings.Values["access_token"] = null;
         }
 
+#if WINDOWS_PHONE_APP
+        /// <summary>
+        /// Continue l'authentification après avoir récupéré l'adresse de retour
+        /// </summary>
+        /// <param name="result">résultat de l'authentification</param>
+        /// <returns>Erreur, suivant si l'authentification s'est bien déroulée ou non</returns>
+        public static async Task<ERROR> ContinueWebAuthenticationWPAsync(WebAuthenticationResult result)
+        {
+
+            if (result.ResponseStatus == WebAuthenticationStatus.Success)
+            {
+                string result_string = result.ResponseData.ToString();
+                //extraction du token de request
+                string request_token = result_string.Substring(result_string.IndexOf("code")).Split('=')[1];
+
+                //Demande de l'access_token
+                var server_answer = await GetAccessTokenAsync(request_token);
+
+                try
+                {
+                    ParseTokenAndStore(server_answer);
+                }
+                catch (Newtonsoft.Json.JsonReaderException e){
+                    System.Diagnostics.Debug.WriteLine(e.StackTrace.ToString());
+                    return ERROR.UNEXPECTED_ANSWER;
+                }
+
+                return ERROR.NO_ERR;
+            }
+            else
+                return ERROR.ERR_UNKNOWN;
+        }
+
+#endif
         /*public static async Task<Newtonsoft.Json.Linq.JObject> sendRequest(RequestType requestType, string getSupplementaire = "", string post = "")
         {
             var applicationData = Windows.Storage.ApplicationData.Current;

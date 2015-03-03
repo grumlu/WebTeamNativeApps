@@ -13,7 +13,7 @@ using Windows.Web.Http;
 
 // Pour en savoir plus sur le modèle d'élément Page vierge, consultez la page http://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace WebTeamWindows
+namespace WebTeamWindows.View
 {
 	/// <summary>
 	/// Une page vide peut être utilisée seule ou constituer une page de destination au sein d'un frame.
@@ -89,9 +89,9 @@ namespace WebTeamWindows
         #endregion
 
         #region Boutons et Champs de texte
-        private void Connexion_Click(object sender, RoutedEventArgs e)
+        private async void Connexion_Click(object sender, RoutedEventArgs e)
         {
-			WebTeamWindows.Resources.APIWebTeam.RequestToken();
+			await WebTeamWindows.Resources.APIWebTeam.CheckTokenAsync();
         }
 
         private void ConnexionCaligula_Click(object sender, RoutedEventArgs e)
@@ -126,27 +126,15 @@ namespace WebTeamWindows
 
 		public async void ContinueWebAuthentication(WebAuthenticationBrokerContinuationEventArgs args)
 		{
-			WebAuthenticationResult result = args.WebAuthenticationResult;
-
-			if (result.ResponseStatus == WebAuthenticationStatus.Success)
-			{
-				System.Diagnostics.Debug.WriteLine("Cool.");
-				System.Diagnostics.Debug.WriteLine(result.ResponseData.ToString());
-				await APIWebTeam.GetAccessTokenAsync(result.ResponseData.ToString());
-			}
-			else if (result.ResponseStatus == WebAuthenticationStatus.ErrorHttp)
-			{
-				MessageDialog HttpErrMsg = new MessageDialog(string.Format("There was an error connecting to Twitter: \n {0}", result.ResponseErrorDetail.ToString()), "Sorry");
-				await HttpErrMsg.ShowAsync();
-			}
-			else
-			{
-				MessageDialog ErrMsg = new MessageDialog(string.Format("Error returned: \n{0}", result.ResponseStatus.ToString()), "Sorry");
-				await ErrMsg.ShowAsync();
-			}
+            ERROR err = await APIWebTeam.ContinueWebAuthenticationWPAsync(args.WebAuthenticationResult);
+            if (err != ERROR.NO_ERR)
+            {
+                MessageDialog dialog = new MessageDialog("Erreur : " + err.ToString() + "\n"
+                                                         + "Contactez la WebTeam : webteam@ensea.fr");
+                await dialog.ShowAsync();
+            }
 		}
 
-		
 
 	}
 }

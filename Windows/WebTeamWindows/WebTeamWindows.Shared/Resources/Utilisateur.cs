@@ -5,7 +5,6 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using WebTeamWindows.Ressources;
 using Windows.UI.Xaml.Media.Imaging;
 
 namespace WebTeamWindows.Resources

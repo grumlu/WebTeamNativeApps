@@ -30,15 +30,16 @@ namespace WebTeamWindows.View
         {
             progressRingWebTeam.IsActive = true;
 
-            ERROR err = await APIWebTeam.CheckToken();
+            ERROR err = await APIWebTeam.CheckTokenAsync();
 
             if (err != ERROR.NO_ERR)
             {
+                
                 progressRingWebTeam.IsActive = false;
                 return;
             }
 
-            Utilisateur appUser = await APIWebTeam.GetUser();
+            Utilisateur appUser = await APIWebTeam.GetUserAsync();
 
             this.Frame.Navigate(typeof(WebTeamView), appUser);
 

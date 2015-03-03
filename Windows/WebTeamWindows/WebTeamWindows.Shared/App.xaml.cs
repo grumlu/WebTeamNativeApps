@@ -6,7 +6,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 #if WINDOWS_PHONE_APP
-using WebTeamWindows.Ressources;
+using WebTeamWindows.Resources;
 using Windows.Phone.UI.Input;
 using Windows.UI.Xaml.Navigation;
 #endif

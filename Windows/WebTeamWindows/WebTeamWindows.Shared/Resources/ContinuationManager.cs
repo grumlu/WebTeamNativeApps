@@ -12,7 +12,7 @@ using Windows.UI.Xaml.Controls;
 //DON'T FORGET TO ADD YOUR NAMESPACE HERE!!!!
 //
 
-namespace WebTeamWindows.Ressources
+namespace WebTeamWindows.Resources
 {
 
 #if WINDOWS_PHONE_APP
