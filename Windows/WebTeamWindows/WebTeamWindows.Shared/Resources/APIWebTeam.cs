@@ -125,7 +125,7 @@ namespace WebTeamWindows.Resources
 				//string oAuth_Token = await GetWeCASRequestTokenAsync(WeCASCallBackUri, WeCASConsumerKey);
 				System.Diagnostics.Debug.WriteLine(WeCASUrl);
 
-				WebAuthenticationBroker.AuthenticateAndContinue(new Uri(WeCASUrl), new Uri(WTAuthDoneUrl));
+				WebAuthenticationBroker.AuthenticateAndContinue(new Uri(WeCASUrl), new Uri(Links.WTAuthDoneUrl));
 
                 return ERROR.NO_ERR;
 #endif

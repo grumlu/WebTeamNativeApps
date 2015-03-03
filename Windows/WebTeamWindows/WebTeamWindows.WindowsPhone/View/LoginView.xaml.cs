@@ -5,7 +5,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
 using Windows.UI.ViewManagement;
-using WebTeamWindows.Ressources;
+using WebTeamWindows.Resources;
 using Windows.ApplicationModel.Activation;
 using Windows.Security.Authentication.Web;
 using System.Threading.Tasks;
@@ -91,7 +91,7 @@ namespace WebTeamWindows
         #region Boutons et Champs de texte
         private void Connexion_Click(object sender, RoutedEventArgs e)
         {
-			WebTeamWindows.Ressources.APIWebTeam.RequestToken();
+			WebTeamWindows.Resources.APIWebTeam.RequestToken();
         }
 
         private void ConnexionCaligula_Click(object sender, RoutedEventArgs e)

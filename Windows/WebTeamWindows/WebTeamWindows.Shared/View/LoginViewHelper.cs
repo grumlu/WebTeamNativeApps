@@ -6,7 +6,7 @@ namespace WebTeamWindows.View
 {
     static class LoginViewHelper
     {
-        public const string[] nickname ={
+        public static string[] nickname ={
                                    "eucalyptus",
                                    "panda",
                                    "maître",
@@ -21,7 +21,7 @@ namespace WebTeamWindows.View
                                    "anchois"
                                };
 
-        public const string[] adjective = {
+        public static string[] adjective = {
                                              "en chaleur",
                                              "doux",
                                              "vert",
