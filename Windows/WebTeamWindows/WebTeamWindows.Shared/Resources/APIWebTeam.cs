@@ -337,11 +337,14 @@ namespace WebTeamWindows.Resources
                 try
                 {
                     ParseTokenAndStore(server_answer);
+                    //TODO : Ajouter le téléchargement de l'utilisateur & l'anneau qui tourne sur WP
                 }
                 catch (Newtonsoft.Json.JsonReaderException e){
                     System.Diagnostics.Debug.WriteLine(e.StackTrace.ToString());
+                    // TODO : changer en erreur serveur
                     return ERROR.UNEXPECTED_ANSWER;
                 }
+                //TODO : catch erreur parsing user
 
                 return ERROR.NO_ERR;
             }
