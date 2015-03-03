@@ -37,6 +37,7 @@ namespace WebTeamWindows.Resources
         NO_LOGIN_OR_PWD,
         INCORRECT_LOGIN_OR_PWD,
         TIMEOUT,
+        UNEXPECTED_ANSWER,
         ERR_UNKNOWN
     }
 
@@ -44,7 +45,7 @@ namespace WebTeamWindows.Resources
     /// Classe permettant de faciliter les requêtes à la WT au sein de l'application
     /// </summary>
     public static class APIWebTeam
-	{
+    {
         /// <summary>
         /// Ensemble de liens utiles pour accéder à la Webteam
         /// </summary>
@@ -82,24 +83,24 @@ namespace WebTeamWindows.Resources
         /// </summary>
         /// <returns>Erreur de connexion</returns>
         /// TODO : vérifier la présence d'un refresh_token pour se reconnecter automatiquement
-		private static async Task<ERROR> RequestToken()
-		{
-			string WeCASUrl = Links.WTAuthUrl;
+        private static async Task<ERROR> RequestToken()
+        {
+            string WeCASUrl = Links.WTAuthUrl;
             WeCASUrl += "?" + "client_id=" + WTClientID;
-			WeCASUrl += "&" + "response_type=code";
-			WeCASUrl += "&" + "scope=user";
+            WeCASUrl += "&" + "response_type=code";
+            WeCASUrl += "&" + "scope=user";
             WeCASUrl += "&" + "redirect_uri=" + Links.WTAuthDoneUrl;
 
-			try
-			{
+            try
+            {
 #if WINDOWS_APP
-				WebAuthenticationResult webAuthenticationResult =
-					await WebAuthenticationBroker.AuthenticateAsync(WebAuthenticationOptions.None, new Uri(WeCASUrl), new Uri(Links.WTAuthDoneUrl));
+                WebAuthenticationResult webAuthenticationResult =
+                    await WebAuthenticationBroker.AuthenticateAsync(WebAuthenticationOptions.None, new Uri(WeCASUrl), new Uri(Links.WTAuthDoneUrl));
 
-				if (webAuthenticationResult.ResponseStatus == WebAuthenticationStatus.Success)
-				{
+                if (webAuthenticationResult.ResponseStatus == WebAuthenticationStatus.Success)
+                {
                     //La réponse du serveur
-					string response = webAuthenticationResult.ResponseData;
+                    string response = webAuthenticationResult.ResponseData;
                     //extraction du token de request
                     string request_token = response.Substring(response.IndexOf("code")).Split('=')[1];
 
@@ -109,17 +110,17 @@ namespace WebTeamWindows.Resources
                     //plutot explicite
                     ParseTokenAndStore(jsonResponse);
                     return ERROR.NO_ERR;
-				}
-				else if (webAuthenticationResult.ResponseStatus == WebAuthenticationStatus.ErrorHttp)
-				{
-					// do something when the request failed
+                }
+                else if (webAuthenticationResult.ResponseStatus == WebAuthenticationStatus.ErrorHttp)
+                {
+                    // do something when the request failed
                     return ERROR.ERR_UNKNOWN;
-				}
-				else
-				{
-					// do something when an unknown error occurred
+                }
+                else
+                {
+                    // do something when an unknown error occurred
                     return ERROR.ERR_UNKNOWN;
-				}
+                }
 #endif
 #if WINDOWS_PHONE_APP
 				//string oAuth_Token = await GetWeCASRequestTokenAsync(WeCASCallBackUri, WeCASConsumerKey);
@@ -130,13 +131,13 @@ namespace WebTeamWindows.Resources
                 return ERROR.NO_ERR;
 #endif
             }
-			catch (Exception)
-			{
-				// do something when an exception occurred
+            catch (Exception)
+            {
+                // do something when an exception occurred
                 return ERROR.ERR_UNKNOWN;
-			}
+            }
 
-		}
+        }
 
         /// <summary>
         /// Récupère l'access_token, et autres fioritures à partir du token d'authorisation après avoir entré le login
@@ -144,21 +145,21 @@ namespace WebTeamWindows.Resources
         /// <param name="request_token">réponse du serveur</param>
         /// <returns></returns>
         private static async Task<string> GetAccessTokenAsync(string request_token)
-		{
+        {
             //Préparation de l'URL de demande du token
             string request_url = APIWebTeam.Links.WTTokenUrl + "?";
 
             request_url += "client_id" + "=" + APIWebTeam.WTClientID;
             request_url += "&" + "client_secret" + "=" + APIWebTeam.WTSecretID;
-			request_url += "&" + "grant_type" + "=" + "authorization_code";
+            request_url += "&" + "grant_type" + "=" + "authorization_code";
             request_url += "&" + "redirect_uri" + "=" + APIWebTeam.Links.WTAuthDoneUrl;
-			request_url += "&" + "code" + "=" + request_token;
+            request_url += "&" + "code" + "=" + request_token;
 
             //Récupération du JSON avec le token
-			HttpClient httpClient = new HttpClient();
+            HttpClient httpClient = new HttpClient();
 
-			var httpResponseMessage = await httpClient.GetAsync(new Uri(request_url));
-			string response = await httpResponseMessage.Content.ReadAsStringAsync();
+            var httpResponseMessage = await httpClient.GetAsync(new Uri(request_url));
+            string response = await httpResponseMessage.Content.ReadAsStringAsync();
 
             return response;
         }
@@ -167,18 +168,29 @@ namespace WebTeamWindows.Resources
         /// Parse la réponse du serveur WebTeam et range ça dans les settings de l'app
         /// </summary>
         /// <param name="jsonString">réponse du serveur WT</param>
-        private static void ParseTokenAndStore(string jsonString){
-            Newtonsoft.Json.Linq.JObject list = Newtonsoft.Json.Linq.JObject.Parse(jsonString);
+        private static ERROR ParseTokenAndStore(string jsonString)
+        {
+            try
+            {
+                Newtonsoft.Json.Linq.JObject list = Newtonsoft.Json.Linq.JObject.Parse(jsonString);
+                //Enregistrement des valeurs dans les settings de l'app
+                var roamingSettings = Windows.Storage.ApplicationData.Current.RoamingSettings;
 
-            //Enregistrement des valeurs dans les settings de l'app
-            var roamingSettings = Windows.Storage.ApplicationData.Current.RoamingSettings;
-           
-            roamingSettings.Values["access_token"] = list.Value<string>("access_token");
-            roamingSettings.Values["refresh_token"] = list.Value<string>("refresh_token");
-            
-            //expiration date
-            DateTime expirationDate = DateTime.Now.AddSeconds(list.Value<double>("expires_in"));
-            roamingSettings.Values["expiration_date"] = expirationDate.Ticks;
+                roamingSettings.Values["access_token"] = list.Value<string>("access_token");
+                roamingSettings.Values["refresh_token"] = list.Value<string>("refresh_token");
+
+                //expiration date
+                DateTime expirationDate = DateTime.Now.AddSeconds(list.Value<double>("expires_in"));
+                roamingSettings.Values["expiration_date"] = expirationDate.Ticks;
+
+                return ERROR.NO_ERR;
+            }
+
+            catch(Newtonsoft.Json.JsonReaderException e){
+                System.Diagnostics.Debug.WriteLine(e.ToString());
+                return ERROR.UNEXPECTED_ANSWER;
+            }
+
         }
 
         public static async Task<ERROR> CheckToken()
@@ -186,7 +198,7 @@ namespace WebTeamWindows.Resources
             var roamingSettings = Windows.Storage.ApplicationData.Current.RoamingSettings;
 
             //S'il n'y a plus d'access_token, ou si on a pas de refresh, on recommence toute la procédure
-            if((roamingSettings.Values["access_token"] == null) ||
+            if ((roamingSettings.Values["access_token"] == null) ||
                 (roamingSettings.Values["refresh_token"] == null) ||
                 (roamingSettings.Values["expiration_date"] == null))
             {
@@ -223,7 +235,7 @@ namespace WebTeamWindows.Resources
             return ERROR.NO_ERR;
 
         }
-    
+
         /// <summary>
         /// Récupération d'un User
         /// </summary>
@@ -235,7 +247,7 @@ namespace WebTeamWindows.Resources
             //Vérification de l'âge de l'access_token
             if (await CheckToken() != ERROR.NO_ERR)
                 return null;
-           
+
             var roamingSettings = Windows.Storage.ApplicationData.Current.RoamingSettings;
 
             //Préparation de l'URL de récupération de l'user suivant l'ID
@@ -305,7 +317,7 @@ namespace WebTeamWindows.Resources
             roamingSettings.Values["access_token"] = null;
         }
 
-		/*public static async Task<Newtonsoft.Json.Linq.JObject> sendRequest(RequestType requestType, string getSupplementaire = "", string post = "")
+        /*public static async Task<Newtonsoft.Json.Linq.JObject> sendRequest(RequestType requestType, string getSupplementaire = "", string post = "")
         {
             var applicationData = Windows.Storage.ApplicationData.Current;
 
@@ -387,11 +399,11 @@ namespace WebTeamWindows.Resources
             };
             Timer timerDownload = new Timer(timerCallback, client, App.TIMEOUTMS, 0);*/
 
-		/*return list;
+        /*return list;
     }*/
 
 
-		/*private static void client_UploadStringCompleted(object sender, UploadStringCompletedEventArgs e)
+        /*private static void client_UploadStringCompleted(object sender, UploadStringCompletedEventArgs e)
         {
             Newtonsoft.Json.Linq.JObject list;
             if (e.Cancelled == true)
@@ -418,7 +430,7 @@ namespace WebTeamWindows.Resources
             }
         }*/
 
-		public static async Task<ERROR> BeginCheckLogin(string login, string password)
+        public static async Task<ERROR> BeginCheckLogin(string login, string password)
         {
             //Utilisation des paramètres locaux pour garder les infos
             var applicationData = Windows.Storage.ApplicationData.Current;
@@ -457,13 +469,14 @@ namespace WebTeamWindows.Resources
                 var response = httpClient.PostAsync("/api_login_check", content).Result;
 
                 Newtonsoft.Json.Linq.JObject list;
-                
+
                 //Si le code de retour indique OK, le MDP est juste
-                if (response.StatusCode == System.Net.HttpStatusCode.OK){
+                if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                {
                     string jsonReturn = await response.Content.ReadAsStringAsync();
                     list = Newtonsoft.Json.Linq.JObject.Parse(jsonReturn);
                 }
-                  
+
                 //MDP Faux ==> redirection. on renvoit une erreur
                 else if (response.StatusCode == System.Net.HttpStatusCode.Redirect)
                     return ERROR.INCORRECT_LOGIN_OR_PWD;
