@@ -64,9 +64,9 @@ namespace WebTeamWindows.View
 
         private void changeUser_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            APIWebTeam.Disconnect();
+            ((LoginViewModel)DataContext).Disconnect();
 
-            Connexion_Click(null, null);
+            //Connexion_Click(null, null);
         }
 
     }

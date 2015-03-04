@@ -16,7 +16,7 @@ namespace WebTeamWindows.View
                                    "loup",
                                    "rat",
                                    "débile",
-                                   "mangeur de chaussettes puantes",
+                                   "mangeur de chaussettes",
                                    "petit ange",
                                    "anchois"
                                };
