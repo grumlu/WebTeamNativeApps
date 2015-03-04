@@ -4,14 +4,21 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using WebTeamWindows.Resources;
 using WebTeamWindows.View;
 using Windows.UI.Xaml.Media.Imaging;
 
 namespace WebTeamWindows.ViewModel 
 {
-    class LoginViewModel : INotifyPropertyChanged
+    public class LoginViewModel : INotifyPropertyChanged
 	{
+        private DisconnectCommand _disconnectCommand;
+
+        public LoginViewModel()
+        {
+            _disconnectCommand = new DisconnectCommand(this);
+        }
 		public string Username
 		{
 			get
@@ -43,6 +50,12 @@ namespace WebTeamWindows.ViewModel
 			}
 		}
 
+        public void Disconnect()
+        {
+            APIWebTeam.Disconnect();
+            PropertyChanged(this, new PropertyChangedEventArgs("Username"));
+        }
+
 		public BitmapImage Avatar
 		{
 			get
@@ -70,4 +83,24 @@ namespace WebTeamWindows.ViewModel
         public event PropertyChangedEventHandler PropertyChanged;
 
 	}
+
+    public class DisconnectCommand : ICommand
+    {
+        private LoginViewModel obj;
+        public DisconnectCommand(LoginViewModel _obj) 
+        {
+            obj = _obj;
+        }
+
+        public bool CanExecute(object parameter) // Validations
+        {
+            return true;
+        }
+        public void Execute(object parameter) // Executions
+        {
+            obj.Disconnect();
+        }
+
+        public event EventHandler CanExecuteChanged;
+    }
 }

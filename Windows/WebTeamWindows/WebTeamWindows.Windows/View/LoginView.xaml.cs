@@ -30,18 +30,28 @@ namespace WebTeamWindows.View
         {
             progressRingWebTeam.IsActive = true;
 
-            ERROR err = await APIWebTeam.CheckTokenAsync();
-
-            if (err != ERROR.NO_ERR)
+            try
             {
-                
-                progressRingWebTeam.IsActive = false;
-                return;
+                ERROR err = await APIWebTeam.CheckTokenAsync();
+
+                if (err != ERROR.NO_ERR)
+                {
+
+                    progressRingWebTeam.IsActive = false;
+                    return;
+                }
+
+                Utilisateur appUser = await APIWebTeam.GetUserAsync();
+
+                this.Frame.Navigate(typeof(WebTeamView), appUser);
             }
-
-            Utilisateur appUser = await APIWebTeam.GetUserAsync();
-
-            this.Frame.Navigate(typeof(WebTeamView), appUser);
+            catch (Exception excep)
+            {
+                string errMsg = "Une erreur est survenue :\n" + excep.StackTrace.ToString();
+                MessageDialog dialog = new MessageDialog(errMsg);
+                dialog.ShowAsync();
+                progressRingWebTeam.IsActive = false;
+            }
 
         }
         #endregion
