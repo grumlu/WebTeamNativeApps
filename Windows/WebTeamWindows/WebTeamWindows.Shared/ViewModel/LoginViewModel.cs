@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GalaSoft.MvvmLight;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -15,6 +16,8 @@ namespace WebTeamWindows.ViewModel
 	{
         private DisconnectCommand _disconnectCommand;
 
+        public event PropertyChangedEventHandler PropertyChanged;
+
         public LoginViewModel()
         {
             _disconnectCommand = new DisconnectCommand(this);
@@ -23,8 +26,10 @@ namespace WebTeamWindows.ViewModel
 		{
 			get
 			{
+                if (ViewModelBase.IsInDesignModeStatic)
+                    return "Nom d'utilisateur";
                 string output = "Bonjour, ";
-                    //On vérifie que l'application est loggée pour donner le nom de l'utilisateur
+                //On vérifie que l'application est loggée pour donner le nom de l'utilisateur
                 if (APIWebTeam.isConnected())
                 {
                     var roamingSettings = Windows.Storage.ApplicationData.Current.RoamingSettings;
@@ -53,7 +58,17 @@ namespace WebTeamWindows.ViewModel
         public void Disconnect()
         {
             APIWebTeam.Disconnect();
-            PropertyChanged(this, new PropertyChangedEventArgs("Username"));
+            OnPropertyChanged("Username");
+        }
+
+        // Create the OnPropertyChanged method to raise the event 
+        protected void OnPropertyChanged(string name)
+        {
+            PropertyChangedEventHandler handler = PropertyChanged;
+            //if (handler != null)
+            //{
+                handler(this, new PropertyChangedEventArgs(name));
+            //}
         }
 
 		public BitmapImage Avatar
@@ -80,7 +95,7 @@ namespace WebTeamWindows.ViewModel
             return char.ToUpper(s[0]) + s.Substring(1).ToLower();
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        
 
 	}
 
