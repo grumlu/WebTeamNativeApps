@@ -32,7 +32,7 @@
             <Grid Margin="39,90,39,0">
 
                 <!-- Panneau identification Webteam -->
-                <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0" Grid.ColumnSpan="2" Width="400">
+                <Grid x:Name="WebTeamPanel" Grid.Row="1" Margin="12,0,12,0" Grid.ColumnSpan="2" Width="400">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" />
                         <RowDefinition Height="*" />
@@ -44,33 +44,15 @@
 
                     <StackPanel Grid.Column="0">
 
-                        <TextBlock  Text="WebTeam" Margin="0 0 0 3" HorizontalAlignment="Center" Foreground="#FFF6E2E2" Style="{StaticResource HeaderTextBlockStyle}" />
-                        <TextBlock  Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" Style="{StaticResource SubheaderTextBlockStyle}"/>
+                        <TextBlock Text="WebTeam" Margin="0 0 0 3" HorizontalAlignment="Center" Foreground="#FFF6E2E2" Style="{StaticResource HeaderTextBlockStyle}" />
+                        <TextBlock Text="{Binding Username}" HorizontalAlignment="Center" Style="{StaticResource SubheaderTextBlockStyle}"/>
 
-                        <!--
-                        <Image x:Name="StoredUserImage" Width="100" Height="100" Source="assets\anonymous.jpg"/>
-                        
-                        <TextBlock x:Uid="WT_USERNAME" HorizontalAlignment="Center" Margin="0 40 0 0">
-    						<Run Text="WT_USERNAME"/>
-                        </TextBlock>
-                        <TextBox x:Name="login" KeyDown="login_KeyDown" Text="{Binding Username}"/>
-                        <TextBlock x:Uid="WT_PASSWORD" HorizontalAlignment="Center" Margin="0 10 0 0">
-    						<Run Text="WT_PASSWORD"/>
-                        </TextBlock>
-                        <PasswordBox x:Name="password" KeyDown="password_KeyDown"/>
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 5 0 10">
-                            <TextBlock x:Uid="WT_REMEMBERPWD" Margin="0 5 0 0">
-    							<Run Text="WT_REMEMBERPWD"/>
-                            </TextBlock>
-                            <CheckBox x:Name="rememberPassword" Margin="10 0 0 0" IsEnabled="False"/>
-                        </StackPanel> -->
-                        <ProgressRing x:Name="progressRingWebTeam" HorizontalAlignment="Center" VerticalAlignment="Top" Height="61" Width="61" Margin="0,45,0,45" Foreground="Black"/>
-                        <ProgressBar x:Name="progressBarWebTeam" Height="10" VerticalAlignment="Stretch" Margin="20" Visibility="Collapsed"/>
+                        <ProgressRing HorizontalAlignment="Center" VerticalAlignment="Top" Height="61" Width="61" Margin="0,45,0,45" Foreground="Black" IsActive="{Binding IsProgressRingActive}" />
                     </StackPanel>
 
                     <StackPanel Grid.Row="1" HorizontalAlignment="Center">
-                        <Button x:Name="Connexion" Width="240" Grid.Column="1" Content="Connexion via WeCAS" Click="Connexion_Click" Background="Black" />
-                        <TextBlock  x:Name="changeUser" HorizontalAlignment="Center" Tapped="changeUser_Tapped" Margin="0 10 0 0">Il y a erreur sur la personne?</TextBlock> 
+                        <Button x:Name="Connexion" Width="240" Grid.Column="1" Content="Connexion via WeCAS"  Background="Black" Command="{Binding ConnectCommand}"/>
+                        <TextBlock  x:Name="changeUser" HorizontalAlignment="Center" Tapped="changeUser_Tapped" Margin="0 10 0 0" Visibility="{Binding IsChangeUsernameVisible}">Il y a erreur sur la personne?</TextBlock> 
                     </StackPanel>
                 </Grid>
 
@@ -96,13 +78,4 @@
         </TextBlock>
     </Grid>
 
-
-    <Page.BottomAppBar>
-        <CommandBar>
-            <CommandBar.SecondaryCommands>
-                <AppBarButton Label="paramètres / à propos" IsCompact="True" Click="SettingsAbout_ApplicationBarMenuItem_Click">
-                </AppBarButton>
-            </CommandBar.SecondaryCommands>
-        </CommandBar>
-    </Page.BottomAppBar>
 </Page>

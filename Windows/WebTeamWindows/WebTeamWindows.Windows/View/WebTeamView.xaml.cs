@@ -248,13 +248,6 @@ namespace WebTeamWindows.View
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            appUser = (Utilisateur)e.Parameter;
-
-
-            //TODO : remplacer par du MVVM parce que c'est ce qu'il faut faire
-            ImageTest.Source = new BitmapImage(
-                new Uri(appUser.avatarURL, UriKind.Absolute));
-
             navigationHelper.OnNavigatedTo(e);
         }
 
