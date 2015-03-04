@@ -41,7 +41,7 @@
                     <StackPanel Grid.Column="0">
 
                         <TextBlock  Text="WebTeam" Margin="0 0 0 3" HorizontalAlignment="Center" Foreground="#FFF6E2E2" Style="{StaticResource HeaderTextBlockStyle}" />
-                        <TextBlock Text="Bonjour, " HorizontalAlignment="Center" Style="{StaticResource SubheaderTextBlockStyle}"/>
+                        <TextBlock Text="{Binding Username}" HorizontalAlignment="Center" Style="{StaticResource SubheaderTextBlockStyle}"/>
 
                         <!--
                         <Image x:Name="StoredUserImage" Width="100" Height="100" Source="assets\anonymous.jpg"/>

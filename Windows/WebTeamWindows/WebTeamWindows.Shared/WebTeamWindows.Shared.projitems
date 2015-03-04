@@ -24,6 +24,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Resources\APIWebTeam.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Resources\ContinuationManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Resources\Utilisateur.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModel\LoginViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)View\LoginViewHelper.cs" />
   </ItemGroup>
   <ItemGroup>
