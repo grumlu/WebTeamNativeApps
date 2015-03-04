@@ -197,7 +197,7 @@ namespace WebTeamWindows.Resources
             var roamingSettings = Windows.Storage.ApplicationData.Current.RoamingSettings;
 
             //S'il n'y a plus d'access_token, ou si on a pas de refresh, on recommence toute la procédure
-            if (isConnected())
+            if (!isConnected())
             {
                 ERROR err;
                 if ((err = await RequestTokenAsync()) != ERROR.NO_ERR)
