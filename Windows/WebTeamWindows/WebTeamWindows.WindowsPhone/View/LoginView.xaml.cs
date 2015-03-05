@@ -10,6 +10,7 @@ using Windows.ApplicationModel.Activation;
 using Windows.Security.Authentication.Web;
 using System.Threading.Tasks;
 using Windows.Web.Http;
+using WebTeamWindows.ViewModel;
 
 // Pour en savoir plus sur le modèle d'élément Page vierge, consultez la page http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -126,13 +127,21 @@ namespace WebTeamWindows.View
 
 		public async void ContinueWebAuthentication(WebAuthenticationBrokerContinuationEventArgs args)
 		{
-            ERROR err = await APIWebTeam.ContinueWebAuthenticationWPAsync(args.WebAuthenticationResult);
-            if (err != ERROR.NO_ERR)
+            if (args.WebAuthenticationResult.ResponseStatus == WebAuthenticationStatus.Success)
             {
-                MessageDialog dialog = new MessageDialog("Erreur : " + err.ToString() + "\n"
-                                                         + "Contactez la WebTeam : webteam@ensea.fr");
-                await dialog.ShowAsync();
+                string result_string = args.WebAuthenticationResult.ResponseData.ToString();
+                //extraction du token de request
+                string request_token = result_string.Substring(result_string.IndexOf("code")).Split('=')[1];
+
+
+                await APIWebTeam.RequestAccessTokenContinueAsync(request_token);
+
+                await APIWebTeam.GetUserAsync();
+
+                ((LoginViewModel)DataContext).OnPropertyChanged("Username");
             }
+
+            ((LoginViewModel)DataContext).IsProgressRingActive = false;
 		}
 
 

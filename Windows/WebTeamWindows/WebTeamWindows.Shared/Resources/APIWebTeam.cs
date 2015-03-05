@@ -34,6 +34,7 @@ namespace WebTeamWindows.Resources
     public enum ERROR
     {
         NO_ERR,
+        NOT_CONNECTED,
         NO_LOGIN_OR_PWD,
         INCORRECT_LOGIN_OR_PWD,
         TIMEOUT,
@@ -79,11 +80,9 @@ namespace WebTeamWindows.Resources
         public static string WTSecretID = "5ugzch5c28g8g0okswswk4gk448c8okw04c8c4c0kg88wkokk4";
 
         /// <summary>
-        /// Demande du token s'il n'est pas déjà donné
+        /// Demande de l'access_token et enregistrement dans les settings
         /// </summary>
-        /// <returns>Erreur de connexion</returns>
-        /// TODO : vérifier la présence d'un refresh_token pour se reconnecter automatiquement
-        private static async Task<ERROR> RequestTokenAsync()
+        public static async Task<ERROR> RequestAccessTokenAsync()
         {
             string WeCASUrl = Links.WTAuthUrl;
             WeCASUrl += "?" + "client_id=" + WTClientID;
@@ -91,8 +90,6 @@ namespace WebTeamWindows.Resources
             WeCASUrl += "&" + "scope=user";
             WeCASUrl += "&" + "redirect_uri=" + Links.WTAuthDoneUrl;
 
-            try
-            {
 #if WINDOWS_APP
                 WebAuthenticationResult webAuthenticationResult =
                     await WebAuthenticationBroker.AuthenticateAsync(WebAuthenticationOptions.None, new Uri(WeCASUrl), new Uri(Links.WTAuthDoneUrl));
@@ -104,37 +101,36 @@ namespace WebTeamWindows.Resources
                     //extraction du token de request
                     string request_token = response.Substring(response.IndexOf("code")).Split('=')[1];
 
-                    //Récupération de la réponse du serveur
-                    var jsonResponse = await GetAccessTokenAsync(request_token);
+                    await RequestAccessTokenContinueAsync(request_token);
 
-                    //plutot explicite
-                    ParseTokenAndStore(jsonResponse);
                     return ERROR.NO_ERR;
                 }
-                else if (webAuthenticationResult.ResponseStatus == WebAuthenticationStatus.ErrorHttp)
-                {
-                    // do something when the request failed
-                    return ERROR.ERR_UNKNOWN;
-                }
+
                 else
-                {
-                    // do something when an unknown error occurred
-                    return ERROR.ERR_UNKNOWN;
-                }
+                    return ERROR.NO_LOGIN_OR_PWD;
 #endif
 #if WINDOWS_PHONE_APP
-                WebAuthenticationBroker.AuthenticateAndContinue(new Uri(WeCASUrl), new Uri(Links.WTAuthDoneUrl));
+            WebAuthenticationBroker.AuthenticateAndContinue(new Uri(WeCASUrl), new Uri(Links.WTAuthDoneUrl));
 
-                return ERROR.NO_ERR;
+            return ERROR.ERR_UNKNOWN;
 #endif
-            }
-            catch (Exception)
-            {
-                // do something when an exception occurred
-                return ERROR.ERR_UNKNOWN;
-            }
 
         }
+
+        /// <summary>
+        /// Renvoie le retour serveur pour parser
+        /// </summary>
+        /// <param name="access_code">le code d'accès fourni après la phase 1 d'authentification</param>
+        /// <returns>Erreur lors de la récupération</returns>
+        public static async Task RequestAccessTokenContinueAsync(string access_code)
+        {
+
+                //Demande de l'access_token
+                var server_answer = await GetAccessTokenFromCodeAsync(access_code);
+
+                ParseTokenAndStore(server_answer);
+        }
+        
 
         /// <summary>
         /// Récupère l'access_token, et autres fioritures à partir du token d'authorisation après avoir entré le login
@@ -142,7 +138,7 @@ namespace WebTeamWindows.Resources
         /// </summary>
         /// <param name="request_token">réponse du serveur</param>
         /// <returns>Réponse JSON du serveur</returns>
-        private static async Task<string> GetAccessTokenAsync(string request_token)
+        private static async Task<string> GetAccessTokenFromCodeAsync(string request_token)
         {
             //Préparation de l'URL de demande du token
             string request_url = APIWebTeam.Links.WTTokenUrl + "?";
@@ -199,11 +195,7 @@ namespace WebTeamWindows.Resources
             //S'il n'y a plus d'access_token, ou si on a pas de refresh, on recommence toute la procédure
             if (!IsConnected())
             {
-                ERROR err;
-                if ((err = await RequestTokenAsync()) != ERROR.NO_ERR)
-                {
-                    return err;
-                }
+                return ERROR.NOT_CONNECTED;
 
             }
 
@@ -233,11 +225,11 @@ namespace WebTeamWindows.Resources
 
         }
 
-       /// <summary>
-       /// Vérifie que les informations de connexion sont bien gardées dans les paramètres
-       /// de l'application
-       /// </summary>
-       /// <returns>True si l'application est connectée</returns>
+        /// <summary>
+        /// Vérifie que les informations de connexion sont bien gardées dans les paramètres
+        /// de l'application
+        /// </summary>
+        /// <returns>True si l'application est connectée</returns>
         public static bool IsConnected()
         {
             var roamingSettings = Windows.Storage.ApplicationData.Current.RoamingSettings;
@@ -328,43 +320,6 @@ namespace WebTeamWindows.Resources
             roamingSettings.Values["access_token"] = null;
         }
 
-#if WINDOWS_PHONE_APP
-        /// <summary>
-        /// Continue l'authentification après avoir récupéré l'adresse de retour
-        /// </summary>
-        /// <param name="result">résultat de l'authentification</param>
-        /// <returns>Erreur, suivant si l'authentification s'est bien déroulée ou non</returns>
-        public static async Task<ERROR> ContinueWebAuthenticationWPAsync(WebAuthenticationResult result)
-        {
-
-            if (result.ResponseStatus == WebAuthenticationStatus.Success)
-            {
-                string result_string = result.ResponseData.ToString();
-                //extraction du token de request
-                string request_token = result_string.Substring(result_string.IndexOf("code")).Split('=')[1];
-
-                //Demande de l'access_token
-                var server_answer = await GetAccessTokenAsync(request_token);
-
-                try
-                {
-                    ParseTokenAndStore(server_answer);
-                    //TODO : Ajouter le téléchargement de l'utilisateur & l'anneau qui tourne sur WP
-                }
-                catch (Newtonsoft.Json.JsonReaderException e){
-                    System.Diagnostics.Debug.WriteLine(e.StackTrace.ToString());
-                    // TODO : changer en erreur serveur
-                    return ERROR.UNEXPECTED_ANSWER;
-                }
-                //TODO : catch erreur parsing user
-
-                return ERROR.NO_ERR;
-            }
-            else
-                return ERROR.ERR_UNKNOWN;
-        }
-
-#endif
         /*public static async Task<Newtonsoft.Json.Linq.JObject> sendRequest(RequestType requestType, string getSupplementaire = "", string post = "")
         {
             var applicationData = Windows.Storage.ApplicationData.Current;

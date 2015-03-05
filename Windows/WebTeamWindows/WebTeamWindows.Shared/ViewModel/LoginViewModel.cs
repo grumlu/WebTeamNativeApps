@@ -10,6 +10,7 @@ using WebTeamWindows.Common;
 using WebTeamWindows.Model;
 using WebTeamWindows.Resources;
 using WebTeamWindows.View;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media.Imaging;
 
@@ -24,24 +25,50 @@ namespace WebTeamWindows.ViewModel
 
         public RelayCommand ConnectCommand { get; set; }
 
+        public RelayCommand DisconnectCommand { get; set; }
+
         public LoginViewModel()
         {
             loginModel = new LoginModel();
+            DisconnectCommand = new RelayCommand(Disconnect);
             ConnectCommand = new RelayCommand(async () =>
             {
-                IsProgressRingActive = true;
-                ERROR err = await loginModel.Connect();
-                OnPropertyChanged("Username");
-                OnPropertyChanged("IsChangeUsernameVisible");
-                IsProgressRingActive = false;
+                try
+                {
+                    IsProgressRingActive = true;
+                    ERROR err = await loginModel.Connect();
 
-                if (err == ERROR.NO_ERR)
+                    OnPropertyChanged("Username");
+                    OnPropertyChanged("IsChangeUsernameVisible");
+
+#if WINDOWS_APP
+                    
+                    IsProgressRingActive = false;
+                    if (err == ERROR.NO_ERR)
+                    {
+                        var dispatcher = Window.Current.Dispatcher;
+                        dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
+                        {
+
+                            NavigationService.Navigate(typeof(WebTeamView));
+
+                        });
+                    }
+
+#endif
+                }
+                catch (Exception excep)
                 {
                     var dispatcher = Window.Current.Dispatcher;
                     dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
                     {
-                        NavigationService.Navigate(typeof(WebTeamView));
-                    });
+                        string errMsg = "Une erreur est survenue :\n" + excep.StackTrace.ToString();
+                        MessageDialog dialog = new MessageDialog(errMsg);
+                        await dialog.ShowAsync();
+                    }
+                    );
+                    IsProgressRingActive = false;
+                    //progressRingWebTeam.IsActive = false;
                 }
             });
         }

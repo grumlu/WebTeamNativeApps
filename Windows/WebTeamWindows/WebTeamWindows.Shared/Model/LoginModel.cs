@@ -61,37 +61,20 @@ namespace WebTeamWindows.Model
 
         public async Task<ERROR> Connect()
         {
-            IsProgressRingActive = true;
-            //progressRingWebTeam.IsActive = true;
+            ERROR err = await APIWebTeam.CheckTokenAsync();
 
-            try
-            {
-                ERROR err = await APIWebTeam.CheckTokenAsync();
+            if(err == ERROR.NOT_CONNECTED){
+                 err = await APIWebTeam.RequestAccessTokenAsync();
+#if WINDOWS_PHONE_APP
+                return err;
+#endif
+            }
 
-                if (err != ERROR.NO_ERR)
-                {
-                    IsProgressRingActive = false;
-                    //progressRingWebTeam.IsActive = false;
-                    return err;
-                }
-
+            if(err == ERROR.NO_ERR)
                 await APIWebTeam.GetUserAsync();
-                return ERROR.NO_ERR;
-            }
-            catch (Exception excep)
-            {
-                var dispatcher = Window.Current.Dispatcher;
-                dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
-                {
-                    string errMsg = "Une erreur est survenue :\n" + excep.StackTrace.ToString();
-                    MessageDialog dialog = new MessageDialog(errMsg);
-                    await dialog.ShowAsync();
-                }
-                );
-                IsProgressRingActive = false;
-                return ERROR.ERR_UNKNOWN;
-                //progressRingWebTeam.IsActive = false;
-            }
+
+            return err;
+
         }
 
         /// <summary>
