@@ -1,5 +1,4 @@
-﻿using GalaSoft.MvvmLight;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -9,6 +8,7 @@ using System.Windows.Input;
 using WebTeamWindows.Common;
 using WebTeamWindows.Model;
 using WebTeamWindows.Resources;
+using WebTeamWindows.Resources.APIWebTeam;
 using WebTeamWindows.View;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
@@ -106,7 +106,7 @@ namespace WebTeamWindows.ViewModel
 
         public void Disconnect()
         {
-            APIWebTeam.Disconnect();
+            WebTeamWindows.Resources.APIWebTeam.Connection.Disconnect();
             OnPropertyChanged("Username");
             OnPropertyChanged("IsChangeUsernameVisible");
         }

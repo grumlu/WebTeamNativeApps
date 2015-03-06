@@ -11,6 +11,7 @@ using Windows.Security.Authentication.Web;
 using System.Threading.Tasks;
 using Windows.Web.Http;
 using WebTeamWindows.ViewModel;
+using WebTeamWindows.Resources.APIWebTeam;
 
 // Pour en savoir plus sur le modèle d'élément Page vierge, consultez la page http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -92,7 +93,7 @@ namespace WebTeamWindows.View
         #region Boutons et Champs de texte
         private async void Connexion_Click(object sender, RoutedEventArgs e)
         {
-			await WebTeamWindows.Resources.APIWebTeam.CheckTokenAsync();
+			await Connection.CheckTokenAsync();
         }
 
         private void ConnexionCaligula_Click(object sender, RoutedEventArgs e)
@@ -134,9 +135,9 @@ namespace WebTeamWindows.View
                 string request_token = result_string.Substring(result_string.IndexOf("code")).Split('=')[1];
 
 
-                await APIWebTeam.RequestAccessTokenContinueAsync(request_token);
+                await Connection.RequestAccessTokenContinueAsync(request_token);
 
-                await APIWebTeam.GetUserAsync();
+                await UserManagement.GetUserAsync();
 
                 ((LoginViewModel)DataContext).OnPropertyChanged("Username");
             }

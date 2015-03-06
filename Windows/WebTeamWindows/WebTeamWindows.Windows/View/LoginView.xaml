@@ -32,7 +32,7 @@
             <Grid Margin="39,90,39,0">
 
                 <!-- Panneau identification Webteam -->
-                <Grid x:Name="WebTeamPanel" Grid.Row="1" Margin="12,0,12,0" Grid.ColumnSpan="2" Width="400">
+                <Grid x:Name="WebTeamPanel" Grid.Row="1" Margin="12,0,12,0" Grid.ColumnSpan="2" Width="450">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" />
                         <RowDefinition Height="*" />

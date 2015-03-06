@@ -18,7 +18,17 @@ namespace WebTeamWindows.View
                                    "débile",
                                    "mangeur de chaussettes",
                                    "petit ange",
-                                   "anchois"
+                                   "anchois",
+                                   "couile de tetard",
+                                   "primate",
+                                   "parasite",
+                                   "cafard",
+                                   "cochon sauvage",
+                                   "affabulateur",
+                                   "pithécantrope",
+                                   "petit boufon",
+                                   "cancrelat",
+                                   "mythocondriaque"
                                };
 
         public static string[] adjective = {
@@ -32,7 +42,15 @@ namespace WebTeamWindows.View
                                              "sexy",
                                              "qui pue",
                                              "qui sent bon",
-                                             "qu'on aime fort"
+                                             "qu'on aime fort",
+                                             "boutonneux",
+                                             "analphabète",
+                                             "beau gosse",
+                                             "jovial",
+                                             "transexuel",
+                                             "pénis",
+                                             "tête de bite",
+                                             "mignonne"
                                         };
     }
 }

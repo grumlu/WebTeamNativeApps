@@ -1,13 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
-using WebTeamWindows.Common;
-using WebTeamWindows.Resources;
+using WebTeamWindows.Resources.APIWebTeam;
 using WebTeamWindows.View;
-using WebTeamWindows.ViewModel;
-using Windows.UI.Popups;
-using Windows.UI.Xaml;
 
 namespace WebTeamWindows.Model
 {
@@ -17,7 +11,8 @@ namespace WebTeamWindows.Model
         {
             string output = "Bonjour, ";
             //On vérifie que l'application est loggée pour donner le nom de l'utilisateur
-            if (APIWebTeam.IsConnected())
+            
+            if (Connection.IsConnected())
             {
                 var roamingSettings = Windows.Storage.ApplicationData.Current.RoamingSettings;
 
@@ -43,7 +38,7 @@ namespace WebTeamWindows.Model
 
         public bool IsChangeUsernameVisible()
         {
-            return (APIWebTeam.IsConnected());
+            return (Connection.IsConnected());
         }
 
         private bool isProgressRingActive = false;
@@ -61,17 +56,18 @@ namespace WebTeamWindows.Model
 
         public async Task<ERROR> Connect()
         {
-            ERROR err = await APIWebTeam.CheckTokenAsync();
+            ERROR err = await Connection.CheckTokenAsync();
 
-            if(err == ERROR.NOT_CONNECTED){
-                 err = await APIWebTeam.RequestAccessTokenAsync();
+            if (err == ERROR.NOT_CONNECTED)
+            {
+                err = await Connection.RequestAccessTokenAsync();
 #if WINDOWS_PHONE_APP
                 return err;
 #endif
             }
 
-            if(err == ERROR.NO_ERR)
-                await APIWebTeam.GetUserAsync();
+            if (err == ERROR.NO_ERR)
+                await UserManagement.GetUserAsync();
 
             return err;
 
