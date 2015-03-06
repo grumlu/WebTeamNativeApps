@@ -22,11 +22,13 @@
     <Compile Include="$(MSBuildThisFileDirectory)Common\SuspensionManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\LoginModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\UtilisateurAppli.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\WebTeamModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Resources\APIWebTeam\Connection.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Resources\APIWebTeam\Statics.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Resources\APIWebTeam\UserManagement.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Resources\ContinuationManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Resources\Utilisateur.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModel\ViewModelBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\WebTeamViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\LoginViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)View\LoginViewHelper.cs" />

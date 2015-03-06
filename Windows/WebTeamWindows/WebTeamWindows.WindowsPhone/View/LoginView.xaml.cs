@@ -139,7 +139,7 @@ namespace WebTeamWindows.View
 
                 await UserManagement.GetUserAsync();
 
-                ((LoginViewModel)DataContext).OnPropertyChanged("Username");
+                ((LoginViewModel)DataContext).NotifyUsernameChanged();
             }
 
             ((LoginViewModel)DataContext).IsProgressRingActive = false;

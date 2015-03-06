@@ -16,10 +16,8 @@ using Windows.UI.Xaml.Media.Imaging;
 
 namespace WebTeamWindows.ViewModel
 {
-    public class LoginViewModel : INotifyPropertyChanged
+    class LoginViewModel : ViewModelBase
     {
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         private LoginModel loginModel;
 
@@ -38,11 +36,11 @@ namespace WebTeamWindows.ViewModel
                     IsProgressRingActive = true;
                     ERROR err = await loginModel.Connect();
 
-                    OnPropertyChanged("Username");
-                    OnPropertyChanged("IsChangeUsernameVisible");
+                    RaisePropertyChanged("Username");
+                    RaisePropertyChanged("IsChangeUsernameVisible");
 
 #if WINDOWS_APP
-                    
+
                     IsProgressRingActive = false;
                     if (err == ERROR.NO_ERR)
                     {
@@ -100,28 +98,24 @@ namespace WebTeamWindows.ViewModel
             set
             {
                 loginModel.IsProgressRingActive = value;
-                OnPropertyChanged("IsProgressRingActive");
+                RaisePropertyChanged("IsProgressRingActive");
             }
         }
 
         public void Disconnect()
         {
             WebTeamWindows.Resources.APIWebTeam.Connection.Disconnect();
-            OnPropertyChanged("Username");
-            OnPropertyChanged("IsChangeUsernameVisible");
+            RaisePropertyChanged("Username");
+            RaisePropertyChanged("IsChangeUsernameVisible");
         }
 
-        // Create the OnPropertyChanged method to raise the event 
-        public void OnPropertyChanged(string name)
+        /// <summary>
+        /// Workaround for the WP app with Continue function
+        /// </summary>
+        public void NotifyUsernameChanged()
         {
-            PropertyChangedEventHandler handler = PropertyChanged;
-            if (handler != null)
-            {
-                handler(this, new PropertyChangedEventArgs(name));
-            }
+            RaisePropertyChanged("Username");
         }
-
-
     }
 
 }
