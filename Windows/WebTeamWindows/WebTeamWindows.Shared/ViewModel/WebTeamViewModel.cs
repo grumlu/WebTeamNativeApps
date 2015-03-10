@@ -1,43 +1,75 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Text;
 using System.Threading.Tasks;
 using WebTeamWindows.Model;
 using WebTeamWindows.Resources;
 using WebTeamWindows.Resources.APIWebTeam;
+using Windows.UI.Xaml.Data;
 
 namespace WebTeamWindows.ViewModel
 {
     class WebTeamViewModel : ViewModelBase
     {
-        AppUserModel wtModel;
-                
-        public WebTeamViewModel()
+        
+        ///Champs properties
+        private string _title;
+        public string Title {
+            get
+            {
+                return "WebTeam";
+            }
+        }
+    }
+
+    class AppUserViewModel : ViewModelBase
+    {
+        AppUserModel _user;
+
+        public string Title
         {
-            wtModel = new AppUserModel();
+            get { return "Profil"; }
+        }
+
+        public AppUserViewModel()
+        {
+            _user = new AppUserModel();
+            GetAppUser();
         }
 
         public async Task GetAppUser()
         {
-            await wtModel.GetAppUser();
+            await _user.GetAppUser();
+            RaisePropertyChanged("Username");
+            RaisePropertyChanged("Promo");
+            RaisePropertyChanged("Groupe");
 
         }
 
-        ///Champs properties
-        private string _title = "Bite";
-        public string Title {
+        public string Username
+        {
             get
             {
                 if (Windows.ApplicationModel.DesignMode.DesignModeEnabled)
-                    return "Bite";
-                return "Bite";
-            }
-            private set
-            {
-                _title = value;
+                {
+                    return "Username";
+                }
+                return _user.Username;
             }
         }
+
+        public string Promo
+        {
+            get { return _user.AppUser.promo; }
+        }
+
+        public string Groupe
+        {
+            get { return _user.AppUser.groupe; }
+        }
+
 
 
     }

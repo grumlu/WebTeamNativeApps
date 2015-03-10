@@ -7,24 +7,47 @@ using WebTeamWindows.Resources.APIWebTeam;
 
 namespace WebTeamWindows.Model
 {
-    
-
     class AppUserModel
     {
-        Utilisateur appUser;
+        private User _appUser;
+        public User AppUser
+        {
+            get
+            {
+                if (Windows.ApplicationModel.DesignMode.DesignModeEnabled)
+                {
+                    return new User();
+                }
+                return _appUser;
+                    
+            }
+            private set
+            {
+                _appUser = value;
+            }
+        }
 
         public AppUserModel()
         {
+            AppUser = new User();            //On évite ainsi une erreur à la création de la page
         }
 
         public async Task GetAppUser()
         {
-            Utilisateur appUser = await UserManagement.GetUserAsync();
+            AppUser = await UserManagement.GetUserAsync();
+        }
+
+        public string Username
+        {
+            get
+            {
+                return AppUser.nom + " " + AppUser.prenom;
+            }
         }
 
 
     }
 
-    
-        
+
+
 }

@@ -9,7 +9,7 @@ using Windows.UI.Xaml.Media.Imaging;
 
 namespace WebTeamWindows.Resources
 {
-    public class Utilisateur
+    public class User
     {
         public int id { get; set; }
         public string prenom { get; set; }
@@ -25,12 +25,21 @@ namespace WebTeamWindows.Resources
 
         public BitmapImage avatar { get; set; }
 
-        public Utilisateur()
+        public User()
         {
-
+            id = 0;
+            prenom = "Jean Michel";
+            nom = "JARRE";
+            promo = "53A";
+            groupe = "53G12TP15";
+            dateDeNaissance = DateTime.Now;
+            numeroPortable = "0611111111";
+            email = "dummy@stupid.sx";
+            adresse = "Nowhere";
+            
         }
 
-        public Utilisateur(int idUtilisateur)
+        public User(int idUtilisateur)
         {
             id = idUtilisateur;
             /*APIWebTeam.sendRequest(RequestType.PROFIL, (Newtonsoft.Json.Linq.JObject reponse) =>

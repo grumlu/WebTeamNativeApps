@@ -16,8 +16,7 @@ namespace WebTeamWindows.Resources.APIWebTeam
         /// </summary>
         /// <param name="id">id de l'utilisateur</param>
         /// <returns>objet utilisateur avec les infos dedans</returns>
-        /// TODO : une fois que l'API prendra en charge d'autres utilisateurs, les prendre aussi
-        public async static Task<Utilisateur> GetUserAsync(int id = -1)
+        public async static Task<User> GetUserAsync(int id = -1)
         {
             //Vérification de l'âge de l'access_token
             if (await APIWebTeam.Connection.CheckTokenAsync() != ERROR.NO_ERR)
@@ -26,8 +25,13 @@ namespace WebTeamWindows.Resources.APIWebTeam
             var roamingSettings = Windows.Storage.ApplicationData.Current.RoamingSettings;
 
             //Préparation de l'URL de récupération de l'user suivant l'ID
-            string request_url = Statics.WTProfileUrl + "?";
+            string request_url = Statics.WTProfileUrl;
 
+            //Récupération de l'user qu'on veut
+            if (id != -1)
+                request_url += "s/id";
+                
+            request_url += "?";
             request_url += "access_token" + "=" + roamingSettings.Values["access_token"];
 
             //Récupération du JSON pour l'utilisateur
@@ -39,7 +43,7 @@ namespace WebTeamWindows.Resources.APIWebTeam
             System.Diagnostics.Debug.WriteLine(response);
 
             //lecture du JSON
-            Utilisateur user = ParseUser(response);
+            User user = ParseUser(response);
 
             //Si on cherche l'utilisateur de l'application, on entre son nom dans les settings de l'app
             if (id == -1)
@@ -56,11 +60,11 @@ namespace WebTeamWindows.Resources.APIWebTeam
         /// </summary>
         /// <param name="json_user">réponse du serveur</param>
         /// <returns>un user tout frais</returns>
-        private static Utilisateur ParseUser(string jsonString)
+        private static User ParseUser(string jsonString)
         {
             JObject list = JObject.Parse(jsonString);
 
-            Utilisateur user = new Utilisateur();
+            User user = new User();
 
             user.email = (string)list["email"];
             user.nom = (string)list["name"]["lastName"];

@@ -12,6 +12,7 @@ using WebTeamWindows.Resources.APIWebTeam;
 using WebTeamWindows.View;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
 
 namespace WebTeamWindows.ViewModel
@@ -38,7 +39,6 @@ namespace WebTeamWindows.ViewModel
 
                     RaisePropertyChanged("Username");
                     RaisePropertyChanged("IsChangeUsernameVisible");
-
 #if WINDOWS_APP
 
                     IsProgressRingActive = false;
@@ -47,9 +47,7 @@ namespace WebTeamWindows.ViewModel
                         var dispatcher = Window.Current.Dispatcher;
                         dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
                         {
-
                             NavigationService.Navigate(typeof(WebTeamView));
-
                         });
                     }
 

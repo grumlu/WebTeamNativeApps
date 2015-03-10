@@ -21,7 +21,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Common\RelayCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Common\SuspensionManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\LoginModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Model\UtilisateurAppli.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\AppUserModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Resources\APIWebTeam\Connection.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Resources\APIWebTeam\Statics.cs" />

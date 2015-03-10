@@ -44,8 +44,8 @@ namespace WebTeamWindows.Resources.APIWebTeam
 
             return ERROR.ERR_UNKNOWN;
 #endif
-
         }
+
 
         /// <summary>
         /// Renvoie le retour serveur pour parser
@@ -101,10 +101,17 @@ namespace WebTeamWindows.Resources.APIWebTeam
         /// Parse la réponse du serveur WebTeam et range ça dans les settings de l'app
         /// </summary>
         /// <param name="jsonString">réponse du serveur WT</param>
-        private static void ParseTokenAndStore(string jsonString)
+        private static ERROR ParseTokenAndStore(string jsonString)
         {
 
             Newtonsoft.Json.Linq.JObject list = Newtonsoft.Json.Linq.JObject.Parse(jsonString);
+
+            //S'il y a une erreur
+            if (list.Value<string>("error") != null)
+            {
+                return ERROR.NOT_CONNECTED;
+            }
+
             //Enregistrement des valeurs dans les settings de l'app
             var roamingSettings = Windows.Storage.ApplicationData.Current.RoamingSettings;
 
@@ -114,6 +121,9 @@ namespace WebTeamWindows.Resources.APIWebTeam
             //expiration date
             DateTime expirationDate = DateTime.Now.AddSeconds(list.Value<double>("expires_in"));
             roamingSettings.Values["expiration_date"] = expirationDate.Ticks;
+
+
+            return ERROR.NO_ERR;
 
         }
 
@@ -132,10 +142,10 @@ namespace WebTeamWindows.Resources.APIWebTeam
             ///Le cas contraire, on fait un refresh
             else if (DateTime.Now.Ticks > (long)roamingSettings.Values["expiration_date"])
             {
-                string request_url = Statics.WTAuthUrl + "?";
+                string request_url = Statics.WTTokenUrl + "?";
                 request_url += "client_id" + "=" + Statics.WTClientID;
                 request_url += "&" + "client_secret" + "=" + Statics.WTSecretID;
-                request_url += "&" + "grand_type" + "=" + "refresh_token";
+                request_url += "&" + "grant_type" + "=" + "refresh_token";
                 request_url += "&" + "refresh_token" + "=" + roamingSettings.Values["refresh_token"];
 
 
@@ -144,9 +154,7 @@ namespace WebTeamWindows.Resources.APIWebTeam
                 var httpResponseMessage = await httpClient.GetAsync(new Uri(request_url));
                 string response = await httpResponseMessage.Content.ReadAsStringAsync();
 
-                ParseTokenAndStore(response);
-
-                return ERROR.NO_ERR;
+                return ParseTokenAndStore(response);
             }
 
             ///Sinon tout va bien
