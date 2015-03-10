@@ -9,16 +9,13 @@ using WebTeamWindows.Resources.APIWebTeam;
 
 namespace WebTeamWindows.ViewModel
 {
-    class WebTeamViewModel : INotifyPropertyChanged
+    class WebTeamViewModel : ViewModelBase
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        WebTeamModel wtModel;
-
-        
+        AppUserModel wtModel;
+                
         public WebTeamViewModel()
         {
-            wtModel = new WebTeamModel();
+            wtModel = new AppUserModel();
         }
 
         public async Task GetAppUser()
@@ -26,6 +23,22 @@ namespace WebTeamWindows.ViewModel
             await wtModel.GetAppUser();
 
         }
+
+        ///Champs properties
+        private string _title = "Bite";
+        public string Title {
+            get
+            {
+                if (Windows.ApplicationModel.DesignMode.DesignModeEnabled)
+                    return "Bite";
+                return "Bite";
+            }
+            private set
+            {
+                _title = value;
+            }
+        }
+
 
     }
 }

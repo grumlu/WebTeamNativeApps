@@ -7,10 +7,10 @@ namespace WebTeamWindows.ViewModel
 {
     public class ViewModelBase : INotifyPropertyChanged
     {
-       public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler PropertyChanged;
 
         // Create the RaisePropertyChanged method to raise the event 
-       protected void RaisePropertyChanged(string name)
+        protected void RaisePropertyChanged(string name)
         {
             PropertyChangedEventHandler handler = PropertyChanged;
             if (handler != null)
@@ -18,6 +18,6 @@ namespace WebTeamWindows.ViewModel
                 handler(this, new PropertyChangedEventArgs(name));
             }
         }
- 
+
     }
 }
