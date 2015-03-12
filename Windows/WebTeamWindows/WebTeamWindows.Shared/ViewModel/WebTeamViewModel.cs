@@ -46,6 +46,8 @@ namespace WebTeamWindows.ViewModel
             RaisePropertyChanged("Promo");
             RaisePropertyChanged("Groupe");
 
+            await _user.GetProfilePicture();
+            RaisePropertyChanged("ProfilePicture");
         }
 
         public string Username

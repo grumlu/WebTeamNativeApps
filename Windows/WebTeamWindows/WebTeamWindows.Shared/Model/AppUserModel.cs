@@ -45,7 +45,14 @@ namespace WebTeamWindows.Model
             }
         }
 
-
+        /// <summary>
+        /// Récupère la photo du profil
+        /// </summary>
+        /// <returns></returns>
+        public Task GetProfilePicture()
+        {
+            
+        }
     }
 
 

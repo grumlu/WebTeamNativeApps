@@ -5,6 +5,7 @@ using System.Globalization;
 using System.Text;
 using System.Threading.Tasks;
 using WebTeamWindows;
+using Windows.UI.Xaml.Media.Imaging;
 using Windows.Web.Http;
 
 namespace WebTeamWindows.Resources.APIWebTeam
@@ -81,6 +82,21 @@ namespace WebTeamWindows.Resources.APIWebTeam
 
             return user;
 
+        }
+
+        /// <summary>
+        /// Télécharge l'image de profil
+        /// </summary>
+        /// <param name="id">L'ID de l'utilisateur</param>
+        /// <returns>Le BitmapImage de l'utilisateur</returns>
+        public static BitmapImage GetUserImageAsync(int id)
+        {
+            BitmapImage image;
+
+            //Préparation de l'URL
+
+
+            return image;
         }
     }
 }
