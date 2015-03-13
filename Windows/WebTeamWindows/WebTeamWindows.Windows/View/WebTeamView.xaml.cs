@@ -55,6 +55,7 @@ namespace WebTeamWindows.View
         private void navigationHelper_LoadState(object sender, LoadStateEventArgs e)
         {
             // TODO: assignez une collection de groupes pouvant être liés à this.DefaultViewModel["Groups"]
+           
         }
 
         #region Inscription de NavigationHelper

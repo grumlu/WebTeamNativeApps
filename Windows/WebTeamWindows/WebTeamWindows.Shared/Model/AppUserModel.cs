@@ -49,9 +49,9 @@ namespace WebTeamWindows.Model
         /// Récupère la photo du profil
         /// </summary>
         /// <returns></returns>
-        public Task GetProfilePicture()
+        public async Task GetProfilePicture()
         {
-            
+            await AppUser.GetAvatar();
         }
     }
 

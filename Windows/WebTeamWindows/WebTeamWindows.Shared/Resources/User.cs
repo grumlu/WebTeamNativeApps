@@ -98,10 +98,10 @@ namespace WebTeamWindows.Resources
             age = (DateTime.Today.Year - dateDeNaissanceDateTime.Year) + " ans";
         }*/
 
-        public void getAvatar()
+        public async Task GetAvatar()
         {
             if (avatar == null)
-                avatar = new BitmapImage(new Uri(avatarURL, UriKind.Absolute));
+                avatar = await APIWebTeam.UserManagement.GetUserImageAsync(id);
         }
 
     }

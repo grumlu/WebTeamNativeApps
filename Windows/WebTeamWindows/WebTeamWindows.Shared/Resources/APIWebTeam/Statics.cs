@@ -43,6 +43,16 @@ namespace WebTeamWindows.Resources.APIWebTeam
         /// </summary>
         public static string WTProfileUrl = "https://webteam.ensea.fr/api/user";
 
+        /// <summary>
+        /// Demande d'un profil avec un id
+        /// </summary>
+        /// <param name="id">id du profil</param>
+        /// <returns>L'URL demandée</returns>
+        public static string WTProfileUrlByID(int id)
+        {
+            return "https://webteam.ensea.fr/api/users/" + id;
+        }
+
         public static string WTClientID = "2_49cibza0l4kkwcgs8cw0cw4kok0g04oc0wcss8cc4gccockgww";
 
         public static string WTSecretID = "5ugzch5c28g8g0okswswk4gk448c8okw04c8c4c0kg88wkokk4";

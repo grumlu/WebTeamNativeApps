@@ -8,6 +8,7 @@ using WebTeamWindows.Model;
 using WebTeamWindows.Resources;
 using WebTeamWindows.Resources.APIWebTeam;
 using Windows.UI.Xaml.Data;
+using Windows.UI.Xaml.Media.Imaging;
 
 namespace WebTeamWindows.ViewModel
 {
@@ -70,6 +71,11 @@ namespace WebTeamWindows.ViewModel
         public string Groupe
         {
             get { return _user.AppUser.groupe; }
+        }
+
+        public BitmapImage ProfilePicture
+        {
+            get { return _user.AppUser.avatar; }
         }
 
 

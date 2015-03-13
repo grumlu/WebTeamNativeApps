@@ -89,12 +89,25 @@ namespace WebTeamWindows.Resources.APIWebTeam
         /// </summary>
         /// <param name="id">L'ID de l'utilisateur</param>
         /// <returns>Le BitmapImage de l'utilisateur</returns>
-        public static BitmapImage GetUserImageAsync(int id)
+        public static async Task<BitmapImage> GetUserImageAsync(int id)
         {
+            //Vérification de la connexion
+            if (await APIWebTeam.Connection.CheckTokenAsync() != ERROR.NO_ERR)
+            {
+                APIWebTeam.Connection.Disconnect();
+                WebTeamWindows.Common.NavigationService.Navigate(typeof(WebTeamWindows.View.LoginView));
+                return null;
+            }
+
+            var roamingSettings = Windows.Storage.ApplicationData.Current.RoamingSettings;
+
             BitmapImage image;
 
             //Préparation de l'URL
+            string request_url = Statics.WTProfileUrlByID(id);
+            request_url += "/photo" + "?" + "access_token" + "=" + roamingSettings.Values["access_token"];
 
+            image = new BitmapImage(new Uri(request_url));
 
             return image;
         }
