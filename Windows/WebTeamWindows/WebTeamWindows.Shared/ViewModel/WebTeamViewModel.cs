@@ -14,10 +14,10 @@ namespace WebTeamWindows.ViewModel
 {
     class WebTeamViewModel : ViewModelBase
     {
-        
+
         ///Champs properties
-        private string _title;
-        public string Title {
+        public string Title
+        {
             get
             {
                 return "WebTeam";
@@ -36,6 +36,7 @@ namespace WebTeamWindows.ViewModel
 
         public AppUserViewModel()
         {
+            IsLoaded = false;
             _user = new AppUserModel();
             GetAppUser();
         }
@@ -49,6 +50,25 @@ namespace WebTeamWindows.ViewModel
 
             await _user.GetProfilePicture();
             RaisePropertyChanged("ProfilePicture");
+
+            IsLoaded = true;
+
+        }
+
+        private bool _isLoaded = false;
+        public bool IsLoaded
+        {
+            get
+            {
+                if (Windows.ApplicationModel.DesignMode.DesignModeEnabled)
+                    return true;
+                return _isLoaded;
+            }
+            set
+            {
+                _isLoaded = value;
+                RaisePropertyChanged("IsLoaded");
+            }
         }
 
         public string Username

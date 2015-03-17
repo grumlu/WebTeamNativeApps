@@ -121,6 +121,8 @@
   <ItemGroup>
     <Compile Include="View\WebTeamView.xaml.cs">
       <DependentUpon>WebTeamView.xaml</DependentUpon>
+      <SubType>
+      </SubType>
     </Compile>
     <Compile Include="WebTeam.xaml.cs">
       <DependentUpon>WebTeam.xaml</DependentUpon>

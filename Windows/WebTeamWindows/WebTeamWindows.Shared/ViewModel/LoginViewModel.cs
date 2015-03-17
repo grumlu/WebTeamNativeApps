@@ -46,7 +46,7 @@ namespace WebTeamWindows.ViewModel
                     if (err == ERROR.NO_ERR)
                     {
                         var dispatcher = Window.Current.Dispatcher;
-                        dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
+                        dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
                         {
                             NavigationService.Navigate(typeof(WebTeamView));
                         });

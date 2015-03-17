@@ -29,7 +29,7 @@
         <Hub Margin="0 20 0 0">
             <HubSection Header="{Binding Title}">
                 <Interactivity:Interaction.Behaviors>
-                    <helpers:WindowDimensionBehavior WidthMultiple="2" WidthPercentage="0.9"/>
+                    <helpers:WindowDimensionBehavior WidthMultiple="1" WidthPercentage="0.9"/>
                 </Interactivity:Interaction.Behaviors>
                 <HubSection.DataContext>
                     <viewmodels:AppUserViewModel />
