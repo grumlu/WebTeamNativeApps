@@ -7,7 +7,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+    xmlns:Interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:helpers="using:WebTeamWindows.Common"
     >
 
     <Page.DataContext>
@@ -31,37 +32,19 @@
 
                     
                     <StackPanel>
-                        <TextBlock Text="{Binding Username}" HorizontalAlignment="Center" Style="{StaticResource SubheaderTextBlockStyle}"/>
+                        <TextBlock Text="{Binding Username}" HorizontalAlignment="Center" Style="{StaticResource SubheaderTextBlockStyle}" TextAlignment="Center"/>
                         
                         <ProgressRing Background="Transparent" HorizontalAlignment="Center" Margin="0 70 0 0" IsActive="{Binding IsProgressRingActive}"/>
                         
-                        
-                        <!--<TextBlock x:Uid="WT_USERNAME" HorizontalAlignment="Center" Margin="0 15 0 0" >
-                            <Run Text="WT_USERNAME"/>
-                        </TextBlock>
-                        <TextBox x:Name="login" KeyDown="login_KeyDown"/>
-                        <TextBlock x:Uid="WT_PASSWORD" HorizontalAlignment="Center" Margin="0 10 0 0">
-                            <Run Text="WT_PASSWORD"/>
-                        </TextBlock>
-                        <PasswordBox x:Name="password" KeyDown="password_KeyDown"/>
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 -17 -140 0">
-                            <TextBlock x:Uid="WT_REMEMBERPWD" Margin="0 15 0 0">
-                                <Run Text="WT_REMEMBERPWD" />
-                            </TextBlock>
-                            <CheckBox x:Name="rememberPassword" Margin="10 0 0 0" IsEnabled="False"/> 
-                        </StackPanel> -->
                     </StackPanel>
 
-                    <Button x:Name="Connexion" HorizontalAlignment="Center" Width="315" Grid.Row="1" Content="Connexion via WeCAS" Background="Black" Margin="0 0 0 50" Command="{Binding ConnectCommand}"/>
-                </Grid>
-            </PivotItem>
-
-            <!--Élément deux de tableau croisé dynamique-->
-            <PivotItem Header="Caligula">
-                <Grid Margin="12 0 12 0">
-                    <StackPanel VerticalAlignment="Bottom">
-                        <!--<Button Name="ConnexionCaligula" HorizontalAlignment="Center" Width="315" Grid.Row="1" Content="Connexion" Click="ConnexionCaligula_Click" Background="Black"/>-->
-                    </StackPanel>
+                    <Button HorizontalAlignment="Center" Width="315" Grid.Row="1"
+                            Content="Connexion via WeCAS" IsEnabled="{Binding CanPerformAction}"
+                            Background="Black" Margin="0 0 0 50" Command="{Binding ConnectCommand}">
+                        <Interactivity:Interaction.Behaviors>
+                            <helpers:WindowDimensionBehavior WidthMultiple="1" WidthPercentage="0.8" />
+                        </Interactivity:Interaction.Behaviors>
+                    </Button>
                 </Grid>
             </PivotItem>
         </Pivot>

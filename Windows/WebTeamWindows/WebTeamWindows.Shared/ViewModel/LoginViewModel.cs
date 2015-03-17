@@ -34,14 +34,15 @@ namespace WebTeamWindows.ViewModel
             {
                 try
                 {
-                    IsProgressRingActive = true;
+                    CanPerformAction = false;
                     ERROR err = await loginModel.Connect();
 
                     RaisePropertyChanged("Username");
                     RaisePropertyChanged("IsChangeUsernameVisible");
-#if WINDOWS_APP
 
-                    IsProgressRingActive = false;
+#if WINDOWS_APP
+                    CanPerformAction = true;
+#endif
                     if (err == ERROR.NO_ERR)
                     {
                         var dispatcher = Window.Current.Dispatcher;
@@ -51,7 +52,6 @@ namespace WebTeamWindows.ViewModel
                         });
                     }
 
-#endif
                 }
                 catch (Exception excep)
                 {
@@ -77,7 +77,7 @@ namespace WebTeamWindows.ViewModel
             get
             {
                 if (Windows.ApplicationModel.DesignMode.DesignModeEnabled)
-                    return "Nom d'utilisateur";
+                    return "Nom d'utilisateur un peu trop long sur deux lignes";
                 return loginModel.GetUsername();
 
             }
@@ -97,6 +97,18 @@ namespace WebTeamWindows.ViewModel
             {
                 loginModel.IsProgressRingActive = value;
                 RaisePropertyChanged("IsProgressRingActive");
+            }
+        }
+
+        private bool _canPerformAction = true;
+        public bool CanPerformAction
+        {
+            get { return _canPerformAction; }
+            set
+            {
+                IsProgressRingActive = !value;
+                _canPerformAction = value;
+                RaisePropertyChanged("CanPerformAction");
             }
         }
 

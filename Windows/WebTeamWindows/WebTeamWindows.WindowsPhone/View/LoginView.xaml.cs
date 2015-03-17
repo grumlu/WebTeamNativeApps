@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using Windows.Web.Http;
 using WebTeamWindows.ViewModel;
 using WebTeamWindows.Resources.APIWebTeam;
+using WebTeamWindows.Common;
 
 // Pour en savoir plus sur le modèle d'élément Page vierge, consultez la page http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -37,6 +38,7 @@ namespace WebTeamWindows.View
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             // TODO: préparer la page pour affichage ici.
+            ((LoginViewModel)DataContext).CanPerformAction = true;
 
             // TODO: si votre application comporte plusieurs pages, assurez-vous que vous
             // gérez le bouton Retour physique en vous inscrivant à l’événement
@@ -45,86 +47,6 @@ namespace WebTeamWindows.View
             // cet événement est géré automatiquement.
         }
 
-        #region Caligula
-
-        private async void BeginCaligulaLogin()
-        {
-            /*HttpWebRequest client = (HttpWebRequest)WebRequest.Create(APICaligula.caligulaUrl);
-
-            //Création du dictionnaire contenant les valeurs post
-            Dictionary<string, string> queryString = new Dictionary<string, string>();
-            queryString.Add("login", "ensea");
-            queryString.Add("password", "ensea");
-            string postdata = "";
-            foreach (KeyValuePair<string, string> key in queryString)
-            {
-                postdata += key.Key + "=" + key.Value + "&";
-            }
-
-            var postBytes = APICaligula.StringToAscii(postdata);
-
-            client.CookieContainer = new CookieContainer();
-            client.Method = "POST";
-            client.ContentType = "application/x-www-form-urlencoded";
-            client.ContentLength = postBytes.Length;
-
-
-            client.BeginGetResponse(resultat =>
-            {
-                HttpWebRequest request = (HttpWebRequest)resultat.AsyncState;
-                HttpWebResponse response = (HttpWebResponse)request.EndGetResponse(resultat);
-                System.Diagnostics.Debug.WriteLine(response.ResponseUri);
-
-                foreach (Cookie cookieValue in response.Cookies)
-                {
-                    System.Diagnostics.Debug.WriteLine(cookieValue.ToString());
-                }
-
-            }, client);
-            */
-            MessageDialog messageDialog = new MessageDialog("Caligula arrivera dans une prochaine mise à jour");
-            await messageDialog.ShowAsync();
-            activerControles();
-
-
-        }
-        #endregion
-
-        #region Boutons et Champs de texte
-        private async void Connexion_Click(object sender, RoutedEventArgs e)
-        {
-			await Connection.CheckTokenAsync();
-        }
-
-        private void ConnexionCaligula_Click(object sender, RoutedEventArgs e)
-        {
-            desactiverControles();
-            BeginCaligulaLogin();
-        }
-
-
-
-        private void desactiverControles()
-        {
-            
-        }
-
-        private void activerControles()
-        {
-
-        }
-
-        private void reinitialiserChamps()
-        {
-
-        }
-
-        private void SettingsAbout_ApplicationBarMenuItem_Click(object sender, RoutedEventArgs e)
-        {
-            //NavigationService.Navigate(new Uri("/Settings.xaml", UriKind.Relative));
-        }
-
-		#endregion
 
 		public async void ContinueWebAuthentication(WebAuthenticationBrokerContinuationEventArgs args)
 		{
@@ -140,9 +62,11 @@ namespace WebTeamWindows.View
                 await UserManagement.GetUserAsync();
 
                 ((LoginViewModel)DataContext).NotifyUsernameChanged();
+                
+                NavigationService.Navigate(typeof(WebTeamView));
             }
 
-            ((LoginViewModel)DataContext).IsProgressRingActive = false;
+            ((LoginViewModel)DataContext).CanPerformAction = true;
 		}
 
 
