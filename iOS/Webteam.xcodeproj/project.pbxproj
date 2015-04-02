@@ -1,0 +1,625 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		16180CD91AC4C49A0028CA71 /* UIButtonCustomClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 16180CD81AC4C49A0028CA71 /* UIButtonCustomClass.m */; };
+		16180CDC1AC4CE7C0028CA71 /* UIColorCustomClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 16180CDB1AC4CE7C0028CA71 /* UIColorCustomClass.m */; };
+		16703D6A1AACBAC700AD14CB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 16703D691AACBAC700AD14CB /* main.m */; };
+		16703D6D1AACBAC700AD14CB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 16703D6C1AACBAC700AD14CB /* AppDelegate.m */; };
+		16703D731AACBAC700AD14CB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 16703D711AACBAC700AD14CB /* Main.storyboard */; };
+		16703D751AACBAC700AD14CB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 16703D741AACBAC700AD14CB /* Images.xcassets */; };
+		16703D781AACBAC700AD14CB /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16703D761AACBAC700AD14CB /* LaunchScreen.xib */; };
+		16703D841AACBAC700AD14CB /* WebteamTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 16703D831AACBAC700AD14CB /* WebteamTests.m */; };
+		16703D911AACBB4100AD14CB /* BackgroundColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 16703D901AACBB4100AD14CB /* BackgroundColor.m */; };
+		16703D931AACBB6D00AD14CB /* Pictures in Resources */ = {isa = PBXBuildFile; fileRef = 16703D921AACBB6D00AD14CB /* Pictures */; };
+		168D433E1AB064A600AE9D5B /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 168D433B1AB064A600AE9D5B /* HomeViewController.m */; };
+		168D433F1AB064A600AE9D5B /* IdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 168D433D1AB064A600AE9D5B /* IdViewController.m */; };
+		1696302C1AB0ACED00E32622 /* WelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1696302B1AB0ACED00E32622 /* WelcomeViewController.m */; };
+		16B13A241AB1DDF000C11ADB /* NSData+NXOAuth2.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B13A1D1AB1DDF000C11ADB /* NSData+NXOAuth2.m */; };
+		16B13A251AB1DDF000C11ADB /* NSString+NXOAuth2.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B13A1F1AB1DDF000C11ADB /* NSString+NXOAuth2.m */; };
+		16B13A261AB1DDF000C11ADB /* NSURL+NXOAuth2.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B13A211AB1DDF000C11ADB /* NSURL+NXOAuth2.m */; };
+		16B13A3F1AB1DDFD00C11ADB /* NXOAuth2AccessToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B13A291AB1DDFD00C11ADB /* NXOAuth2AccessToken.m */; };
+		16B13A401AB1DDFD00C11ADB /* NXOAuth2Account.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B13A2B1AB1DDFD00C11ADB /* NXOAuth2Account.m */; };
+		16B13A411AB1DDFD00C11ADB /* NXOAuth2AccountStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B13A2D1AB1DDFD00C11ADB /* NXOAuth2AccountStore.m */; };
+		16B13A421AB1DDFD00C11ADB /* NXOAuth2Client.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B13A2F1AB1DDFD00C11ADB /* NXOAuth2Client.m */; };
+		16B13A431AB1DDFD00C11ADB /* NXOAuth2Connection.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B13A321AB1DDFD00C11ADB /* NXOAuth2Connection.m */; };
+		16B13A441AB1DDFD00C11ADB /* NXOAuth2Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B13A351AB1DDFD00C11ADB /* NXOAuth2Constants.m */; };
+		16B13A451AB1DDFD00C11ADB /* NXOAuth2FileStreamWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B13A371AB1DDFD00C11ADB /* NXOAuth2FileStreamWrapper.m */; };
+		16B13A461AB1DDFD00C11ADB /* NXOAuth2PostBodyPart.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B13A391AB1DDFD00C11ADB /* NXOAuth2PostBodyPart.m */; };
+		16B13A471AB1DDFD00C11ADB /* NXOAuth2PostBodyStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B13A3B1AB1DDFD00C11ADB /* NXOAuth2PostBodyStream.m */; };
+		16B13A481AB1DDFD00C11ADB /* NXOAuth2Request.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B13A3D1AB1DDFD00C11ADB /* NXOAuth2Request.m */; };
+		16B13A571AB4CBB700C11ADB /* ProfilViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B13A561AB4CBB700C11ADB /* ProfilViewController.m */; };
+		16B13A5A1AB52AD900C11ADB /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B13A591AB52AD900C11ADB /* SWRevealViewController.m */; };
+		16B13A5D1AB535B600C11ADB /* Background.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B13A5C1AB535B600C11ADB /* Background.m */; };
+		16B13A601AB615B000C11ADB /* MenuTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B13A5F1AB615B000C11ADB /* MenuTableViewController.m */; };
+		16C6FD441ABDD8AD007C6A65 /* UserDataUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 16C6FD431ABDD8AD007C6A65 /* UserDataUtilities.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		16703D7E1AACBAC700AD14CB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 16703D5C1AACBAC700AD14CB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 16703D631AACBAC700AD14CB;
+			remoteInfo = Webteam;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		16180CD71AC4C49A0028CA71 /* UIButtonCustomClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UIButtonCustomClass.h; path = Utilities/UIButtonCustomClass.h; sourceTree = "<group>"; };
+		16180CD81AC4C49A0028CA71 /* UIButtonCustomClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UIButtonCustomClass.m; path = Utilities/UIButtonCustomClass.m; sourceTree = "<group>"; };
+		16180CDA1AC4CE7C0028CA71 /* UIColorCustomClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UIColorCustomClass.h; path = Utilities/UIColorCustomClass.h; sourceTree = "<group>"; };
+		16180CDB1AC4CE7C0028CA71 /* UIColorCustomClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UIColorCustomClass.m; path = Utilities/UIColorCustomClass.m; sourceTree = "<group>"; };
+		16703D641AACBAC700AD14CB /* Webteam.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Webteam.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		16703D681AACBAC700AD14CB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		16703D691AACBAC700AD14CB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		16703D6B1AACBAC700AD14CB /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		16703D6C1AACBAC700AD14CB /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		16703D721AACBAC700AD14CB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		16703D741AACBAC700AD14CB /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		16703D771AACBAC700AD14CB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		16703D7D1AACBAC700AD14CB /* WebteamTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WebteamTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		16703D821AACBAC700AD14CB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		16703D831AACBAC700AD14CB /* WebteamTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WebteamTests.m; sourceTree = "<group>"; };
+		16703D8F1AACBB4100AD14CB /* BackgroundColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BackgroundColor.h; path = Utilities/BackgroundColor.h; sourceTree = "<group>"; };
+		16703D901AACBB4100AD14CB /* BackgroundColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BackgroundColor.m; path = Utilities/BackgroundColor.m; sourceTree = "<group>"; };
+		16703D921AACBB6D00AD14CB /* Pictures */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Pictures; sourceTree = "<group>"; };
+		168D433A1AB064A600AE9D5B /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HomeViewController.h; path = UIViewController/HomeViewController.h; sourceTree = "<group>"; };
+		168D433B1AB064A600AE9D5B /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HomeViewController.m; path = UIViewController/HomeViewController.m; sourceTree = "<group>"; };
+		168D433C1AB064A600AE9D5B /* IdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IdViewController.h; path = UIViewController/IdViewController.h; sourceTree = "<group>"; };
+		168D433D1AB064A600AE9D5B /* IdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IdViewController.m; path = UIViewController/IdViewController.m; sourceTree = "<group>"; };
+		1696302A1AB0ACED00E32622 /* WelcomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WelcomeViewController.h; path = UIViewController/WelcomeViewController.h; sourceTree = "<group>"; };
+		1696302B1AB0ACED00E32622 /* WelcomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WelcomeViewController.m; path = UIViewController/WelcomeViewController.m; sourceTree = "<group>"; };
+		16B13A1C1AB1DDF000C11ADB /* NSData+NXOAuth2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSData+NXOAuth2.h"; path = "Sources/NSData+NXOAuth2.h"; sourceTree = "<group>"; };
+		16B13A1D1AB1DDF000C11ADB /* NSData+NXOAuth2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSData+NXOAuth2.m"; path = "Sources/NSData+NXOAuth2.m"; sourceTree = "<group>"; };
+		16B13A1E1AB1DDF000C11ADB /* NSString+NXOAuth2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+NXOAuth2.h"; path = "Sources/NSString+NXOAuth2.h"; sourceTree = "<group>"; };
+		16B13A1F1AB1DDF000C11ADB /* NSString+NXOAuth2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+NXOAuth2.m"; path = "Sources/NSString+NXOAuth2.m"; sourceTree = "<group>"; };
+		16B13A201AB1DDF000C11ADB /* NSURL+NXOAuth2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSURL+NXOAuth2.h"; path = "Sources/NSURL+NXOAuth2.h"; sourceTree = "<group>"; };
+		16B13A211AB1DDF000C11ADB /* NSURL+NXOAuth2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSURL+NXOAuth2.m"; path = "Sources/NSURL+NXOAuth2.m"; sourceTree = "<group>"; };
+		16B13A221AB1DDF000C11ADB /* NXOAuth2Account+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NXOAuth2Account+Private.h"; path = "Sources/NXOAuth2Account+Private.h"; sourceTree = "<group>"; };
+		16B13A271AB1DDFD00C11ADB /* NXOAuth2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NXOAuth2.h; path = Sources/OAuth2Client/NXOAuth2.h; sourceTree = "<group>"; };
+		16B13A281AB1DDFD00C11ADB /* NXOAuth2AccessToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NXOAuth2AccessToken.h; path = Sources/OAuth2Client/NXOAuth2AccessToken.h; sourceTree = "<group>"; };
+		16B13A291AB1DDFD00C11ADB /* NXOAuth2AccessToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NXOAuth2AccessToken.m; path = Sources/OAuth2Client/NXOAuth2AccessToken.m; sourceTree = "<group>"; };
+		16B13A2A1AB1DDFD00C11ADB /* NXOAuth2Account.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NXOAuth2Account.h; path = Sources/OAuth2Client/NXOAuth2Account.h; sourceTree = "<group>"; };
+		16B13A2B1AB1DDFD00C11ADB /* NXOAuth2Account.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NXOAuth2Account.m; path = Sources/OAuth2Client/NXOAuth2Account.m; sourceTree = "<group>"; };
+		16B13A2C1AB1DDFD00C11ADB /* NXOAuth2AccountStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NXOAuth2AccountStore.h; path = Sources/OAuth2Client/NXOAuth2AccountStore.h; sourceTree = "<group>"; };
+		16B13A2D1AB1DDFD00C11ADB /* NXOAuth2AccountStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NXOAuth2AccountStore.m; path = Sources/OAuth2Client/NXOAuth2AccountStore.m; sourceTree = "<group>"; };
+		16B13A2E1AB1DDFD00C11ADB /* NXOAuth2Client.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NXOAuth2Client.h; path = Sources/OAuth2Client/NXOAuth2Client.h; sourceTree = "<group>"; };
+		16B13A2F1AB1DDFD00C11ADB /* NXOAuth2Client.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NXOAuth2Client.m; path = Sources/OAuth2Client/NXOAuth2Client.m; sourceTree = "<group>"; };
+		16B13A301AB1DDFD00C11ADB /* NXOAuth2ClientDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NXOAuth2ClientDelegate.h; path = Sources/OAuth2Client/NXOAuth2ClientDelegate.h; sourceTree = "<group>"; };
+		16B13A311AB1DDFD00C11ADB /* NXOAuth2Connection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NXOAuth2Connection.h; path = Sources/OAuth2Client/NXOAuth2Connection.h; sourceTree = "<group>"; };
+		16B13A321AB1DDFD00C11ADB /* NXOAuth2Connection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NXOAuth2Connection.m; path = Sources/OAuth2Client/NXOAuth2Connection.m; sourceTree = "<group>"; };
+		16B13A331AB1DDFD00C11ADB /* NXOAuth2ConnectionDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NXOAuth2ConnectionDelegate.h; path = Sources/OAuth2Client/NXOAuth2ConnectionDelegate.h; sourceTree = "<group>"; };
+		16B13A341AB1DDFD00C11ADB /* NXOAuth2Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NXOAuth2Constants.h; path = Sources/OAuth2Client/NXOAuth2Constants.h; sourceTree = "<group>"; };
+		16B13A351AB1DDFD00C11ADB /* NXOAuth2Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NXOAuth2Constants.m; path = Sources/OAuth2Client/NXOAuth2Constants.m; sourceTree = "<group>"; };
+		16B13A361AB1DDFD00C11ADB /* NXOAuth2FileStreamWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NXOAuth2FileStreamWrapper.h; path = Sources/OAuth2Client/NXOAuth2FileStreamWrapper.h; sourceTree = "<group>"; };
+		16B13A371AB1DDFD00C11ADB /* NXOAuth2FileStreamWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NXOAuth2FileStreamWrapper.m; path = Sources/OAuth2Client/NXOAuth2FileStreamWrapper.m; sourceTree = "<group>"; };
+		16B13A381AB1DDFD00C11ADB /* NXOAuth2PostBodyPart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NXOAuth2PostBodyPart.h; path = Sources/OAuth2Client/NXOAuth2PostBodyPart.h; sourceTree = "<group>"; };
+		16B13A391AB1DDFD00C11ADB /* NXOAuth2PostBodyPart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NXOAuth2PostBodyPart.m; path = Sources/OAuth2Client/NXOAuth2PostBodyPart.m; sourceTree = "<group>"; };
+		16B13A3A1AB1DDFD00C11ADB /* NXOAuth2PostBodyStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NXOAuth2PostBodyStream.h; path = Sources/OAuth2Client/NXOAuth2PostBodyStream.h; sourceTree = "<group>"; };
+		16B13A3B1AB1DDFD00C11ADB /* NXOAuth2PostBodyStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NXOAuth2PostBodyStream.m; path = Sources/OAuth2Client/NXOAuth2PostBodyStream.m; sourceTree = "<group>"; };
+		16B13A3C1AB1DDFD00C11ADB /* NXOAuth2Request.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NXOAuth2Request.h; path = Sources/OAuth2Client/NXOAuth2Request.h; sourceTree = "<group>"; };
+		16B13A3D1AB1DDFD00C11ADB /* NXOAuth2Request.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NXOAuth2Request.m; path = Sources/OAuth2Client/NXOAuth2Request.m; sourceTree = "<group>"; };
+		16B13A3E1AB1DDFD00C11ADB /* NXOAuth2TrustDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NXOAuth2TrustDelegate.h; path = Sources/OAuth2Client/NXOAuth2TrustDelegate.h; sourceTree = "<group>"; };
+		16B13A551AB4CBB700C11ADB /* ProfilViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProfilViewController.h; path = UIViewController/ProfilViewController.h; sourceTree = "<group>"; };
+		16B13A561AB4CBB700C11ADB /* ProfilViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProfilViewController.m; path = UIViewController/ProfilViewController.m; sourceTree = "<group>"; };
+		16B13A581AB52AD900C11ADB /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SWRevealViewController.h; path = Sources/SWRevealViewController/SWRevealViewController.h; sourceTree = "<group>"; };
+		16B13A591AB52AD900C11ADB /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SWRevealViewController.m; path = Sources/SWRevealViewController/SWRevealViewController.m; sourceTree = "<group>"; };
+		16B13A5B1AB535B600C11ADB /* Background.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Background.h; path = Utilities/Background.h; sourceTree = "<group>"; };
+		16B13A5C1AB535B600C11ADB /* Background.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Background.m; path = Utilities/Background.m; sourceTree = "<group>"; };
+		16B13A5E1AB615B000C11ADB /* MenuTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MenuTableViewController.h; path = UIViewController/MenuTableViewController.h; sourceTree = "<group>"; };
+		16B13A5F1AB615B000C11ADB /* MenuTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MenuTableViewController.m; path = UIViewController/MenuTableViewController.m; sourceTree = "<group>"; };
+		16C6FD421ABDD8AD007C6A65 /* UserDataUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserDataUtilities.h; path = Utilities/UserDataUtilities.h; sourceTree = "<group>"; };
+		16C6FD431ABDD8AD007C6A65 /* UserDataUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserDataUtilities.m; path = Utilities/UserDataUtilities.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		16703D611AACBAC700AD14CB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		16703D7A1AACBAC700AD14CB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		16703D5B1AACBAC700AD14CB = {
+			isa = PBXGroup;
+			children = (
+				16703D661AACBAC700AD14CB /* Webteam */,
+				16703D801AACBAC700AD14CB /* WebteamTests */,
+				16703D651AACBAC700AD14CB /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		16703D651AACBAC700AD14CB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				16703D641AACBAC700AD14CB /* Webteam.app */,
+				16703D7D1AACBAC700AD14CB /* WebteamTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		16703D661AACBAC700AD14CB /* Webteam */ = {
+			isa = PBXGroup;
+			children = (
+				16B13A1A1AB1DDCC00C11ADB /* Sources */,
+				16703D921AACBB6D00AD14CB /* Pictures */,
+				16703D8E1AACBAFB00AD14CB /* Utilities */,
+				16703D8D1AACBAE600AD14CB /* UIViewController */,
+				16703D6B1AACBAC700AD14CB /* AppDelegate.h */,
+				16703D6C1AACBAC700AD14CB /* AppDelegate.m */,
+				16703D711AACBAC700AD14CB /* Main.storyboard */,
+				16703D741AACBAC700AD14CB /* Images.xcassets */,
+				16703D761AACBAC700AD14CB /* LaunchScreen.xib */,
+				16703D671AACBAC700AD14CB /* Supporting Files */,
+			);
+			path = Webteam;
+			sourceTree = "<group>";
+		};
+		16703D671AACBAC700AD14CB /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				16703D681AACBAC700AD14CB /* Info.plist */,
+				16703D691AACBAC700AD14CB /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		16703D801AACBAC700AD14CB /* WebteamTests */ = {
+			isa = PBXGroup;
+			children = (
+				16703D831AACBAC700AD14CB /* WebteamTests.m */,
+				16703D811AACBAC700AD14CB /* Supporting Files */,
+			);
+			path = WebteamTests;
+			sourceTree = "<group>";
+		};
+		16703D811AACBAC700AD14CB /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				16703D821AACBAC700AD14CB /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		16703D8D1AACBAE600AD14CB /* UIViewController */ = {
+			isa = PBXGroup;
+			children = (
+				168D433A1AB064A600AE9D5B /* HomeViewController.h */,
+				168D433B1AB064A600AE9D5B /* HomeViewController.m */,
+				168D433C1AB064A600AE9D5B /* IdViewController.h */,
+				168D433D1AB064A600AE9D5B /* IdViewController.m */,
+				1696302A1AB0ACED00E32622 /* WelcomeViewController.h */,
+				1696302B1AB0ACED00E32622 /* WelcomeViewController.m */,
+				16B13A551AB4CBB700C11ADB /* ProfilViewController.h */,
+				16B13A561AB4CBB700C11ADB /* ProfilViewController.m */,
+				16B13A5E1AB615B000C11ADB /* MenuTableViewController.h */,
+				16B13A5F1AB615B000C11ADB /* MenuTableViewController.m */,
+			);
+			name = UIViewController;
+			sourceTree = "<group>";
+		};
+		16703D8E1AACBAFB00AD14CB /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				16703D8F1AACBB4100AD14CB /* BackgroundColor.h */,
+				16703D901AACBB4100AD14CB /* BackgroundColor.m */,
+				16B13A5B1AB535B600C11ADB /* Background.h */,
+				16B13A5C1AB535B600C11ADB /* Background.m */,
+				16C6FD421ABDD8AD007C6A65 /* UserDataUtilities.h */,
+				16C6FD431ABDD8AD007C6A65 /* UserDataUtilities.m */,
+				16180CD71AC4C49A0028CA71 /* UIButtonCustomClass.h */,
+				16180CD81AC4C49A0028CA71 /* UIButtonCustomClass.m */,
+				16180CDA1AC4CE7C0028CA71 /* UIColorCustomClass.h */,
+				16180CDB1AC4CE7C0028CA71 /* UIColorCustomClass.m */,
+			);
+			name = Utilities;
+			sourceTree = "<group>";
+		};
+		16B13A1A1AB1DDCC00C11ADB /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				16B13A491AB207A600C11ADB /* SWRevealViewController */,
+				16B13A1C1AB1DDF000C11ADB /* NSData+NXOAuth2.h */,
+				16B13A1D1AB1DDF000C11ADB /* NSData+NXOAuth2.m */,
+				16B13A1E1AB1DDF000C11ADB /* NSString+NXOAuth2.h */,
+				16B13A1F1AB1DDF000C11ADB /* NSString+NXOAuth2.m */,
+				16B13A201AB1DDF000C11ADB /* NSURL+NXOAuth2.h */,
+				16B13A211AB1DDF000C11ADB /* NSURL+NXOAuth2.m */,
+				16B13A221AB1DDF000C11ADB /* NXOAuth2Account+Private.h */,
+				16B13A1B1AB1DDD200C11ADB /* OAuthClient */,
+			);
+			name = Sources;
+			sourceTree = "<group>";
+		};
+		16B13A1B1AB1DDD200C11ADB /* OAuthClient */ = {
+			isa = PBXGroup;
+			children = (
+				16B13A271AB1DDFD00C11ADB /* NXOAuth2.h */,
+				16B13A281AB1DDFD00C11ADB /* NXOAuth2AccessToken.h */,
+				16B13A291AB1DDFD00C11ADB /* NXOAuth2AccessToken.m */,
+				16B13A2A1AB1DDFD00C11ADB /* NXOAuth2Account.h */,
+				16B13A2B1AB1DDFD00C11ADB /* NXOAuth2Account.m */,
+				16B13A2C1AB1DDFD00C11ADB /* NXOAuth2AccountStore.h */,
+				16B13A2D1AB1DDFD00C11ADB /* NXOAuth2AccountStore.m */,
+				16B13A2E1AB1DDFD00C11ADB /* NXOAuth2Client.h */,
+				16B13A2F1AB1DDFD00C11ADB /* NXOAuth2Client.m */,
+				16B13A301AB1DDFD00C11ADB /* NXOAuth2ClientDelegate.h */,
+				16B13A311AB1DDFD00C11ADB /* NXOAuth2Connection.h */,
+				16B13A321AB1DDFD00C11ADB /* NXOAuth2Connection.m */,
+				16B13A331AB1DDFD00C11ADB /* NXOAuth2ConnectionDelegate.h */,
+				16B13A341AB1DDFD00C11ADB /* NXOAuth2Constants.h */,
+				16B13A351AB1DDFD00C11ADB /* NXOAuth2Constants.m */,
+				16B13A361AB1DDFD00C11ADB /* NXOAuth2FileStreamWrapper.h */,
+				16B13A371AB1DDFD00C11ADB /* NXOAuth2FileStreamWrapper.m */,
+				16B13A381AB1DDFD00C11ADB /* NXOAuth2PostBodyPart.h */,
+				16B13A391AB1DDFD00C11ADB /* NXOAuth2PostBodyPart.m */,
+				16B13A3A1AB1DDFD00C11ADB /* NXOAuth2PostBodyStream.h */,
+				16B13A3B1AB1DDFD00C11ADB /* NXOAuth2PostBodyStream.m */,
+				16B13A3C1AB1DDFD00C11ADB /* NXOAuth2Request.h */,
+				16B13A3D1AB1DDFD00C11ADB /* NXOAuth2Request.m */,
+				16B13A3E1AB1DDFD00C11ADB /* NXOAuth2TrustDelegate.h */,
+			);
+			name = OAuthClient;
+			sourceTree = "<group>";
+		};
+		16B13A491AB207A600C11ADB /* SWRevealViewController */ = {
+			isa = PBXGroup;
+			children = (
+				16B13A581AB52AD900C11ADB /* SWRevealViewController.h */,
+				16B13A591AB52AD900C11ADB /* SWRevealViewController.m */,
+			);
+			name = SWRevealViewController;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		16703D631AACBAC700AD14CB /* Webteam */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 16703D871AACBAC700AD14CB /* Build configuration list for PBXNativeTarget "Webteam" */;
+			buildPhases = (
+				16703D601AACBAC700AD14CB /* Sources */,
+				16703D611AACBAC700AD14CB /* Frameworks */,
+				16703D621AACBAC700AD14CB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Webteam;
+			productName = Webteam;
+			productReference = 16703D641AACBAC700AD14CB /* Webteam.app */;
+			productType = "com.apple.product-type.application";
+		};
+		16703D7C1AACBAC700AD14CB /* WebteamTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 16703D8A1AACBAC700AD14CB /* Build configuration list for PBXNativeTarget "WebteamTests" */;
+			buildPhases = (
+				16703D791AACBAC700AD14CB /* Sources */,
+				16703D7A1AACBAC700AD14CB /* Frameworks */,
+				16703D7B1AACBAC700AD14CB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				16703D7F1AACBAC700AD14CB /* PBXTargetDependency */,
+			);
+			name = WebteamTests;
+			productName = WebteamTests;
+			productReference = 16703D7D1AACBAC700AD14CB /* WebteamTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		16703D5C1AACBAC700AD14CB /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0610;
+				ORGANIZATIONNAME = "Maximilien Rietsch";
+				TargetAttributes = {
+					16703D631AACBAC700AD14CB = {
+						CreatedOnToolsVersion = 6.1.1;
+					};
+					16703D7C1AACBAC700AD14CB = {
+						CreatedOnToolsVersion = 6.1.1;
+						TestTargetID = 16703D631AACBAC700AD14CB;
+					};
+				};
+			};
+			buildConfigurationList = 16703D5F1AACBAC700AD14CB /* Build configuration list for PBXProject "Webteam" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 16703D5B1AACBAC700AD14CB;
+			productRefGroup = 16703D651AACBAC700AD14CB /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				16703D631AACBAC700AD14CB /* Webteam */,
+				16703D7C1AACBAC700AD14CB /* WebteamTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		16703D621AACBAC700AD14CB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				16703D731AACBAC700AD14CB /* Main.storyboard in Resources */,
+				16703D781AACBAC700AD14CB /* LaunchScreen.xib in Resources */,
+				16703D751AACBAC700AD14CB /* Images.xcassets in Resources */,
+				16703D931AACBB6D00AD14CB /* Pictures in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		16703D7B1AACBAC700AD14CB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		16703D601AACBAC700AD14CB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				16B13A461AB1DDFD00C11ADB /* NXOAuth2PostBodyPart.m in Sources */,
+				16C6FD441ABDD8AD007C6A65 /* UserDataUtilities.m in Sources */,
+				16703D6D1AACBAC700AD14CB /* AppDelegate.m in Sources */,
+				16180CDC1AC4CE7C0028CA71 /* UIColorCustomClass.m in Sources */,
+				16B13A481AB1DDFD00C11ADB /* NXOAuth2Request.m in Sources */,
+				16B13A441AB1DDFD00C11ADB /* NXOAuth2Constants.m in Sources */,
+				16703D6A1AACBAC700AD14CB /* main.m in Sources */,
+				16B13A431AB1DDFD00C11ADB /* NXOAuth2Connection.m in Sources */,
+				16B13A251AB1DDF000C11ADB /* NSString+NXOAuth2.m in Sources */,
+				168D433F1AB064A600AE9D5B /* IdViewController.m in Sources */,
+				16B13A421AB1DDFD00C11ADB /* NXOAuth2Client.m in Sources */,
+				16B13A411AB1DDFD00C11ADB /* NXOAuth2AccountStore.m in Sources */,
+				16180CD91AC4C49A0028CA71 /* UIButtonCustomClass.m in Sources */,
+				16B13A571AB4CBB700C11ADB /* ProfilViewController.m in Sources */,
+				1696302C1AB0ACED00E32622 /* WelcomeViewController.m in Sources */,
+				16B13A471AB1DDFD00C11ADB /* NXOAuth2PostBodyStream.m in Sources */,
+				16B13A241AB1DDF000C11ADB /* NSData+NXOAuth2.m in Sources */,
+				16B13A5A1AB52AD900C11ADB /* SWRevealViewController.m in Sources */,
+				16B13A261AB1DDF000C11ADB /* NSURL+NXOAuth2.m in Sources */,
+				16703D911AACBB4100AD14CB /* BackgroundColor.m in Sources */,
+				16B13A451AB1DDFD00C11ADB /* NXOAuth2FileStreamWrapper.m in Sources */,
+				16B13A3F1AB1DDFD00C11ADB /* NXOAuth2AccessToken.m in Sources */,
+				168D433E1AB064A600AE9D5B /* HomeViewController.m in Sources */,
+				16B13A401AB1DDFD00C11ADB /* NXOAuth2Account.m in Sources */,
+				16B13A5D1AB535B600C11ADB /* Background.m in Sources */,
+				16B13A601AB615B000C11ADB /* MenuTableViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		16703D791AACBAC700AD14CB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				16703D841AACBAC700AD14CB /* WebteamTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		16703D7F1AACBAC700AD14CB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 16703D631AACBAC700AD14CB /* Webteam */;
+			targetProxy = 16703D7E1AACBAC700AD14CB /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		16703D711AACBAC700AD14CB /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				16703D721AACBAC700AD14CB /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		16703D761AACBAC700AD14CB /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				16703D771AACBAC700AD14CB /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		16703D851AACBAC700AD14CB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		16703D861AACBAC700AD14CB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		16703D881AACBAC700AD14CB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				GCC_PREFIX_HEADER = "";
+				INFOPLIST_FILE = Webteam/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		16703D891AACBAC700AD14CB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				GCC_PREFIX_HEADER = "";
+				INFOPLIST_FILE = Webteam/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		16703D8B1AACBAC700AD14CB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = WebteamTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Webteam.app/Webteam";
+			};
+			name = Debug;
+		};
+		16703D8C1AACBAC700AD14CB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = WebteamTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Webteam.app/Webteam";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		16703D5F1AACBAC700AD14CB /* Build configuration list for PBXProject "Webteam" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				16703D851AACBAC700AD14CB /* Debug */,
+				16703D861AACBAC700AD14CB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		16703D871AACBAC700AD14CB /* Build configuration list for PBXNativeTarget "Webteam" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				16703D881AACBAC700AD14CB /* Debug */,
+				16703D891AACBAC700AD14CB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		16703D8A1AACBAC700AD14CB /* Build configuration list for PBXNativeTarget "WebteamTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				16703D8B1AACBAC700AD14CB /* Debug */,
+				16703D8C1AACBAC700AD14CB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 16703D5C1AACBAC700AD14CB /* Project object */;
+}
