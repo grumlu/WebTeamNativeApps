@@ -6,10 +6,10 @@
 //  Copyright (c) 2015 Maximilien Rietsch. All rights reserved.
 //
 
-#import "BackgroundColor.h"
+#import "GradientColor.h"
 #import "UIColorCustomClass.h"
 
-@implementation BackgroundColor
+@implementation GradientColor
 
 //Metallic grey gradient background
 + (CAGradientLayer*) greyGradient {

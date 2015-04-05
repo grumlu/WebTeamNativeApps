@@ -15,7 +15,7 @@
 		16703D751AACBAC700AD14CB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 16703D741AACBAC700AD14CB /* Images.xcassets */; };
 		16703D781AACBAC700AD14CB /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16703D761AACBAC700AD14CB /* LaunchScreen.xib */; };
 		16703D841AACBAC700AD14CB /* WebteamTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 16703D831AACBAC700AD14CB /* WebteamTests.m */; };
-		16703D911AACBB4100AD14CB /* BackgroundColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 16703D901AACBB4100AD14CB /* BackgroundColor.m */; };
+		16703D911AACBB4100AD14CB /* GradientColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 16703D901AACBB4100AD14CB /* GradientColor.m */; };
 		16703D931AACBB6D00AD14CB /* Pictures in Resources */ = {isa = PBXBuildFile; fileRef = 16703D921AACBB6D00AD14CB /* Pictures */; };
 		168D433E1AB064A600AE9D5B /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 168D433B1AB064A600AE9D5B /* HomeViewController.m */; };
 		168D433F1AB064A600AE9D5B /* IdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 168D433D1AB064A600AE9D5B /* IdViewController.m */; };
@@ -38,6 +38,7 @@
 		16B13A5D1AB535B600C11ADB /* Background.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B13A5C1AB535B600C11ADB /* Background.m */; };
 		16B13A601AB615B000C11ADB /* MenuTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B13A5F1AB615B000C11ADB /* MenuTableViewController.m */; };
 		16C6FD441ABDD8AD007C6A65 /* UserDataUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 16C6FD431ABDD8AD007C6A65 /* UserDataUtilities.m */; };
+		16DEBFD31AD1E84300595A1C /* LinksTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 16DEBFD21AD1E84300595A1C /* LinksTableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,8 +67,8 @@
 		16703D7D1AACBAC700AD14CB /* WebteamTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WebteamTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		16703D821AACBAC700AD14CB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		16703D831AACBAC700AD14CB /* WebteamTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WebteamTests.m; sourceTree = "<group>"; };
-		16703D8F1AACBB4100AD14CB /* BackgroundColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BackgroundColor.h; path = Utilities/BackgroundColor.h; sourceTree = "<group>"; };
-		16703D901AACBB4100AD14CB /* BackgroundColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BackgroundColor.m; path = Utilities/BackgroundColor.m; sourceTree = "<group>"; };
+		16703D8F1AACBB4100AD14CB /* GradientColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GradientColor.h; path = Utilities/GradientColor.h; sourceTree = "<group>"; };
+		16703D901AACBB4100AD14CB /* GradientColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GradientColor.m; path = Utilities/GradientColor.m; sourceTree = "<group>"; };
 		16703D921AACBB6D00AD14CB /* Pictures */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Pictures; sourceTree = "<group>"; };
 		168D433A1AB064A600AE9D5B /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HomeViewController.h; path = UIViewController/HomeViewController.h; sourceTree = "<group>"; };
 		168D433B1AB064A600AE9D5B /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HomeViewController.m; path = UIViewController/HomeViewController.m; sourceTree = "<group>"; };
@@ -116,6 +117,8 @@
 		16B13A5F1AB615B000C11ADB /* MenuTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MenuTableViewController.m; path = UIViewController/MenuTableViewController.m; sourceTree = "<group>"; };
 		16C6FD421ABDD8AD007C6A65 /* UserDataUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserDataUtilities.h; path = Utilities/UserDataUtilities.h; sourceTree = "<group>"; };
 		16C6FD431ABDD8AD007C6A65 /* UserDataUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserDataUtilities.m; path = Utilities/UserDataUtilities.m; sourceTree = "<group>"; };
+		16DEBFD11AD1E84300595A1C /* LinksTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LinksTableViewController.h; path = UIViewController/LinksTableViewController.h; sourceTree = "<group>"; };
+		16DEBFD21AD1E84300595A1C /* LinksTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LinksTableViewController.m; path = UIViewController/LinksTableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -210,6 +213,8 @@
 				16B13A561AB4CBB700C11ADB /* ProfilViewController.m */,
 				16B13A5E1AB615B000C11ADB /* MenuTableViewController.h */,
 				16B13A5F1AB615B000C11ADB /* MenuTableViewController.m */,
+				16DEBFD11AD1E84300595A1C /* LinksTableViewController.h */,
+				16DEBFD21AD1E84300595A1C /* LinksTableViewController.m */,
 			);
 			name = UIViewController;
 			sourceTree = "<group>";
@@ -217,8 +222,8 @@
 		16703D8E1AACBAFB00AD14CB /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				16703D8F1AACBB4100AD14CB /* BackgroundColor.h */,
-				16703D901AACBB4100AD14CB /* BackgroundColor.m */,
+				16703D8F1AACBB4100AD14CB /* GradientColor.h */,
+				16703D901AACBB4100AD14CB /* GradientColor.m */,
 				16B13A5B1AB535B600C11ADB /* Background.h */,
 				16B13A5C1AB535B600C11ADB /* Background.m */,
 				16C6FD421ABDD8AD007C6A65 /* UserDataUtilities.h */,
@@ -403,11 +408,12 @@
 				16180CD91AC4C49A0028CA71 /* UIButtonCustomClass.m in Sources */,
 				16B13A571AB4CBB700C11ADB /* ProfilViewController.m in Sources */,
 				1696302C1AB0ACED00E32622 /* WelcomeViewController.m in Sources */,
+				16DEBFD31AD1E84300595A1C /* LinksTableViewController.m in Sources */,
 				16B13A471AB1DDFD00C11ADB /* NXOAuth2PostBodyStream.m in Sources */,
 				16B13A241AB1DDF000C11ADB /* NSData+NXOAuth2.m in Sources */,
 				16B13A5A1AB52AD900C11ADB /* SWRevealViewController.m in Sources */,
 				16B13A261AB1DDF000C11ADB /* NSURL+NXOAuth2.m in Sources */,
-				16703D911AACBB4100AD14CB /* BackgroundColor.m in Sources */,
+				16703D911AACBB4100AD14CB /* GradientColor.m in Sources */,
 				16B13A451AB1DDFD00C11ADB /* NXOAuth2FileStreamWrapper.m in Sources */,
 				16B13A3F1AB1DDFD00C11ADB /* NXOAuth2AccessToken.m in Sources */,
 				168D433E1AB064A600AE9D5B /* HomeViewController.m in Sources */,

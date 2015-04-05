@@ -8,6 +8,7 @@
 
 #import "WelcomeViewController.h"
 #import "SWRevealViewController.h"
+#import "GradientColor.h"
 
 @interface WelcomeViewController ()
 
@@ -30,6 +31,11 @@
         [openItem setTarget: self.revealViewController];
         [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
     }
+    
+    //---- setBackground ----
+    CAGradientLayer *bgLayer = [GradientColor pinkGradient];
+    bgLayer.frame = self.view.bounds;
+    [self.view.layer insertSublayer:bgLayer atIndex:0];
     
 }
 

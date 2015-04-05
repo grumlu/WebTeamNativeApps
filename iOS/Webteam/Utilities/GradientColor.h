@@ -10,7 +10,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import <UIKit/UIKit.h>
 
-@interface BackgroundColor : NSObject
+@interface GradientColor : NSObject
 
 +(CAGradientLayer*) greyGradient;
 +(CAGradientLayer*) pinkGradient;

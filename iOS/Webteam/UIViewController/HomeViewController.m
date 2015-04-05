@@ -76,7 +76,7 @@
     for (NXOAuth2Account *account in [[NXOAuth2AccountStore sharedStore] accounts]) {
         hasAccount = account;
     };
-    //NSLog(@"token : %@",hasAccount.accessToken.accessToken);
+    NSLog(@"token : %@",hasAccount.accessToken.accessToken);
     
     if (hasAccount) {
         return YES;

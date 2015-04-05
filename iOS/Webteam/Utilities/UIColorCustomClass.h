@@ -14,5 +14,6 @@
 +(UIColor*)customFusiaColor;
 +(UIColor*)customDarkGrayColor;
 +(UIColor*)customGrayColor;
++(UIColor*)customGrayBoderColor;
 
 @end

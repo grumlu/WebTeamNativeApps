@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "BackgroundColor.h"
 #import "Background.h"
 #import "UserDataUtilities.h"
 #import "UIButtonCustomClass.h"

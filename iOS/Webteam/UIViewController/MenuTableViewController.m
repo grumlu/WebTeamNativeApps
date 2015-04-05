@@ -7,7 +7,6 @@
 //
 
 #import "MenuTableViewController.h"
-#import "BackgroundColor.h"
 #import "NXOAuth2.h"
 #import "SWRevealViewController.h"
 #import "UIColorCustomClass.h"
@@ -27,7 +26,7 @@ static NSString * const AccountType = @"Webteam";
     self.view.backgroundColor = [UIColor customDarkGrayColor];
     
     //---- Set tableView ----
-    allItems = @{ @"Webteam" : @[@"Profil", @"Home", @"Cell1", @"Cell2", @"Cell3"],
+    allItems = @{ @"Webteam" : @[@"Profil", @"Home", @"Cell1", @"Cell2", @"Links"],
                   @"Session" : @[@"Close"]};
     webteamSection = [allItems allKeys];
     

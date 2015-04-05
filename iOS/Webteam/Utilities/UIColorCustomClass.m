@@ -30,4 +30,9 @@
     return [UIColor colorWithRed:(238/255.0) green:(238/255.0) blue:(238/255.0) alpha:1.0];
 }
 
++(UIColor*)customGrayBoderColor
+{
+    return [UIColor colorWithRed:205.0/255.0 green:205.0/255.0 blue:205.0/255.0 alpha:1.0];
+}
+
 @end
