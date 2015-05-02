@@ -15,15 +15,23 @@
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Common\BooleanToVisibilityConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Common\NavigationHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\NavigationService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Common\ObservableDictionary.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Common\RelayCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Common\SuspensionManager.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Model\UtilisateurAppli.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Resources\APICaligula.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Resources\APIWebTeam.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\WindowDimensionHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\LoginModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\AppUserModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Resources\APIWebTeam\Connection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Resources\APIWebTeam\Statics.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Resources\APIWebTeam\UserManagement.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Resources\ContinuationManager.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Resources\Utilisateur.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Resources\User.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModel\ViewModelBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModel\WebTeamViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModel\LoginViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)View\LoginViewHelper.cs" />
   </ItemGroup>
   <ItemGroup>

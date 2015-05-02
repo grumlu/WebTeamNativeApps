@@ -1,19 +1,19 @@
 ﻿<Page
-    x:Class="WebTeamWindows.LoginView"
+    x:Class="WebTeamWindows.View.LoginView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:WebTeamWindows"
+    xmlns:viewModel="using:WebTeamWindows.ViewModel"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    FontFamily="{StaticResource PhoneFontFamilyNormal}"
-    FontSize="{StaticResource TextStyleLargeFontSize}"
-    Foreground="{StaticResource PhoneForegroundBrush}"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+    xmlns:Interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:helpers="using:WebTeamWindows.Common"
     >
 
-
+    <Page.DataContext>
+        <viewModel:LoginViewModel />
+    </Page.DataContext>
     <!--LayoutRoot est la grille racine où tout le contenu de la page est placé-->
     <Grid x:Name="LayoutRoot">
         <Grid.Background>
@@ -28,34 +28,23 @@
                         <RowDefinition Height="*" />
                         <RowDefinition Height="auto" />
                     </Grid.RowDefinitions>
+
+
+                    
                     <StackPanel>
-                        <TextBlock Text="Via WeCAS" HorizontalAlignment="Center" Style="{StaticResource SubheaderTextBlockStyle}"/>
-                        <!--<TextBlock x:Uid="WT_USERNAME" HorizontalAlignment="Center" Margin="0 15 0 0" >
-                            <Run Text="WT_USERNAME"/>
-                        </TextBlock>
-                        <TextBox x:Name="login" KeyDown="login_KeyDown"/>
-                        <TextBlock x:Uid="WT_PASSWORD" HorizontalAlignment="Center" Margin="0 10 0 0">
-                            <Run Text="WT_PASSWORD"/>
-                        </TextBlock>
-                        <PasswordBox x:Name="password" KeyDown="password_KeyDown"/>
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 -17 -140 0">
-                            <TextBlock x:Uid="WT_REMEMBERPWD" Margin="0 15 0 0">
-                                <Run Text="WT_REMEMBERPWD" />
-                            </TextBlock>
-                            <CheckBox x:Name="rememberPassword" Margin="10 0 0 0" IsEnabled="False"/> 
-                        </StackPanel> -->
+                        <TextBlock Text="{Binding Username}" HorizontalAlignment="Center" Style="{StaticResource SubheaderTextBlockStyle}" TextAlignment="Center"/>
+                        
+                        <ProgressRing Background="Transparent" HorizontalAlignment="Center" Margin="0 70 0 0" IsActive="{Binding IsProgressRingActive}"/>
+                        
                     </StackPanel>
 
-                    <Button x:Name="Connexion" HorizontalAlignment="Center" Width="315" Grid.Row="1" Content="Connexion" Click="Connexion_Click" Background="Black" Margin="0 0 0 50"/>
-                </Grid>
-            </PivotItem>
-
-            <!--Élément deux de tableau croisé dynamique-->
-            <PivotItem Header="Caligula">
-                <Grid Margin="12 0 12 0">
-                    <StackPanel VerticalAlignment="Bottom">
-                        <!--<Button Name="ConnexionCaligula" HorizontalAlignment="Center" Width="315" Grid.Row="1" Content="Connexion" Click="ConnexionCaligula_Click" Background="Black"/>-->
-                    </StackPanel>
+                    <Button HorizontalAlignment="Center" Width="315" Grid.Row="1"
+                            Content="Connexion via WeCAS" IsEnabled="{Binding CanPerformAction}"
+                            Background="Black" Margin="0 0 0 50" Command="{Binding ConnectCommand}">
+                        <Interactivity:Interaction.Behaviors>
+                            <helpers:WindowDimensionBehavior WidthMultiple="1" WidthPercentage="0.8" />
+                        </Interactivity:Interaction.Behaviors>
+                    </Button>
                 </Grid>
             </PivotItem>
         </Pivot>
@@ -67,7 +56,7 @@
     <Page.BottomAppBar>
         <CommandBar>
             <CommandBar.SecondaryCommands>
-                <AppBarButton Label="paramètres / à propos" IsCompact="True" Click="SettingsAbout_ApplicationBarMenuItem_Click">
+                <AppBarButton Label="Disconnect" IsCompact="True" Command="{Binding DisconnectCommand}">
                 </AppBarButton>
             </CommandBar.SecondaryCommands>
         </CommandBar>

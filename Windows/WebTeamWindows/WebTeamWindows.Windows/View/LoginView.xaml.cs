@@ -21,41 +21,15 @@ namespace WebTeamWindows.View
         public LoginView()
         {
             this.InitializeComponent();
-            DataContext = new LoginViewModel();
         }
 
-
-        #region Boutons
-        private async void Connexion_Click(object sender, RoutedEventArgs e)
-        {
-            progressRingWebTeam.IsActive = true;
-
-            ERROR err = await APIWebTeam.CheckToken();
-
-            if (err != ERROR.NO_ERR)
-            {
-                progressRingWebTeam.IsActive = false;
-                return;
-            }
-
-            Utilisateur appUser = await APIWebTeam.GetUser();
-
-            this.Frame.Navigate(typeof(WebTeamView), appUser);
-
-        }
-        #endregion
-
-
-        private void SettingsAbout_ApplicationBarMenuItem_Click(object sender, RoutedEventArgs e)
-        {
-            //NavigationService.Navigate(new Uri("/Settings.xaml", UriKind.Relative));
-        }
-
+        /// <summary>
+        /// Les TextBlock ne prenant pas en compte les command, on doit ruser.
+        /// </summary>
         private void changeUser_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            APIWebTeam.Disconnect();
-
-            Connexion_Click(null, null);
+            ((LoginViewModel)WebTeamPanel.DataContext).Disconnect();
+            ((LoginViewModel)WebTeamPanel.DataContext).ConnectCommand.Execute(null);
         }
 
     }
