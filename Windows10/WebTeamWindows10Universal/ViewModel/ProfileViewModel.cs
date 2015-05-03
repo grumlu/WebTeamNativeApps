@@ -4,7 +4,7 @@ using Windows.UI.Xaml.Media.Imaging;
 
 namespace WebTeamWindows10Universal.ViewModel
 {
-    class WebTeamViewModel : ViewModelBase
+    class ProfileViewModel : ViewModelBase
     {
 
         ///Champs properties

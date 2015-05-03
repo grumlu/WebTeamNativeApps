@@ -38,8 +38,6 @@ namespace WebTeamWindows10Universal.Resources.APIWebTeam
             var httpResponseMessage = await httpClient.GetAsync(new Uri(request_url));
             string response = await httpResponseMessage.Content.ReadAsStringAsync();
 
-            System.Diagnostics.Debug.WriteLine(response);
-
             //lecture du JSON
             User user = ParseUser(response);
 
@@ -65,17 +63,18 @@ namespace WebTeamWindows10Universal.Resources.APIWebTeam
             User user = new User();
 
             user.email = (string)list["email"];
-            user.nom = (string)list["name"]["lastName"];
-            user.prenom = (string)list["name"]["firstName"];
+            user.nom = (string)list["last_name"];
+            user.prenom = (string)list["first_name"];
             user.numeroPortable = (string)list["phone"];
             user.adresse = (string)list["address"];
             user.groupe = (string)list["group"];
             user.id = (int)list["id"];
             user.pseudo = (string)list["username"];
             user.promo = (string)list["promo"];
-            user.avatarURL = (string)list["photo"];
 
-            user.dateDeNaissance = DateTime.ParseExact((string)list["birthday"]["date"], "yyyy-MM-dd hh:mm:ss", CultureInfo.InvariantCulture);
+            string strippedBirthdate = ((string)list["birthday"]).Substring(0, 10);
+            user.dateDeNaissance = DateTime.ParseExact(strippedBirthdate, "MM/dd/yyyy", CultureInfo.InvariantCulture);
+            //user.dateDeNaissance = DateTime.Parse((string)list["birthday"]);
 
             return user;
 
@@ -92,7 +91,7 @@ namespace WebTeamWindows10Universal.Resources.APIWebTeam
             if (await APIWebTeam.Connection.CheckTokenAsync() != ERROR.NO_ERR)
             {
                 APIWebTeam.Connection.Disconnect();
-                WebTeamWindows10Universal.Resources.NavigationService.Navigate(typeof(WebTeamWindows10Universal.View.LoginView));
+                (App.Current as App).NavigationService.Navigate(typeof(WebTeamWindows10Universal.View.LoginView));
                 return null;
             }
 

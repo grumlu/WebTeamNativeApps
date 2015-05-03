@@ -6,7 +6,6 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModels="using:WebTeamWindows10Universal.ViewModel"
-    FontSize="15"
     mc:Ignorable="d">
     <!--LayoutRoot est la grille racine où tout le contenu de la page est placé-->
     <Grid x:Name="LayoutRoot">
@@ -17,7 +16,7 @@
         <StackPanel VerticalAlignment="Center">
 
             <!-- Grille principale -->
-            <Grid Margin="39,90,39,0">
+            <Grid Margin="39,20,39,20">
 
                 <!-- Panneau identification Webteam -->
                 <Grid x:Name="WebTeamPanel" Grid.Row="1" Margin="12,0,12,0" Grid.ColumnSpan="2">
@@ -32,15 +31,15 @@
 
                     <StackPanel Grid.Column="0">
 
-                        <TextBlock Text="WebTeam" Margin="0 0 0 3" HorizontalAlignment="Center" Foreground="#FFF6E2E2" Style="{StaticResource HeaderTextBlockStyle}" />
-                        <TextBlock Text="{Binding Username}" HorizontalAlignment="Center" Style="{StaticResource SubheaderTextBlockStyle}" TextAlignment="Center"/>
+                        <TextBlock Text="WebTeam" Margin="0 0 0 3" HorizontalAlignment="Center" Style="{StaticResource HeaderTextBlockStyle}" />
+                        <TextBlock Text="{Binding Username}" HorizontalAlignment="Center" Style="{StaticResource SubtitleTextBlockStyle}" TextAlignment="Center"/>
 
-                        <ProgressRing HorizontalAlignment="Center" VerticalAlignment="Top" Height="61" Width="61" Margin="0,45,0,45" Foreground="Black" IsActive="{Binding IsProgressRingActive}" />
+                        <ProgressRing HorizontalAlignment="Center" VerticalAlignment="Top" Height="61" Width="61" Margin="0,45,0,35" Foreground="Black" IsActive="{Binding IsProgressRingActive}" />
                     </StackPanel>
 
                     <StackPanel Grid.Row="1" HorizontalAlignment="Center">
-                        <Button x:Name="Connexion" Width="240" Grid.Column="1" Content="Connexion via WeCAS"  Background="{ThemeResource ButtonBackgroundThemeBrush}" Command="{Binding ConnectCommand}" IsEnabled="{Binding CanPerformAction}" Foreground="{ThemeResource ButtonForegroundThemeBrush}" />
-                        <TextBlock  x:Name="changeUser" HorizontalAlignment="Center" Tapped="changeUser_Tapped" Margin="0 10 0 0" Visibility="{Binding IsChangeUsernameVisible}">Il y a erreur sur la personne?</TextBlock> 
+                        <Button x:Name="Connexion" Width="240" Grid.Column="1" Content="Connexion via WeCAS" Command="{Binding ConnectCommand}" IsEnabled="{Binding CanPerformAction}" />
+                        <TextBlock  x:Name="changeUser" HorizontalAlignment="Center" Tapped="changeUser_Tapped" Margin="0 15 0 0" Visibility="{Binding IsChangeUsernameVisible}">Il y a erreur sur la personne?</TextBlock>
                     </StackPanel>
                 </Grid>
 
@@ -59,11 +58,6 @@
                 </Grid> -->
             </Grid>
         </StackPanel>
-
-
-        <TextBlock x:Uid="AppVersion" x:Name="Version" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="5">
-    		<Run Text="APP_VERSION"/>
-        </TextBlock>
     </Grid>
 
 </Page>

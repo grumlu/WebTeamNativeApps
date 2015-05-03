@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -83,4 +84,55 @@ namespace WebTeamWindows10Universal.Resources
 			}
 		}
 	}
+
+    public class RelayCommand<T> : System.Windows.Input.ICommand
+    {
+        private readonly Action<T> m_Execute;
+        private readonly Func<T, bool> m_CanExecute;
+        public event EventHandler CanExecuteChanged;
+
+        public RelayCommand(Action<T> execute)
+            : this(execute, (x) => true)
+        { /* empty */ }
+
+        public RelayCommand(Action<T> execute, Func<T, bool> canexecute)
+        {
+            if (execute == null)
+                throw new ArgumentNullException("execute");
+            m_Execute = execute;
+            m_CanExecute = canexecute;
+        }
+
+        [DebuggerStepThrough]
+        public bool CanExecute(object p)
+        {
+            try
+            {
+                var _Value = (T)Convert.ChangeType(p, typeof(T));
+                return m_CanExecute == null ? true : m_CanExecute(_Value);
+            }
+            catch
+            {
+                Debugger.Break();
+                return false;
+            }
+        }
+
+        public void Execute(object p)
+        {
+            if (CanExecute(p))
+                try
+                {
+                    var _Value = (T)Convert.ChangeType(p, typeof(T));
+                    m_Execute(_Value);
+                }
+                catch { Debugger.Break(); }
+        }
+
+        public void RaiseCanExecuteChanged()
+        {
+            CanExecuteChanged?.Invoke(this, EventArgs.Empty);
+        }
+    }
+
 }

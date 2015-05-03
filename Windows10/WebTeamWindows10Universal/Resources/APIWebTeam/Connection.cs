@@ -163,10 +163,10 @@ namespace WebTeamWindows10Universal.Resources.APIWebTeam
         public static bool IsConnected()
         {
             var roamingSettings = Windows.Storage.ApplicationData.Current.RoamingSettings;
-
-            return (!(roamingSettings.Values["access_token"] == null) ||
-                (roamingSettings.Values["refresh_token"] == null) ||
-                (roamingSettings.Values["expiration_date"] == null));
+            
+            return ((roamingSettings.Values.ContainsKey("access_token") || 
+                roamingSettings.Values.ContainsKey("refresh_token") ||
+                roamingSettings.Values.ContainsKey("expiration_date")) );
         }
 
         /// <summary>

@@ -3,6 +3,12 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:WebTeamWindows10Universal"
-    RequestedTheme="Light">
+    xmlns:helpers="using:WebTeamWindows10Universal.Resources"
+    RequestedTheme="Dark">
+
+    <Application.Resources>
+        <helpers:BooleanToVisibilityConverter x:Key="TrueToVisibleConverter" />
+        <helpers:BooleanToVisibilityConverter x:Key="FalseToVisibleConverter" IsReversed="True" />
+    </Application.Resources>
 
 </Application>

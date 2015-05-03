@@ -2,9 +2,11 @@
 using WebTeamWindows10Universal.Model;
 using WebTeamWindows10Universal.Resources;
 using WebTeamWindows10Universal.Resources.APIWebTeam;
+using WebTeamWindows10Universal.Resources.NavigationService;
 using WebTeamWindows10Universal.View;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 
 namespace WebTeamWindows10Universal.ViewModel
 {
@@ -39,7 +41,13 @@ namespace WebTeamWindows10Universal.ViewModel
                         dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
 
                         {
-                            NavigationService.Navigate(typeof(WebTeamView));
+                            Frame frame = new Frame();
+                            frame.Language = Windows.Globalization.ApplicationLanguages.Languages[0];
+                            (App.Current as App).NavigationService = new NavigationService(frame);
+
+                            Window.Current.Content = new View.WebTeamShell(frame);
+
+                            //NavigationService.Navigate(typeof(WebTeamView));
                         });
                     }
 

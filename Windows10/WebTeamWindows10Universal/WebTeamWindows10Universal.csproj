@@ -103,19 +103,28 @@
     <Compile Include="Resources\APIWebTeam\UserManagement.cs" />
     <Compile Include="Resources\BooleanToVisibilityConverter.cs" />
     <Compile Include="Resources\NavigationHelper.cs" />
-    <Compile Include="Resources\NavigationService.cs" />
+    <Compile Include="Resources\NavigationService\INavigatable.cs" />
+    <Compile Include="Resources\NavigationService\NavigationEventArgs.cs" />
+    <Compile Include="Resources\NavigationService\NavigationFacade.cs" />
+    <Compile Include="Resources\NavigationService\NavigationService.cs" />
     <Compile Include="Resources\ObservableDictionary.cs" />
     <Compile Include="Resources\RelayCommand.cs" />
     <Compile Include="Resources\SuspensionManager.cs" />
     <Compile Include="Resources\User.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
-    <Compile Include="ViewModel\WebTeamViewModel.cs" />
+    <Compile Include="ViewModel\ProfileViewModel.cs" />
     <Compile Include="View\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\WebTeamView.xaml.cs">
-      <DependentUpon>WebTeamView.xaml</DependentUpon>
+    <Compile Include="View\SettingsPage.xaml.cs">
+      <DependentUpon>SettingsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\WebTeamShell.xaml.cs">
+      <DependentUpon>WebTeamShell.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ProfileView.xaml.cs">
+      <DependentUpon>ProfileView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -168,11 +177,23 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Styles\SplitViewStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\LoginView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="View\WebTeamView.xaml">
+    <Page Include="View\SettingsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\WebTeamShell.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ProfileView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
