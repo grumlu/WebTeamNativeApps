@@ -45,7 +45,7 @@ namespace WebTeamWindows10Universal.View
             frame.Navigated += (s, e) => update();
             this.Loaded += (s, e) => update();
             this.DataContext = this;
-            (App.Current as App).NavigationService.Navigate(typeof(WebTeamView));
+            (App.Current as App).NavigationService.Navigate(typeof(ProfileView));
         }
 
         // menu
@@ -65,7 +65,7 @@ namespace WebTeamWindows10Universal.View
             var nav = (App.Current as App).NavigationService;
 
             // when we nav home, clear history
-            if (type.Equals(typeof(View.WebTeamView)))
+            if (type.Equals(typeof(View.ProfileView)))
                 nav.ClearHistory();
 
             // navigate only to new pages

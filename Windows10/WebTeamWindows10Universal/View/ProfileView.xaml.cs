@@ -9,7 +9,7 @@ namespace WebTeamWindows10Universal.View
     /// <summary>
     /// Page affichant une collection groupée d'éléments.
     /// </summary>
-    public sealed partial class WebTeamView : Page
+    public sealed partial class ProfileView : Page
     {
         private NavigationHelper navigationHelper;
 
@@ -22,7 +22,7 @@ namespace WebTeamWindows10Universal.View
             get { return this.navigationHelper; }
         }
 
-        public WebTeamView()
+        public ProfileView()
         {
             this.InitializeComponent();
             this.navigationHelper = new NavigationHelper(this);
