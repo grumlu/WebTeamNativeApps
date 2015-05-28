@@ -18,6 +18,7 @@ namespace WebTeamWindows10Universal.Resources.APIWebTeam
 
     /// <summary>
     /// Ensemble d'informations statiques (adresses, clefs, ...)
+    /// Voir https://webteam.ensea.fr/api/doc/ pour plus d'informations (si l'adresse n'a pas changé)
     /// </summary>
     static class Statics
     {
@@ -51,6 +52,26 @@ namespace WebTeamWindows10Universal.Resources.APIWebTeam
         public static string WTProfileUrlByID(int id)
         {
             return "https://webteam.ensea.fr/api/users/" + id;
+        }
+
+        /// <summary>
+        /// Demande d'une page d'article par numéro de page
+        /// </summary>
+        /// <param name="number"></param>
+        /// <returns></returns>
+        public static string WTArticlePageUrl(int number)
+        {
+            return "https://webteam.ensea.fr/api/article/page/" + number;
+        }
+
+        /// <summary>
+        /// Demande d'article avec son ID
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public static string WTArticleUrlByID(int id)
+        {
+            return "https://webteam.ensea.fr/api/articles" + id;
         }
 
         public static string WTClientID = "2_49cibza0l4kkwcgs8cw0cw4kok0g04oc0wcss8cc4gccockgww";

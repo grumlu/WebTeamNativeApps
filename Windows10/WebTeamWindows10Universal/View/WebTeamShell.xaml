@@ -61,7 +61,7 @@
                     <!-- Accueil / News -->
                     <RadioButton Command="{Binding NavCommand}" Content="Accueil" GroupName="Nav">
                         <RadioButton.CommandParameter>
-                            <views:NavType Type="views:ProfileView" />
+                            <views:NavType Type="views:NewsView" />
                         </RadioButton.CommandParameter>
                         <RadioButton.Tag>
                             <TextBlock Text="" />

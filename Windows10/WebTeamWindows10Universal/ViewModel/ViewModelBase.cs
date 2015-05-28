@@ -16,5 +16,7 @@ namespace WebTeamWindows10Universal.ViewModel
             }
         }
 
+        protected bool _isInDesignMode = Windows.ApplicationModel.DesignMode.DesignModeEnabled;
+
     }
 }

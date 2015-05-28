@@ -6,19 +6,6 @@ namespace WebTeamWindows10Universal.ViewModel
 {
     class ProfileViewModel : ViewModelBase
     {
-
-        ///Champs properties
-        public string Title
-        {
-            get
-            {
-                return "WebTeam";
-            }
-        }
-    }
-
-    class AppUserViewModel : ViewModelBase
-    {
         AppUserModel _user;
 
         public string Title
@@ -26,7 +13,7 @@ namespace WebTeamWindows10Universal.ViewModel
             get { return "Profil"; }
         }
 
-        public AppUserViewModel()
+        public ProfileViewModel()
         {
             IsLoaded = false;
             _user = new AppUserModel();

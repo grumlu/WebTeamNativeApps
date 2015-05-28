@@ -45,7 +45,7 @@ namespace WebTeamWindows10Universal.View
             frame.Navigated += (s, e) => update();
             this.Loaded += (s, e) => update();
             this.DataContext = this;
-            (App.Current as App).NavigationService.Navigate(typeof(ProfileView));
+            (App.Current as App).NavigationService.Navigate(typeof(NewsView));
         }
 
         // menu

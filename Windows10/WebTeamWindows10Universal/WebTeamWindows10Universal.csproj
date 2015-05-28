@@ -95,6 +95,8 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\AppUserModel.cs" />
+    <Compile Include="Resources\APIWebTeam\NewsManagment.cs" />
+    <Compile Include="Resources\Article.cs" />
     <Compile Include="Model\LoginModel.cs" />
     <Compile Include="Model\UtilisateurAppli.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -112,10 +114,14 @@
     <Compile Include="Resources\SuspensionManager.cs" />
     <Compile Include="Resources\User.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
+    <Compile Include="ViewModel\NewsViewModel.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
     <Compile Include="ViewModel\ProfileViewModel.cs" />
     <Compile Include="View\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\NewsView.xaml.cs">
+      <DependentUpon>NewsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
@@ -184,6 +190,10 @@
     <Page Include="View\LoginView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\NewsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\SettingsPage.xaml">
       <SubType>Designer</SubType>

@@ -19,17 +19,16 @@
     <!--
         Cette grille sert de panneau racine à la page.
     -->
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Margin="15 20 0 0">
         <Grid.ChildrenTransitions>
             <TransitionCollection>
                 <EntranceThemeTransition/>
-                <PopupThemeTransition />
             </TransitionCollection>
         </Grid.ChildrenTransitions>
 
-        <StackPanel Margin="15 20 0 0">
+        <StackPanel>
             <StackPanel.DataContext>
-                <viewmodels:AppUserViewModel />
+                <viewmodels:ProfileViewModel />
             </StackPanel.DataContext>
             <TextBlock Text="{Binding Title}" Style="{StaticResource HeaderTextBlockStyle}" />
 
