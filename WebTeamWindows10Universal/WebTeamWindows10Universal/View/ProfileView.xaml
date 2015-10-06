@@ -19,12 +19,7 @@
     <!--
         Cette grille sert de panneau racine à la page.
     -->
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Margin="15 20 0 0">
-        <Grid.ChildrenTransitions>
-            <TransitionCollection>
-                <EntranceThemeTransition/>
-            </TransitionCollection>
-        </Grid.ChildrenTransitions>
+    <Grid x:Name="ProfileGrid" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Margin="15 20 0 0">
 
         <StackPanel>
             <StackPanel.DataContext>

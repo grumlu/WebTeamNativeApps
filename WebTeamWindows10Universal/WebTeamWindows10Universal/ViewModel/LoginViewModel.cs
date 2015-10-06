@@ -36,9 +36,8 @@ namespace WebTeamWindows10Universal.ViewModel
                     CanPerformAction = true;
                     if (err == ERROR.NO_ERR)
                     {
-                        var dispatcher = Window.Current.Dispatcher;
 #pragma warning disable CS4014 // Dans la mesure où cet appel n'est pas attendu, l'exécution de la méthode actuelle continue avant la fin de l'appel
-                        dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+                        DispatchService.Invoke(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
 
                         {
                             Frame frame = new Frame();
@@ -54,8 +53,7 @@ namespace WebTeamWindows10Universal.ViewModel
                 }
                 catch (Exception excep)
                 {
-                    var dispatcher = Window.Current.Dispatcher;
-                    dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
+                    DispatchService.Invoke(Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
                     {
                         string errMsg = "Une erreur est survenue :\n" + excep.StackTrace.ToString();
                         MessageDialog dialog = new MessageDialog(errMsg);

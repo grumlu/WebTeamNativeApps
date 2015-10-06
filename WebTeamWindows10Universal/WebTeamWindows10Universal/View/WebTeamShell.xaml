@@ -7,9 +7,6 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-
-
-
     <Page.Resources>
 
         <ResourceDictionary>
@@ -43,7 +40,8 @@
                 <ScrollViewer Grid.Row="0" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto">
                     <StackPanel>
 
-                        <!-- back --><!--
+                        <!-- back -->
+                        <!--
                         <RadioButton Checked="DontCheck" Command="{Binding BackCommand}"  Background="{StaticResource SystemControlBackgroundAccentBrush}">
                             <RadioButton.Tag>
                                 <TextBlock Text="{StaticResource BackButtonText}" FontSize="{StaticResource SplitViewLargeNavFontSize}" />
@@ -119,11 +117,21 @@
                 </StackPanel>
 
                 <StackPanel Grid.Row="2">
-
+                    
+                    <!-- Fuse -->
+                    <RadioButton Command="{Binding NavCommand}" Content="Radio FUSE" GroupName="Nav">
+                        <RadioButton.CommandParameter>
+                            <views:NavType Type="views:FUSEView" />
+                        </RadioButton.CommandParameter>
+                        <RadioButton.Tag>
+                            <TextBlock Text="" />
+                        </RadioButton.Tag>
+                    </RadioButton>
+                    
                     <!-- settings -->
                     <RadioButton Command="{Binding NavCommand}" Content="Settings" GroupName="Nav">
                         <RadioButton.CommandParameter>
-                            <views:NavType Type="views:SettingsPage" />
+                            <views:NavType Type="views:SettingsView" />
                         </RadioButton.CommandParameter>
                         <RadioButton.Tag>
                             <TextBlock Text="" />

@@ -22,6 +22,8 @@ namespace WebTeamWindows10Universal.View
             this.InitializeComponent();
             this.navigationHelper = new NavigationHelper(this);
             this.navigationHelper.LoadState += navigationHelper_LoadState;
+
+            WebTeamWindows10Universal.Resources.APIWebTeam.NewsManagment.GetArticlesListOnPage(0);
         }
 
 

@@ -100,6 +100,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\AppUserModel.cs" />
+    <Compile Include="Model\FUSEModel.cs" />
     <Compile Include="Model\LoginModel.cs" />
     <Compile Include="Model\UtilisateurAppli.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -109,6 +110,7 @@
     <Compile Include="Resources\APIWebTeam\UserManagement.cs" />
     <Compile Include="Resources\Article.cs" />
     <Compile Include="Resources\BooleanToVisibilityConverter.cs" />
+    <Compile Include="Resources\DispatchService.cs" />
     <Compile Include="Resources\NavigationHelper.cs" />
     <Compile Include="Resources\NavigationService\INavigatable.cs" />
     <Compile Include="Resources\NavigationService\NavigationEventArgs.cs" />
@@ -118,6 +120,7 @@
     <Compile Include="Resources\RelayCommand.cs" />
     <Compile Include="Resources\SuspensionManager.cs" />
     <Compile Include="Resources\User.cs" />
+    <Compile Include="ViewModel\FUSEViewModel.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\NewsViewModel.cs" />
     <Compile Include="ViewModel\ProfileViewModel.cs" />
@@ -131,8 +134,11 @@
     <Compile Include="View\ProfileView.xaml.cs">
       <DependentUpon>ProfileView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\SettingsPage.xaml.cs">
-      <DependentUpon>SettingsPage.xaml</DependentUpon>
+    <Compile Include="View\FUSEView.xaml.cs">
+      <DependentUpon>FUSEView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\SettingsView.xaml.cs">
+      <DependentUpon>SettingsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\WebTeamShell.xaml.cs">
       <DependentUpon>WebTeamShell.xaml</DependentUpon>
@@ -146,6 +152,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Background.png" />
+    <Content Include="Assets\FUSElogo.jpg" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
@@ -176,7 +183,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="View\SettingsPage.xaml">
+    <Page Include="View\FUSEView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\SettingsView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -184,6 +195,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WebteamUAPBackgroundAudioShared\WebteamUAPBackgroundAudioShared.csproj">
+      <Project>{62c43640-d9fb-41b8-81b7-a02be8facd09}</Project>
+      <Name>WebteamUAPBackgroundAudioShared</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WebTeamUAPBackgroundAudioTask\WebTeamUAPBackgroundAudioTask.csproj">
+      <Project>{b704abfe-0177-4e65-8f17-ff0b673215b6}</Project>
+      <Name>WebTeamUAPBackgroundAudioTask</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
