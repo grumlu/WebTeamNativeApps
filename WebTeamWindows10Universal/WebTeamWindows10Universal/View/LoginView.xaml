@@ -1,0 +1,85 @@
+﻿<Page
+    x:Class="WebTeamWindows10Universal.View.LoginView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:WebTeamWindows10Universal"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModels="using:WebTeamWindows10Universal.ViewModel"
+    mc:Ignorable="d">
+
+
+    <Page.Transitions>
+        <TransitionCollection>
+            <NavigationThemeTransition>
+                <NavigationThemeTransition.DefaultNavigationTransitionInfo>
+                    <SuppressNavigationTransitionInfo />
+                </NavigationThemeTransition.DefaultNavigationTransitionInfo>
+            </NavigationThemeTransition>
+        </TransitionCollection>
+    </Page.Transitions>
+
+    <!--LayoutRoot est la grille racine où tout le contenu de la page est placé-->
+    <Grid x:Name="LayoutRoot">
+        <Grid.Background>
+            <ImageBrush ImageSource="/Assets/Background.png" Stretch="UniformToFill" AlignmentX="Left"/>
+        </Grid.Background>
+
+        <StackPanel VerticalAlignment="Center">
+
+            <!-- Grille principale -->
+            <Grid Margin="39,20,39,20">
+
+                <!-- Panneau identification Webteam -->
+                <Grid x:Name="WebTeamPanel" Grid.Row="1" Margin="12,0,12,0" Grid.ColumnSpan="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.DataContext>
+                        <viewModels:LoginViewModel/>
+                    </Grid.DataContext>
+
+
+                    <StackPanel Grid.Column="0">
+                        <StackPanel.Transitions>
+                            <TransitionCollection>
+                                <EntranceThemeTransition FromVerticalOffset="50" FromHorizontalOffset="0" />
+                            </TransitionCollection>
+                        </StackPanel.Transitions>
+
+                        <TextBlock Text="WebTeam" Margin="0 0 0 3" HorizontalAlignment="Center" Style="{StaticResource HeaderTextBlockStyle}" />
+                        <TextBlock Text="{Binding Username}" HorizontalAlignment="Center" Style="{StaticResource SubtitleTextBlockStyle}" TextAlignment="Center"/>
+
+                        <ProgressRing HorizontalAlignment="Center" VerticalAlignment="Top" Height="61" Width="61" Margin="0,45,0,35" Foreground="Black" IsActive="{Binding IsProgressRingActive}" />
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="1" HorizontalAlignment="Center">
+                        <StackPanel.Transitions>
+                            <TransitionCollection>
+                                <EntranceThemeTransition FromVerticalOffset="-50" FromHorizontalOffset="0" />
+                            </TransitionCollection>
+                        </StackPanel.Transitions>
+                        <Button x:Name="Connexion" Width="240" Grid.Column="1" Content="Connexion via WeCAS" Command="{Binding ConnectCommand}" IsEnabled="{Binding CanPerformAction}" />
+                        <TextBlock  x:Name="changeUser" HorizontalAlignment="Center" Tapped="changeUser_Tapped" Margin="0 15 0 0" Visibility="{Binding IsChangeUsernameVisible}">Il y a erreur sur la personne?</TextBlock>
+                    </StackPanel>
+                </Grid>
+
+                <!--Élément deux de tableau croisé dynamique-->
+
+                <!--  <Grid Margin="12 0 12 0" Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+                    <TextBlock FontSize="70" Margin="0 0 0 0" HorizontalAlignment="Center" Style="{StaticResource SubtitleTextBlockStyle}">
+    						<Run Text="Caligula"/>
+                    </TextBlock>
+                    <Button x:Name="ConnexionCaligula" Grid.Row="1" Width="auto" Content="Connexion" Click="ConnexionCaligula_Click" Background="Black" HorizontalAlignment="Center"/>
+
+                </Grid> -->
+            </Grid>
+        </StackPanel>
+    </Grid>
+
+</Page>
