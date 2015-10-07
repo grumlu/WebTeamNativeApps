@@ -74,6 +74,12 @@ namespace WebTeamWindows10Universal.Model
             Debug.WriteLine("Play button pressed from App");
 
             StartBackgroundAudioTask();
+
+            //meElement.Play();
+            //smtc = BackgroundMediaPlayer.Current.SystemMediaTransportControls;
+            //smtc.IsPlayEnabled = true;
+            //smtc.IsPauseEnabled = true;
+            //smtc.IsStopEnabled = true;
         }
 
         public void Pause()
