@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using WebTeamWindows10Universal.Resources;
+using WebTeamWindows10Universal.ViewModel;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Core;
@@ -28,7 +30,7 @@ namespace WebTeamWindows10Universal.View
         {
             this.InitializeComponent();
             this.ShellSplitView.Content = frame;
-            var update = new Action(() =>
+            Action update = new Action(() =>
             {
                 // update radiobuttons after frame navigates
                 var type = frame.CurrentSourcePageType;
@@ -40,6 +42,14 @@ namespace WebTeamWindows10Universal.View
                     radioButton.IsChecked = target.Type.Equals(type);
                 }
                 this.ShellSplitView.IsPaneOpen = false;
+                switch (frame.CurrentSourcePageType.Name)
+                {
+                    case "NewsView": PageHeader.Text = "Actualités"; break;
+                    case "ProfileView": PageHeader.Text = "Profil"; break;
+                    case "SettingsView": PageHeader.Text = "Paramètres"; break;
+                    case "FUSEView": PageHeader.Text = "Player Radio FUSE"; break;
+                    default: PageHeader.Text = "En construction..."; break;
+                }
                 this.BackCommand.RaiseCanExecuteChanged();
             });
             frame.Navigated += (s, e) => update();
