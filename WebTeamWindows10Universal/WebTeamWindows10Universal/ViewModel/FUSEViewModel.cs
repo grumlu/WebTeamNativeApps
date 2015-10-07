@@ -13,13 +13,6 @@ namespace WebTeamWindows10Universal.ViewModel
 {
     class FUSEViewModel : ViewModelBase
     {
-
-
-        public string Title
-        {
-            get { return "Radio FUSE Player"; }
-        }
-
         private FUSEModel fuseModel = new FUSEModel();
 
         public RelayCommand PlayCommand { get; set; }

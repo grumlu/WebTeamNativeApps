@@ -39,7 +39,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <!--Menu bar on top-->
-        <StackPanel Grid.Row="0" Orientation="Horizontal">
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Background="#333">
             <!-- hamburger -->
             <Button x:Name="HamburgerButton" Command="{Binding MenuCommand}" Width="48" Height="48" Background="{StaticResource SplitViewBackgroundBrush}">
                 <TextBlock Text="{StaticResource MenuButtonText}" FontSize="{StaticResource SplitViewLargeNavFontSize}"/>

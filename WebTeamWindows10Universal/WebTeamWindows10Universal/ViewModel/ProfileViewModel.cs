@@ -4,14 +4,9 @@ using Windows.UI.Xaml.Media.Imaging;
 
 namespace WebTeamWindows10Universal.ViewModel
 {
-    class ProfileViewModel : PageViewModel
+    class ProfileViewModel : ViewModelBase
     {
         AppUserModel _user;
-
-        public override string PageTitle
-        {
-            get { return "Profil"; }
-        }
 
         public ProfileViewModel()
         {

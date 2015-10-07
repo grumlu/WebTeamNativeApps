@@ -125,7 +125,6 @@
     <Compile Include="ViewModel\FUSEViewModel.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\NewsViewModel.cs" />
-    <Compile Include="ViewModel\PageViewModel.cs" />
     <Compile Include="ViewModel\ProfileViewModel.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
     <Compile Include="View\LoginView.xaml.cs">

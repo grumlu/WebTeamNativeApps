@@ -28,7 +28,7 @@ namespace WebTeamWindows10Universal.Resources.APIWebTeam
             //Récupération de l'user qu'on veut
             if (id != -1)
                 request_url += "s/id";
-                
+
             request_url += "?";
             request_url += "access_token" + "=" + roamingSettings.Values["access_token"];
 
@@ -72,8 +72,15 @@ namespace WebTeamWindows10Universal.Resources.APIWebTeam
             user.pseudo = (string)list["username"];
             user.promo = (string)list["promo"];
 
-            string strippedBirthdate = ((string)list["birthday"]).Substring(0, 10);
-            user.dateDeNaissance = DateTime.ParseExact(strippedBirthdate, "MM/dd/yyyy", CultureInfo.InvariantCulture);
+            //Parse de la date de naissance sans l'heure (fournie également par la WT)
+            //Obligé de le faire à la main à cause des dates "exotiques" fournies par la WT
+            string[] strippedBirthdateToken = ((string)list["birthday"]).Substring(0, 10).Split('/');
+            user.dateDeNaissance = new DateTime();
+            user.dateDeNaissance.AddMonths(int.Parse(strippedBirthdateToken[0]));
+            user.dateDeNaissance.AddDays(int.Parse(strippedBirthdateToken[1]));
+            user.dateDeNaissance.AddYears(int.Parse(strippedBirthdateToken[2]));
+            
+            //user.dateDeNaissance = DateTime.ParseExact(strippedBirthdate, "MM/dd/yyyy", CultureInfo.InvariantCulture);
             //user.dateDeNaissance = DateTime.Parse((string)list["birthday"]);
 
             return user;

@@ -12,7 +12,6 @@ namespace WebTeamWindows10Universal.ViewModel
 {
     class LoginViewModel : ViewModelBase
     {
-
         private LoginModel loginModel;
 
         public RelayCommand ConnectCommand { get; set; }
