@@ -8,15 +8,16 @@ using WebTeamWindows10Universal.Resources;
 
 namespace WebTeamWindows10Universal.ViewModel
 {
-    class NewsViewModel : ViewModelBase
+    class NewsViewModel : PageViewModel
     {
-        public string Title
+        public override string PageTitle
         {
             get { return "Actualités"; }
         }
 
         public NewsViewModel()
         {
+            RaisePropertyChanged("PageTitle");
             GetArticles();
         }
 

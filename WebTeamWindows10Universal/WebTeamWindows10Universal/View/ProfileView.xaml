@@ -25,7 +25,6 @@
             <StackPanel.DataContext>
                 <viewmodels:ProfileViewModel />
             </StackPanel.DataContext>
-            <TextBlock Text="{Binding Title}" Style="{StaticResource HeaderTextBlockStyle}" />
 
             <Grid>
                 <Grid>

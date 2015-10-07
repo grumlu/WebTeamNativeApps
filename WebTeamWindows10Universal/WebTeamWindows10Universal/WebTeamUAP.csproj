@@ -118,11 +118,14 @@
     <Compile Include="Resources\NavigationService\NavigationService.cs" />
     <Compile Include="Resources\ObservableDictionary.cs" />
     <Compile Include="Resources\RelayCommand.cs" />
+    <Compile Include="Resources\StateTriggers\DeviceFamilyStateTrigger.cs" />
+    <Compile Include="Resources\StateTriggers\ITriggerValue.cs" />
     <Compile Include="Resources\SuspensionManager.cs" />
     <Compile Include="Resources\User.cs" />
     <Compile Include="ViewModel\FUSEViewModel.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\NewsViewModel.cs" />
+    <Compile Include="ViewModel\PageViewModel.cs" />
     <Compile Include="ViewModel\ProfileViewModel.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
     <Compile Include="View\LoginView.xaml.cs">

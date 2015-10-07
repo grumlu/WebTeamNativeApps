@@ -82,35 +82,22 @@ namespace WebTeamUAPBackgroundAudioTask
         {
             // You get some time here to save your state before process and resources are reclaimed
             Debug.WriteLine("MyBackgroundAudioTask " + sender.Task.TaskId + " Cancel Requested...");
-            //try
-            //{
-            //    // immediately set not running
-            //    backgroundTaskStarted.Reset();
+            try
+            {
+                // immediately set not running
+                backgroundTaskStarted.Reset();
 
-            //    // save state
-            //    ApplicationSettingsHelper.SaveSettingsValue(ApplicationSettingsConstants.TrackId, GetCurrentTrackId() == null ? null : GetCurrentTrackId().ToString());
-            //    ApplicationSettingsHelper.SaveSettingsValue(ApplicationSettingsConstants.Position, BackgroundMediaPlayer.Current.Position.ToString());
-            //    ApplicationSettingsHelper.SaveSettingsValue(ApplicationSettingsConstants.BackgroundTaskState, BackgroundTaskState.Canceled.ToString());
-            //    ApplicationSettingsHelper.SaveSettingsValue(ApplicationSettingsConstants.AppState, Enum.GetName(typeof(AppState), foregroundAppState));
+                // unsubscribe event handlers
+                BackgroundMediaPlayer.MessageReceivedFromForeground -= BackgroundMediaPlayer_MessageReceivedFromForeground;
+                smtc.ButtonPressed -= smtc_ButtonPressed;
+                smtc.PropertyChanged -= smtc_PropertyChanged;
 
-            //    // unsubscribe from list changes
-            //    if (playbackList != null)
-            //    {
-            //        playbackList.CurrentItemChanged -= PlaybackList_CurrentItemChanged;
-            //        playbackList = null;
-            //    }
-
-            //    // unsubscribe event handlers
-            //    BackgroundMediaPlayer.MessageReceivedFromForeground -= BackgroundMediaPlayer_MessageReceivedFromForeground;
-            //    smtc.ButtonPressed -= smtc_ButtonPressed;
-            //    smtc.PropertyChanged -= smtc_PropertyChanged;
-
-            //    BackgroundMediaPlayer.Shutdown(); // shutdown media pipeline
-            //}
-            //catch (Exception ex)
-            //{
-            //    Debug.WriteLine(ex.ToString());
-            //}
+                BackgroundMediaPlayer.Shutdown(); // shutdown media pipeline
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.ToString());
+            }
             deferral.Complete(); // signals task completion. 
             Debug.WriteLine("MyBackgroundAudioTask Cancel complete...");
         }
