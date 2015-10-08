@@ -8,12 +8,32 @@
     mc:Ignorable="d">
 
     <Grid Margin="0 0 0 0">
-        <StackPanel>
-            <Image Source="../Assets/WebteamLogo.png" Width="250" />
-            <StackPanel Orientation="Horizontal">
-            <TextBlock Text="Webteam Universal App,"  Margin="0 0 8 0"/>
-                <TextBlock x:Name="BuildVersion" Text="Build Version"/>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="140"/>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+
+            <Image Source="../Assets/WebteamLogo.png" Width="250" Grid.Row="0"/>
+            <Grid Grid.Row="1" Margin="5" Background="{StaticResource SystemControlHighlightAltBaseLowBrush}">
+            <StackPanel Margin="5">
+                <TextBlock Text="Avoir espoir d'un défilement infini des articles" Grid.Row="0" Grid.Column="0"/>
+                <ToggleSwitch  Grid.Column="1" />
             </StackPanel>
-        </StackPanel>
+            </Grid>
+            <StackPanel Grid.Row="2" VerticalAlignment="Bottom" Margin="5">
+                <TextBlock Text="©2015 Webteam ENSEA, par Thomas HAVY" Style="{StaticResource CaptionTextBlockStyle}"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Webteam Universal App"  Margin="0 0 8 0" Style="{StaticResource CaptionTextBlockStyle}" Grid.Column="0"/>
+                    <TextBlock x:Name="BuildVersion" Text="Build Version" Style="{StaticResource CaptionTextBlockStyle}" Grid.Column="1" TextAlignment="Right"/>
+                </Grid>
+            </StackPanel>
+        </Grid>
+
     </Grid>
 </Page>

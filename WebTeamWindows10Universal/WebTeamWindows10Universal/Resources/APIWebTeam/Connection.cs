@@ -164,8 +164,8 @@ namespace WebTeamWindows10Universal.Resources.APIWebTeam
         {
             var roamingSettings = Windows.Storage.ApplicationData.Current.RoamingSettings;
             
-            return ((roamingSettings.Values.ContainsKey("access_token") || 
-                roamingSettings.Values.ContainsKey("refresh_token") ||
+            return ((roamingSettings.Values.ContainsKey("access_token") && 
+                roamingSettings.Values.ContainsKey("refresh_token") &&
                 roamingSettings.Values.ContainsKey("expiration_date")) );
         }
 
