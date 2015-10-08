@@ -1,7 +1,8 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
-using System.Globalization;
 using System.Threading.Tasks;
+using WebTeamWindows10Universal.Model;
+using Windows.Storage.Streams;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.Web.Http;
 
@@ -12,7 +13,7 @@ namespace WebTeamWindows10Universal.Resources.APIWebTeam
         /// <summary>
         /// Récupération d'un User
         /// </summary>
-        /// <param name="id">id de l'utilisateur</param>
+        /// <param name="id">id de l'utilisateur. Si aucun ID n'est donné, retourne l'utilisateur de l'app</param>
         /// <returns>objet utilisateur avec les infos dedans</returns>
         public async static Task<User> GetUserAsync(int id = -1)
         {
@@ -23,7 +24,7 @@ namespace WebTeamWindows10Universal.Resources.APIWebTeam
             var roamingSettings = Windows.Storage.ApplicationData.Current.RoamingSettings;
 
             //Préparation de l'URL de récupération de l'user suivant l'ID
-            string request_url = Statics.WTProfileUrl;
+            string request_url = Constants.WTProfileUrl;
 
             //Récupération de l'user qu'on veut
             if (id != -1)
@@ -40,14 +41,7 @@ namespace WebTeamWindows10Universal.Resources.APIWebTeam
 
             //lecture du JSON
             User user = ParseUser(response);
-
-            //Si on cherche l'utilisateur de l'application, on entre son nom dans les settings de l'app
-            if (id == -1)
-            {
-                roamingSettings.Values["user_firstName"] = user.prenom;
-                roamingSettings.Values["user_lastName"] = user.nom;
-            }
-
+            
             return user;
         }
 
@@ -73,15 +67,7 @@ namespace WebTeamWindows10Universal.Resources.APIWebTeam
             user.promo = (string)list["promo"];
 
             //Parse de la date de naissance sans l'heure (fournie également par la WT)
-            //Obligé de le faire à la main à cause des dates "exotiques" fournies par la WT
-            string[] strippedBirthdateToken = ((string)list["birthday"]).Substring(0, 10).Split('/');
-            user.dateDeNaissance = new DateTime();
-            user.dateDeNaissance.AddMonths(int.Parse(strippedBirthdateToken[0]));
-            user.dateDeNaissance.AddDays(int.Parse(strippedBirthdateToken[1]));
-            user.dateDeNaissance.AddYears(int.Parse(strippedBirthdateToken[2]));
-            
-            //user.dateDeNaissance = DateTime.ParseExact(strippedBirthdate, "MM/dd/yyyy", CultureInfo.InvariantCulture);
-            //user.dateDeNaissance = DateTime.Parse((string)list["birthday"]);
+           user.dateDeNaissance = ((string)list["birthday"]).Substring(0, 10);
 
             return user;
 
@@ -92,7 +78,7 @@ namespace WebTeamWindows10Universal.Resources.APIWebTeam
         /// </summary>
         /// <param name="id">L'ID de l'utilisateur</param>
         /// <returns>Le BitmapImage de l'utilisateur</returns>
-        public static async Task<BitmapImage> GetUserImageAsync(int id)
+        public static async Task<IBuffer> GetUserImageAsyncAsBuffer(int id)
         {
             //Vérification de la connexion
             if (await APIWebTeam.Connection.CheckTokenAsync() != ERROR.NO_ERR)
@@ -104,15 +90,15 @@ namespace WebTeamWindows10Universal.Resources.APIWebTeam
 
             var roamingSettings = Windows.Storage.ApplicationData.Current.RoamingSettings;
 
-            BitmapImage image;
+            WriteableBitmap image;
 
             //Préparation de l'URL
-            string request_url = Statics.WTProfileUrlByID(id);
+            string request_url = Constants.WTProfileUrlByID(id);
             request_url += "/photo" + "?" + "access_token" + "=" + roamingSettings.Values["access_token"];
 
-            image = new BitmapImage(new Uri(request_url));
-
-            return image;
+            HttpClient client = new HttpClient();
+            
+            return await client.GetBufferAsync(new Uri(request_url));
         }
     }
 }

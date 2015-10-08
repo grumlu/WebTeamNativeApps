@@ -1,32 +1,38 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using WebTeamWindows10Universal.Model;
+using WebTeamWindows10Universal.Resources;
+using Windows.UI.Core;
 using Windows.UI.Xaml.Media.Imaging;
 
 namespace WebTeamWindows10Universal.ViewModel
 {
     class ProfileViewModel : ViewModelBase
     {
-        AppUserModel _user;
+        User _appUser;
 
         public ProfileViewModel()
         {
-            IsLoaded = false;
-            _user = new AppUserModel();
             GetAppUser();
         }
 
-        public async Task GetAppUser()
+        public async void GetAppUser()
         {
-            await _user.GetAppUser();
+            //On charge depuis la mémoire locale l'utilisateur
+            var roamingSettings = Windows.Storage.ApplicationData.Current.RoamingSettings;
+            string userNickname = (string)roamingSettings.Values["user_nickname"];
+
+            _appUser = await User.LoadUserFromLocalStorage(userNickname);
+
             RaisePropertyChanged("Username");
             RaisePropertyChanged("Promo");
             RaisePropertyChanged("Groupe");
+            RaisePropertyChanged("DateDeNaissance");
 
-            await _user.GetProfilePicture();
+            profilePicture = await _appUser.GetAvatar();
             RaisePropertyChanged("ProfilePicture");
 
             IsLoaded = true;
-
         }
 
         private bool _isLoaded = false;
@@ -53,23 +59,32 @@ namespace WebTeamWindows10Universal.ViewModel
                 {
                     return "Username";
                 }
-                return _user.Username;
+                return _appUser?.nom + " " + _appUser?.prenom;
             }
         }
 
         public string Promo
         {
-            get { return _user.AppUser.promo; }
+            get { return _appUser?.promo; }
         }
 
         public string Groupe
         {
-            get { return _user.AppUser.groupe; }
+            get { return _appUser?.groupe; }
         }
 
+        private BitmapImage profilePicture = null;
         public BitmapImage ProfilePicture
         {
-            get { return _user.AppUser.avatar; }
+            get { return profilePicture; }
+        }
+
+        public string DateDeNaissance
+        {
+            get
+            {
+                return _appUser?.dateDeNaissance.ToString();
+            }
         }
 
 

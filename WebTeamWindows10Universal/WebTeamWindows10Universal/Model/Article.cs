@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WebTeamWindows10Universal.Resources
+namespace WebTeamWindows10Universal.Model
 {
     class Article
     {

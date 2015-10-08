@@ -20,7 +20,7 @@ namespace WebTeamWindows10Universal.Resources.APIWebTeam
     /// Ensemble d'informations statiques (adresses, clefs, ...)
     /// Voir https://webteam.ensea.fr/api/doc/ pour plus d'informations (si l'adresse n'a pas changé)
     /// </summary>
-    static class Statics
+    static class Constants
     {
         /// <summary>
         /// Adresse d'authentification de l'utilisateur

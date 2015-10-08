@@ -3,7 +3,6 @@ using WebTeamWindows10Universal.Model;
 using WebTeamWindows10Universal.Resources;
 using WebTeamWindows10Universal.Resources.APIWebTeam;
 using WebTeamWindows10Universal.Resources.NavigationService;
-using WebTeamWindows10Universal.View;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -61,7 +60,6 @@ namespace WebTeamWindows10Universal.ViewModel
                     );
 #pragma warning restore CS4014 // Dans la mesure où cet appel n'est pas attendu, l'exécution de la méthode actuelle continue avant la fin de l'appel
                     IsProgressRingActive = false;
-                    //progressRingWebTeam.IsActive = false;
                 }
             });
         }
@@ -111,7 +109,7 @@ namespace WebTeamWindows10Universal.ViewModel
 
         public void Disconnect()
         {
-            WebTeamWindows10Universal.Resources.APIWebTeam.Connection.Disconnect();
+            Connection.Disconnect();
             RaisePropertyChanged("Username");
             RaisePropertyChanged("IsChangeUsernameVisible");
         }

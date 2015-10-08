@@ -40,13 +40,19 @@
         </Grid.RowDefinitions>
         <!--Menu bar on top-->
         <StackPanel Grid.Row="0" Orientation="Horizontal" Background="#333">
+            <StackPanel.Transitions>
+                <TransitionCollection>
+                    <EntranceThemeTransition FromHorizontalOffset="0" FromVerticalOffset="-30" />
+                </TransitionCollection>
+            </StackPanel.Transitions>
+            
             <!-- hamburger -->
-            <Button x:Name="HamburgerButton" Command="{Binding MenuCommand}" Width="48" Height="48" Background="{StaticResource SplitViewBackgroundBrush}">
+            <Button x:Name="HamburgerButton" Command="{Binding MenuCommand}" Width="48" Height="48" Background="{StaticResource HamburgerMenuBackgroundBrush}">
                 <TextBlock Text="{StaticResource MenuButtonText}" FontSize="{StaticResource SplitViewLargeNavFontSize}"/>
             </Button>
             <TextBlock x:Name="PageHeader" Style="{StaticResource SubheaderTextBlockStyle}" FontFamily="Segoe UI" Text="Ehhmm.. There should be a Title here." RelativePanel.RightOf="HamburgerButton" Margin="10 0 0 0"/>
         </StackPanel>
-        
+
         <SplitView x:Name="ShellSplitView" IsPaneOpen="True" Grid.Row="1" DisplayMode="CompactOverlay">
             
             <SplitView.Transitions>

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using WebTeamWindows10Universal.Model;
 
 namespace WebTeamWindows10Universal.Resources.APIWebTeam
 {
@@ -24,7 +25,7 @@ namespace WebTeamWindows10Universal.Resources.APIWebTeam
             var roamingSettings = Windows.Storage.ApplicationData.Current.RoamingSettings;
 
             //Préparation de l'URL pour récupérer la première page. La réponse contient le nombre de pages au total
-            string request_url = Statics.WTArticlePageUrl(0);
+            string request_url = Constants.WTArticlePageUrl(0);
 
             request_url += "?";
             request_url += "access_token" + "=" + roamingSettings.Values["access_token"];
@@ -50,7 +51,7 @@ namespace WebTeamWindows10Universal.Resources.APIWebTeam
             var roamingSettings = Windows.Storage.ApplicationData.Current.RoamingSettings;
 
             //Préparation de l'URL pour récupérer la première page. La réponse contient le nombre de pages au total
-            string request_url = Statics.WTArticlePageUrl(pageNumber);
+            string request_url = Constants.WTArticlePageUrl(pageNumber);
 
             request_url += "?";
             request_url += "access_token" + "=" + roamingSettings.Values["access_token"];

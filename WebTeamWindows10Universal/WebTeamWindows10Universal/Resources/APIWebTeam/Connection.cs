@@ -14,14 +14,14 @@ namespace WebTeamWindows10Universal.Resources.APIWebTeam
         /// </summary>
         public static async Task<ERROR> RequestAccessTokenAsync()
         {
-            string WeCASUrl = Statics.WTAuthUrl;
-            WeCASUrl += "?" + "client_id=" + Statics.WTClientID;
+            string WeCASUrl = Constants.WTAuthUrl;
+            WeCASUrl += "?" + "client_id=" + Constants.WTClientID;
             WeCASUrl += "&" + "response_type=code";
             WeCASUrl += "&" + "scope=user";
-            WeCASUrl += "&" + "redirect_uri=" + Statics.WTAuthDoneUrl;
+            WeCASUrl += "&" + "redirect_uri=" + Constants.WTAuthDoneUrl;
 
             WebAuthenticationResult webAuthenticationResult =
-                await WebAuthenticationBroker.AuthenticateAsync(WebAuthenticationOptions.None, new Uri(WeCASUrl), new Uri(Statics.WTAuthDoneUrl));
+                await WebAuthenticationBroker.AuthenticateAsync(WebAuthenticationOptions.None, new Uri(WeCASUrl), new Uri(Constants.WTAuthDoneUrl));
 
             if (webAuthenticationResult.ResponseStatus == WebAuthenticationStatus.Success)
             {
@@ -63,12 +63,12 @@ namespace WebTeamWindows10Universal.Resources.APIWebTeam
         private static async Task<string> GetAccessTokenFromCodeAsync(string request_token)
         {
             //Préparation de l'URL de demande du token
-            string request_url = Statics.WTTokenUrl + "?";
+            string request_url = Constants.WTTokenUrl + "?";
 
-            request_url += "client_id" + "=" + Statics.WTClientID;
-            request_url += "&" + "client_secret" + "=" + Statics.WTSecretID;
+            request_url += "client_id" + "=" + Constants.WTClientID;
+            request_url += "&" + "client_secret" + "=" + Constants.WTSecretID;
             request_url += "&" + "grant_type" + "=" + "authorization_code";
-            request_url += "&" + "redirect_uri" + "=" + Statics.WTAuthDoneUrl;
+            request_url += "&" + "redirect_uri" + "=" + Constants.WTAuthDoneUrl;
             request_url += "&" + "code" + "=" + request_token;
 
             //Récupération du JSON avec le token
@@ -135,9 +135,9 @@ namespace WebTeamWindows10Universal.Resources.APIWebTeam
             ///Le cas contraire, on fait un refresh
             else if (DateTime.Now.Ticks > (long)roamingSettings.Values["expiration_date"])
             {
-                string request_url = Statics.WTTokenUrl + "?";
-                request_url += "client_id" + "=" + Statics.WTClientID;
-                request_url += "&" + "client_secret" + "=" + Statics.WTSecretID;
+                string request_url = Constants.WTTokenUrl + "?";
+                request_url += "client_id" + "=" + Constants.WTClientID;
+                request_url += "&" + "client_secret" + "=" + Constants.WTSecretID;
                 request_url += "&" + "grant_type" + "=" + "refresh_token";
                 request_url += "&" + "refresh_token" + "=" + roamingSettings.Values["refresh_token"];
 

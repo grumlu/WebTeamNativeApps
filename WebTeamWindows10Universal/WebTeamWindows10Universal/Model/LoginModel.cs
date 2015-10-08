@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using WebTeamWindows10Universal.Resources;
 using WebTeamWindows10Universal.Resources.APIWebTeam;
 
 namespace WebTeamWindows10Universal.Model
@@ -57,13 +58,22 @@ namespace WebTeamWindows10Universal.Model
             if (err == ERROR.NOT_CONNECTED)
             {
                 err = await Connection.RequestAccessTokenAsync();
-#if WINDOWS_PHONE_APP
-                return err;
-#endif
             }
 
             if (err == ERROR.NO_ERR)
-                await UserManagement.GetUserAsync();
+            {
+                //Récupération de l'utilisateur de l'application
+                User user = await UserManagement.GetUserAsync();
+
+                //Enregistrement de l'utilisateur dans le cloud
+                var roamingSettings = Windows.Storage.ApplicationData.Current.RoamingSettings;
+                roamingSettings.Values["user_firstName"] = user.prenom;
+                roamingSettings.Values["user_lastName"] = user.nom;
+                roamingSettings.Values["user_nickname"] = user.pseudo;
+
+                //Enregistrement de l'objet user en local pour ne pas le recharger plus tard
+                User.SaveUserToLocalStorage(user);
+            }
 
             return err;
 

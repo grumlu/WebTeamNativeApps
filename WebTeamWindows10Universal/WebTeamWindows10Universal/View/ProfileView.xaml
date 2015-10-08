@@ -48,6 +48,8 @@
                             <TextBlock Text="{Binding Promo}" Style="{StaticResource BaseTextBlockStyle}" Margin="0 0 5 0"/>
                             <TextBlock Text="{Binding Groupe}" Style="{StaticResource BaseTextBlockStyle}" />
                         </StackPanel>
+                        <TextBlock Text="{Binding DateDeNaissance}" Style="{StaticResource BaseTextBlockStyle}" />
+                        
                     </StackPanel>
                     <TextBlock Style="{StaticResource SubheaderTextBlockStyle}" Grid.Row="1" Margin="0,10,0,0" TextWrapping="Wrap" Grid.ColumnSpan="2"
                                    Text="Lorem ipsum dolor sit nonumy sed consectetuer ising elit, sed diam"/>
