@@ -50,9 +50,7 @@ namespace WebTeamWindows10Universal.Model
                 }
             }
         }
-
-        private SystemMediaTransportControls smtc;
-
+        
         private static string fuseUrl ="http://streaming.radionomy.com/RadioFuse";
 
         public FUSEModel()

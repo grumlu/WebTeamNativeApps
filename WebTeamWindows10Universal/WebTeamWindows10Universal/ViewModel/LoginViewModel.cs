@@ -21,46 +21,7 @@ namespace WebTeamWindows10Universal.ViewModel
         {
             loginModel = new LoginModel();
             DisconnectCommand = new RelayCommand(Disconnect);
-            ConnectCommand = new RelayCommand(async () =>
-            {
-                try
-                {
-                    CanPerformAction = false;
-                    ERROR err = await loginModel.Connect();
-
-                    RaisePropertyChanged("Username");
-                    RaisePropertyChanged("IsChangeUsernameVisible");
-
-                    CanPerformAction = true;
-                    if (err == ERROR.NO_ERR)
-                    {
-#pragma warning disable CS4014 // Dans la mesure où cet appel n'est pas attendu, l'exécution de la méthode actuelle continue avant la fin de l'appel
-                        DispatchService.Invoke(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
-
-                        {
-                            Frame frame = new Frame();
-                            frame.Language = Windows.Globalization.ApplicationLanguages.Languages[0];
-                            (App.Current as App).NavigationService = new NavigationService(frame);
-
-                            Window.Current.Content = new View.WebTeamShell(frame);
-
-                        });
-                    }
-
-                }
-                catch (Exception excep)
-                {
-                    DispatchService.Invoke(Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
-                    {
-                        string errMsg = "Une erreur est survenue :\n" + excep.StackTrace.ToString();
-                        MessageDialog dialog = new MessageDialog(errMsg);
-                        await dialog.ShowAsync();
-                    }
-                    );
-#pragma warning restore CS4014 // Dans la mesure où cet appel n'est pas attendu, l'exécution de la méthode actuelle continue avant la fin de l'appel
-                    IsProgressRingActive = false;
-                }
-            });
+            ConnectCommand = new RelayCommand(Connect);
         }
 
         /// <summary>
@@ -103,6 +64,47 @@ namespace WebTeamWindows10Universal.ViewModel
                 IsProgressRingActive = !value;
                 _canPerformAction = value;
                 RaisePropertyChanged("CanPerformAction");
+            }
+        }
+
+        public async void Connect()
+        {
+            try
+            {
+                CanPerformAction = false;
+                ERROR err = await loginModel.Connect();
+
+                RaisePropertyChanged("Username");
+                RaisePropertyChanged("IsChangeUsernameVisible");
+
+                CanPerformAction = true;
+                if (err == ERROR.NO_ERR)
+                {
+#pragma warning disable CS4014 // Dans la mesure où cet appel n'est pas attendu, l'exécution de la méthode actuelle continue avant la fin de l'appel
+                    DispatchService.Invoke(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+
+                    {
+                        Frame frame = new Frame();
+                        frame.Language = Windows.Globalization.ApplicationLanguages.Languages[0];
+                        (App.Current as App).NavigationService = new NavigationService(frame);
+
+                        Window.Current.Content = new View.WebTeamShell(frame);
+
+                    });
+                }
+
+            }
+            catch (Exception excep)
+            {
+                DispatchService.Invoke(Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
+                {
+                    string errMsg = "Une erreur est survenue :\n" + excep.StackTrace.ToString();
+                    MessageDialog dialog = new MessageDialog(errMsg);
+                    await dialog.ShowAsync();
+                }
+                );
+#pragma warning restore CS4014 // Dans la mesure où cet appel n'est pas attendu, l'exécution de la méthode actuelle continue avant la fin de l'appel
+                IsProgressRingActive = false;
             }
         }
 
