@@ -156,7 +156,6 @@
       <SubType>Designer</SubType>
     </AppxManifest>
     <None Include="WebTeamUAP_StoreKey.pfx" />
-    <None Include="WebTeamWindows10Universal_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Background.png" />
