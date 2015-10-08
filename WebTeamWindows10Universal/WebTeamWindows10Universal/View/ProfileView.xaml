@@ -19,7 +19,7 @@
     <!--
         Cette grille sert de panneau racine à la page.
     -->
-    <Grid x:Name="ProfileGrid" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Margin="15 20 0 0">
+    <Grid x:Name="ProfileGrid" Margin="15 20 0 0">
 
         <StackPanel>
             <StackPanel.DataContext>

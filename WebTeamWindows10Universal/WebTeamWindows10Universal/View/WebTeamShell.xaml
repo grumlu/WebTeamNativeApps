@@ -13,14 +13,13 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="../Styles/SplitViewStyles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-
-            <Style TargetType="TextBlock" BasedOn="{StaticResource SplitViewTextBlockStyle}" />
+            
             <Style TargetType="RadioButton" BasedOn="{StaticResource SplitViewRadioButtonStyle}"/>
         </ResourceDictionary>
     </Page.Resources>
 
 
-    <Grid x:Name="OverlayGrid">
+    <Grid x:Name="OverlayGrid" Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>
                 <VisualState x:Name="Mobile">
@@ -48,7 +47,7 @@
             
             <!-- hamburger -->
             <Button x:Name="HamburgerButton" Command="{Binding MenuCommand}" Width="48" Height="48" Background="{StaticResource HamburgerMenuBackgroundBrush}">
-                <TextBlock Text="{StaticResource MenuButtonText}" FontSize="{StaticResource SplitViewLargeNavFontSize}"/>
+                <TextBlock Text="{StaticResource MenuButtonText}" Style="{StaticResource SplitViewIconStyle}" FontSize="{StaticResource SplitViewLargeNavFontSize}"/>
             </Button>
             <TextBlock x:Name="PageHeader" Style="{StaticResource SubheaderTextBlockStyle}" FontFamily="Segoe UI" Text="Ehhmm.. There should be a Title here." RelativePanel.RightOf="HamburgerButton" Margin="10 0 0 0"/>
         </StackPanel>
@@ -78,7 +77,7 @@
                                 <views:NavType Type="views:NewsView" />
                             </RadioButton.CommandParameter>
                             <RadioButton.Tag>
-                                <TextBlock Text="" />
+                                <TextBlock Text="" Style="{StaticResource SplitViewIconStyle}" />
                             </RadioButton.Tag>
                         </RadioButton>
 
@@ -90,7 +89,7 @@
                                 <views:NavType Type="views:ProfileView" />
                             </RadioButton.CommandParameter>
                             <RadioButton.Tag>
-                                <TextBlock Text="" />
+                                <TextBlock Text="" Style="{StaticResource SplitViewIconStyle}" />
                             </RadioButton.Tag>
                         </RadioButton>
 
@@ -102,7 +101,7 @@
                                 <views:NavType Type="views:ProfileView" />
                             </RadioButton.CommandParameter>
                             <RadioButton.Tag>
-                                <TextBlock Text="" />
+                                <TextBlock Text="" Style="{StaticResource SplitViewIconStyle}" />
                             </RadioButton.Tag>
                         </RadioButton>
 
@@ -115,7 +114,7 @@
                                 <views:NavType Type="views:ProfileView" />
                             </RadioButton.CommandParameter>
                             <RadioButton.Tag>
-                                <TextBlock Text="" />
+                                <TextBlock Text="" Style="{StaticResource SplitViewIconStyle}" />
                             </RadioButton.Tag>
                         </RadioButton>
 
@@ -128,7 +127,7 @@
                                 <views:NavType Type="views:ProfileView" />
                             </RadioButton.CommandParameter>
                             <RadioButton.Tag>
-                                <TextBlock Text="" />
+                                <TextBlock Text=""  Style="{StaticResource SplitViewIconStyle}"/>
                             </RadioButton.Tag>
                         </RadioButton>
 
@@ -144,7 +143,7 @@
                                 <views:NavType Type="views:FUSEView" />
                             </RadioButton.CommandParameter>
                             <RadioButton.Tag>
-                                <TextBlock Text="" />
+                                <TextBlock Text="" Style="{StaticResource SplitViewIconStyle}" />
                             </RadioButton.Tag>
                         </RadioButton>
 
@@ -156,7 +155,7 @@
                                 <views:NavType Type="views:SettingsView" />
                             </RadioButton.CommandParameter>
                             <RadioButton.Tag>
-                                <TextBlock Text="" />
+                                <TextBlock Text="" Style="{StaticResource SplitViewIconStyle}" />
                             </RadioButton.Tag>
                         </RadioButton>
 

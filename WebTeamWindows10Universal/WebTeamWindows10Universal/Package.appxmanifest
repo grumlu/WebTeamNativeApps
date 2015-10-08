@@ -1,10 +1,10 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
-  <Identity Name="1df987d7-1c13-46fd-a0fe-ba71e17fcd30" Publisher="CN=thoma" Version="1.0.0.0" />
+  <Identity Name="4908ThomasHAVY.WebteamENSEA" Publisher="CN=0A0C711B-B249-4D70-A835-63E493878D5A" Version="1.2015.281.1073" />
   <mp:PhoneIdentity PhoneProductId="1df987d7-1c13-46fd-a0fe-ba71e17fcd30" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
-    <DisplayName>WebTeamWindows10Universal</DisplayName>
-    <PublisherDisplayName>thoma</PublisherDisplayName>
+    <DisplayName>Webteam ENSEA</DisplayName>
+    <PublisherDisplayName>Thomas HAVY</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
   <Dependencies>
@@ -15,11 +15,8 @@
   </Resources>
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="WebTeamWindows10Universal.App">
-      <uap:VisualElements DisplayName="WebTeamWindows10Universal" Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\Square44x44Logo.png" Description="WebTeamWindows10Universal" BackgroundColor="transparent">
-        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" ShortName="Webteam" Square71x71Logo="Assets\Square71x71Logo.png">
-          <uap:ShowNameOnTiles>
-            <uap:ShowOn Tile="wide310x150Logo" />
-          </uap:ShowNameOnTiles>
+      <uap:VisualElements DisplayName="Webteam ENSEA" Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\Square44x44Logo.png" Description="WebTeamWindows10Universal" BackgroundColor="transparent">
+        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png">
         </uap:DefaultTile>
         <uap:SplashScreen Image="Assets\SplashScreen.png" BackgroundColor="#b70050" />
       </uap:VisualElements>

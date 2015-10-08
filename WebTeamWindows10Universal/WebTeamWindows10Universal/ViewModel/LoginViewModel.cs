@@ -44,7 +44,6 @@ namespace WebTeamWindows10Universal.ViewModel
 
                             Window.Current.Content = new View.WebTeamShell(frame);
 
-                            //NavigationService.Navigate(typeof(WebTeamView));
                         });
                     }
 

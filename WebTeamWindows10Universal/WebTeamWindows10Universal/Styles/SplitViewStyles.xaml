@@ -27,10 +27,6 @@
     <x:String x:Key="ForwardButtonText"></x:String>
     <x:String x:Key="MenuButtonText"></x:String>
 
-    <Style TargetType="Grid">
-        <Setter Property="Background" Value="Black" />
-    </Style>
-
     <Style TargetType="SplitView">
         <Setter Property="IsPaneOpen" Value="False" />
         <Setter Property="OpenPaneLength" Value="250" />
@@ -39,12 +35,13 @@
         <Setter Property="RequestedTheme" Value="Dark" />
     </Style>
 
-    <Style TargetType="TextBlock" x:Key="SplitViewTextBlockStyle">
+    <Style x:Key="SplitViewIconStyle" TargetType="TextBlock">
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="HorizontalAlignment" Value="Center" />
         <Setter Property="FontFamily" Value="Segoe MDL2 Assets" />
         <Setter Property="FontSize" Value="{ThemeResource SplitViewNormalNavFontSize}" />
     </Style>
+
 
     <Style TargetType="RadioButton" x:Key="SplitViewRadioButtonStyle">
         <Setter Property="Background" Value="Transparent" />
