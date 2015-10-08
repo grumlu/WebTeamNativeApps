@@ -25,7 +25,7 @@ namespace WebTeamWindows10Universal.Resources.APIWebTeam
             var roamingSettings = Windows.Storage.ApplicationData.Current.RoamingSettings;
 
             //Préparation de l'URL pour récupérer la première page. La réponse contient le nombre de pages au total
-            string request_url = Constants.WTArticlePageUrl(0);
+            string request_url = Constants.WTArticlePageUrl(1);
 
             request_url += "?";
             request_url += "access_token" + "=" + roamingSettings.Values["access_token"];
@@ -62,9 +62,6 @@ namespace WebTeamWindows10Universal.Resources.APIWebTeam
             var httpResponseMessage = await httpClient.GetAsync(new Uri(request_url));
             string response = await httpResponseMessage.Content.ReadAsStringAsync();
 
-
-            //System.Diagnostics.Debug.WriteLine(request_url);
-            //System.Diagnostics.Debug.WriteLine(response);
             //Parse de la réponse
             JObject list = JObject.Parse(response);
 
@@ -79,8 +76,7 @@ namespace WebTeamWindows10Universal.Resources.APIWebTeam
                     article.AuthorName = (string)(token["asso_author"]["name"]);
                 }
                 article.Title = (string)token["title"];
-                System.Diagnostics.Debug.WriteLine(article.Title);
-                article.Content = (string)token["content"];
+                article.Content = Windows.Data.Html.HtmlUtilities.ConvertToText((string)token["content"]);
 
                 articleList.Add(article);
             }

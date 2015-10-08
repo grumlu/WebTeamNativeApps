@@ -106,6 +106,8 @@ namespace WebTeamWindows10Universal.Resources
         [DebuggerStepThrough]
         public bool CanExecute(object p)
         {
+            if (p == null)
+                return false;
             try
             {
                 var _Value = (T)Convert.ChangeType(p, typeof(T));

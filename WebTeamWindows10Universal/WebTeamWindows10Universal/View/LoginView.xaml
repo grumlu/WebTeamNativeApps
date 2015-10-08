@@ -61,7 +61,7 @@
                             </TransitionCollection>
                         </StackPanel.Transitions>
                         <Button x:Name="Connexion" Width="240" Grid.Column="1" Content="Connexion via WeCAS" Command="{Binding ConnectCommand}" IsEnabled="{Binding CanPerformAction}" />
-                        <TextBlock  x:Name="changeUser" HorizontalAlignment="Center" Tapped="changeUser_Tapped" Margin="0 15 0 0" Visibility="{Binding IsChangeUsernameVisible}">Il y a erreur sur la personne?</TextBlock>
+                        <TextBlock  x:Name="changeUser" HorizontalAlignment="Center" Tapped="changeUser_Tapped" Margin="0 15 0 0" Visibility="{Binding IsChangeUsernameVisible, Converter={StaticResource TrueToVisibleConverter}}">Il y a erreur sur la personne?</TextBlock>
                     </StackPanel>
                 </Grid>
 
