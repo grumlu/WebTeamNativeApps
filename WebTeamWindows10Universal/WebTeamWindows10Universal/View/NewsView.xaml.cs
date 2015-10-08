@@ -9,7 +9,7 @@ namespace WebTeamWindows10Universal.View
         private NavigationHelper navigationHelper;
 
         /// <summary>
-        /// NavigationHelper est utilisé sur chaque page pour faciliter la navigation et 
+        /// NavigationHelper est utilisé sur chaque page  pour faciliter la navigation et 
         /// gestion de la durée de vie des processus
         /// </summary>
         public NavigationHelper NavigationHelper
@@ -22,8 +22,6 @@ namespace WebTeamWindows10Universal.View
             this.InitializeComponent();
             this.navigationHelper = new NavigationHelper(this);
             this.navigationHelper.LoadState += navigationHelper_LoadState;
-
-            WebTeamWindows10Universal.Resources.APIWebTeam.NewsManagment.GetArticlesListOnPage(0);
         }
 
 

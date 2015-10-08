@@ -63,16 +63,28 @@ namespace WebTeamWindows10Universal.Resources.APIWebTeam
             string response = await httpResponseMessage.Content.ReadAsStringAsync();
 
 
-            System.Diagnostics.Debug.WriteLine(request_url);
-            System.Diagnostics.Debug.WriteLine(response);
+            //System.Diagnostics.Debug.WriteLine(request_url);
+            //System.Diagnostics.Debug.WriteLine(response);
             //Parse de la réponse
             JObject list = JObject.Parse(response);
 
+            List<Article> articleList = new List<Article>();
+
             foreach(JToken token in list["articles"].Children())
             {
-                
+                Article article = new Article();
+                article.ID = (int)token["id"];
+                if ((bool)token["is_from_asso"])
+                {
+                    article.AuthorName = (string)(token["asso_author"]["name"]);
+                }
+                article.Title = (string)token["title"];
+                System.Diagnostics.Debug.WriteLine(article.Title);
+                article.Content = (string)token["content"];
+
+                articleList.Add(article);
             }
-            return null;
+            return articleList;
         }
     }
 }

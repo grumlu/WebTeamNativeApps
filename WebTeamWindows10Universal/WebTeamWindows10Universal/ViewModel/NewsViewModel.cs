@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using WebTeamWindows10Universal.Model;
 
@@ -15,26 +16,34 @@ namespace WebTeamWindows10Universal.ViewModel
 
         public async Task GetArticles()
         {
-            ObservableCollection<Article> articleList = new ObservableCollection<Article>();
+            ObservableCollection<Article> articleList;
             if (_isInDesignMode)
             {
+                articleList = new ObservableCollection<Article>();
                 for (int i = 0; i < 15; i++)
                 {
-                    articleList.Add(new Article { Title = "Article " + i });
+                    Article sampleArticle = new Article();
+                    sampleArticle.Title = "Article " + i;
+                    sampleArticle.AuthorName = "TrouDuc " + (15 - i);
+                    sampleArticle.Content = "Contenu sample!Contenu sample!Contenu sample!Contenu sample!Contenu sample!Contenu sample!Contenu sample!Contenu sample!";
+                    sampleArticle.ID = i;
+                    sampleArticle.PostTime = DateTime.Now;
+                    articleList.Add(sampleArticle);
                 }
             }
 
             else
             {
-                await WebTeamWindows10Universal.Resources.APIWebTeam.NewsManagment.GetArticlesListOnPage(1);
+                articleList = new ObservableCollection<Article>(await Resources.APIWebTeam.NewsManagment.GetArticlesListOnPage(1));
             }
 
             if (articleList.Count > 0)
             {
                 ArticleList = articleList;
+                RaisePropertyChanged("ArticleList");
             }
-                return;
-            
+            return;
+
         }
     }
 }
