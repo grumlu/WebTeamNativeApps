@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.ApplicationModel;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -25,6 +27,11 @@ namespace WebTeamWindows10Universal.View
         public SettingsView()
         {
             this.InitializeComponent();
+            var version = Package.Current.Id.Version;
+            BuildVersion.Text = "Version: " + version.Major + "."
+                + version.Minor + "." + version.Build + "." + version.Revision
+                +" Build: ";
+
         }
     }
 }

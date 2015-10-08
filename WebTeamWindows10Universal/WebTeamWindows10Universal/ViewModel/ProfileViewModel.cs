@@ -22,13 +22,14 @@ namespace WebTeamWindows10Universal.ViewModel
             var roamingSettings = Windows.Storage.ApplicationData.Current.RoamingSettings;
             string userNickname = (string)roamingSettings.Values["user_nickname"];
 
-            _appUser = await User.LoadUserFromLocalStorage(userNickname);
+            _appUser = await User.LoadUserFromTemporaryStorage(userNickname);
 
             RaisePropertyChanged("Username");
             RaisePropertyChanged("Promo");
             RaisePropertyChanged("Groupe");
             RaisePropertyChanged("DateDeNaissance");
 
+            //Récupération de l'avatar
             profilePicture = await _appUser.GetAvatar();
             RaisePropertyChanged("ProfilePicture");
 
@@ -86,8 +87,6 @@ namespace WebTeamWindows10Universal.ViewModel
                 return _appUser?.dateDeNaissance.ToString();
             }
         }
-
-
-
+        
     }
 }

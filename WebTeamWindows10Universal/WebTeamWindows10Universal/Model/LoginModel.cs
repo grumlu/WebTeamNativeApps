@@ -72,7 +72,7 @@ namespace WebTeamWindows10Universal.Model
                 roamingSettings.Values["user_nickname"] = user.pseudo;
 
                 //Enregistrement de l'objet user en local pour ne pas le recharger plus tard
-                User.SaveUserToLocalStorage(user);
+                User.SaveUserToTemporaryStorage(user);
             }
 
             return err;

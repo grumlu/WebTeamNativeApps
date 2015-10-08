@@ -77,7 +77,7 @@ namespace WebTeamWindows10Universal.Resources.APIWebTeam
         /// Télécharge l'image de profil
         /// </summary>
         /// <param name="id">L'ID de l'utilisateur</param>
-        /// <returns>Le BitmapImage de l'utilisateur</returns>
+        /// <returns>Un buffer contenant l'image de l'utilisateur</returns>
         public static async Task<IBuffer> GetUserImageAsyncAsBuffer(int id)
         {
             //Vérification de la connexion
@@ -89,8 +89,6 @@ namespace WebTeamWindows10Universal.Resources.APIWebTeam
             }
 
             var roamingSettings = Windows.Storage.ApplicationData.Current.RoamingSettings;
-
-            WriteableBitmap image;
 
             //Préparation de l'URL
             string request_url = Constants.WTProfileUrlByID(id);

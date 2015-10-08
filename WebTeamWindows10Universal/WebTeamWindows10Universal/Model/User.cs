@@ -39,14 +39,17 @@ namespace WebTeamWindows10Universal.Model
 
         public async Task<BitmapImage> GetAvatar()
         {
-            StorageFolder localFolder = ApplicationData.Current.LocalFolder;
+            StorageFolder localFolder = ApplicationData.Current.TemporaryFolder;
             BitmapImage avatar = new BitmapImage();
+
+            //On tente de récupérer l'avatar sur la mémoire locale
             try
             {
                 StorageFile avatarFile = await localFolder.GetFileAsync(pseudo + "_avatar.png" );
                 FileRandomAccessStream stream = (FileRandomAccessStream)await avatarFile.OpenAsync(FileAccessMode.Read);
                 avatar.SetSource(stream);
             }
+            //Sinon, on le télécharge
             catch (Exception)
             {
                 // Avatar not found not found.
@@ -65,9 +68,9 @@ namespace WebTeamWindows10Universal.Model
         /// Afin d'éviter de recharcher plusieurs fois un même utilisateur
         /// </summary>
         /// <param name="userToSave"></param>
-        public static async void SaveUserToLocalStorage(User userToSave)
+        public static async void SaveUserToTemporaryStorage(User userToSave)
         {
-            var osh = new ObjectStorageHelper<User>(StorageType.Local);
+            var osh = new ObjectStorageHelper<User>(StorageType.Temporary);
             await osh.SaveAsync(userToSave,userToSave.pseudo);
         }
 
@@ -76,9 +79,9 @@ namespace WebTeamWindows10Universal.Model
         /// </summary>
         /// <param name="userNickname">nom de l'utilisateur à charger</param>
         /// <returns></returns>
-        public static async Task<User> LoadUserFromLocalStorage(string userNickname)
+        public static async Task<User> LoadUserFromTemporaryStorage(string userNickname)
         {
-            var osh = new ObjectStorageHelper<User>(StorageType.Local);
+            var osh = new ObjectStorageHelper<User>(StorageType.Temporary);
             return await osh.LoadAsync(userNickname);
         }
 
