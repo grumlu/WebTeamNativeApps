@@ -115,7 +115,6 @@
     <Compile Include="Model\Article.cs" />
     <Compile Include="Resources\BooleanToVisibilityConverter.cs" />
     <Compile Include="Resources\DispatchService.cs" />
-    <Compile Include="Resources\HTMLExtension.cs" />
     <Compile Include="Resources\NavigationHelper.cs" />
     <Compile Include="Resources\NavigationService\INavigatable.cs" />
     <Compile Include="Resources\NavigationService\NavigationEventArgs.cs" />
