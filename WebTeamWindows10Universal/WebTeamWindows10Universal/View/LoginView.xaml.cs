@@ -1,4 +1,5 @@
 ﻿using WebTeamWindows10Universal.ViewModel;
+using Windows.UI;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 
@@ -14,6 +15,12 @@ namespace WebTeamWindows10Universal.View
         public LoginView()
         {
             this.InitializeComponent();
+            var titleBar = Windows.UI.ViewManagement.ApplicationView.GetForCurrentView().TitleBar;
+            titleBar.BackgroundColor = Color.FromArgb(0, 183, 0, 80);
+            titleBar.ButtonHoverBackgroundColor = Color.FromArgb(0, 131,0,42);
+            titleBar.ButtonPressedBackgroundColor = Color.FromArgb(0, 212, 102, 150);
+            titleBar.ButtonBackgroundColor = Color.FromArgb(0, 183, 0, 80);
+            titleBar.ForegroundColor = Color.FromArgb(0, 255, 255, 255);
         }
 
         /// <summary>

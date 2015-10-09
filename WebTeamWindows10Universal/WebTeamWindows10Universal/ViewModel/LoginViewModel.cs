@@ -38,7 +38,7 @@ namespace WebTeamWindows10Universal.ViewModel
             }
         }
 
-        public Visibility IsChangeUsernameVisible { get { return loginModel.IsChangeUsernameVisible() ? Visibility.Visible : Visibility.Collapsed; } }
+        public bool IsChangeUsernameVisible { get { return loginModel.IsChangeUsernameVisible() ? true : false; } }
 
         public bool IsProgressRingActive
         {

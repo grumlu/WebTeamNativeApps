@@ -6,39 +6,75 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewmodels="using:WebTeamWindows10Universal.ViewModel"
+    xmlns:resources="using:WebTeamWindows10Universal.Resources"
     mc:Ignorable="d">
-
-    <Grid Margin="15 20 0 0">
+    <Grid>
         <Grid.DataContext>
             <viewmodels:NewsViewModel />
         </Grid.DataContext>
 
-        <Grid.ChildrenTransitions>
-            <TransitionCollection>
-                <NavigationThemeTransition>
-                    <NavigationThemeTransition.DefaultNavigationTransitionInfo>
-                        <ContinuumNavigationTransitionInfo />
-                    </NavigationThemeTransition.DefaultNavigationTransitionInfo>
-                </NavigationThemeTransition>
-            </TransitionCollection>
-        </Grid.ChildrenTransitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="50" />
+        </Grid.RowDefinitions>
 
-        <ScrollViewer Height="auto" Margin="0 0 0 0">
-            <ListView ItemsSource="{Binding Path=ArticleList}">
-                <ListView.ItemTemplate>
+        <ProgressRing IsActive="{Binding IsLoading}" Width="60" Height="60" Grid.Row="0" />
+
+        <ScrollViewer Height="auto" Margin="0 0 0 0" VerticalScrollBarVisibility="Auto" Grid.Row="0">
+            <ItemsControl  ItemsSource="{Binding Path=ArticleList}" HorizontalContentAlignment="Stretch">
+                <ItemsControl.ItemContainerTransitions>
+                    <TransitionCollection>
+                        <AddDeleteThemeTransition />
+                    </TransitionCollection>
+                </ItemsControl.ItemContainerTransitions>
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel HorizontalAlignment="Stretch" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel>
-                            <TextBlock Text="{Binding Title}" Style="{StaticResource TitleTextBlockStyle}"/>
-                        </StackPanel>
+                        <Grid HorizontalAlignment="Stretch" Background="{StaticResource SystemControlHighlightAltBaseLowBrush}" Margin="10 10 10 0" Padding="5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Text="{Binding Title}" Style="{StaticResource SubtitleTextBlockStyle}" Grid.Column="0" Grid.Row="0"/>
+                            <TextBlock Text="{Binding AuthorName}" Style="{StaticResource BaseTextBlockStyle}" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Top" />
+                            <!--<WebView resources:HTMLExtension.HTML="{Binding Content}" Grid.Row="1" Grid.ColumnSpan="2" Height="250" />-->
+                            <TextBlock Text="{Binding Content}" TextWrapping="WrapWholeWords" TextAlignment="Justify" Grid.Row="1" Grid.ColumnSpan="2" Margin="0 5 0 5" />
+                            <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Right">
+                                <TextBlock Text="Publié le" Grid.Row="2" Margin="0 0 4 0" Style="{StaticResource CaptionTextBlockStyle}" />
+                                <TextBlock Text="{Binding PostTime}" Style="{StaticResource CaptionTextBlockStyle}"/>
+                            </StackPanel>
+                        </Grid>
                     </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
         </ScrollViewer>
-        <Grid>
-            <StackPanel>
 
-            </StackPanel>
-        </Grid>
-
+        <ItemsControl ItemsSource="{Binding Path=NewsPageNavCommandList}" Grid.Row="1" Background="DimGray">
+            <ItemsControl.ItemContainerTransitions>
+                <TransitionCollection>
+                    <EntranceThemeTransition />
+                </TransitionCollection>
+            </ItemsControl.ItemContainerTransitions>
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal" Height="50" HorizontalAlignment="Center" />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Button Content="{Binding Text}" Margin="10" Command="{Binding Command}" CommandParameter="{Binding PageToLoad}" />
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
     </Grid>
 </Page>
