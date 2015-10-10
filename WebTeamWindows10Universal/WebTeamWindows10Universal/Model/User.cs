@@ -28,6 +28,7 @@ namespace WebTeamWindows10Universal.Model
             id = 0;
             prenom = "Jean Michel";
             nom = "JARRE";
+            pseudo = "couilleMolle";
             promo = "53A";
             groupe = "53G12TP15";
             dateDeNaissance = DateTime.Now;

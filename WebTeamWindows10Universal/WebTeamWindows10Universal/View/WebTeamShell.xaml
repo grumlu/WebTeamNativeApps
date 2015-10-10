@@ -96,7 +96,7 @@
 
                         <!--Events-->
 
-                        <RadioButton Command="{Binding NavCommand}" Content="Évènements" GroupName="Nav">
+                        <RadioButton Command="{Binding NavCommand}" Content="Évènements" GroupName="Nav" Visibility="Collapsed">
                             <RadioButton.CommandParameter>
                                 <views:NavType Type="views:ProfileView" />
                             </RadioButton.CommandParameter>
@@ -109,7 +109,7 @@
 
                         <!--Ragots-->
 
-                        <RadioButton Command="{Binding NavCommand}" Content="Discussions" GroupName="Nav">
+                        <RadioButton Command="{Binding NavCommand}" Content="Discussions" GroupName="Nav" IsEnabled="False">
                             <RadioButton.CommandParameter>
                                 <views:NavType Type="views:ProfileView" />
                             </RadioButton.CommandParameter>
@@ -122,7 +122,7 @@
 
                         <!--Trombi-->
 
-                        <RadioButton Command="{Binding NavCommand}" Content="Trombi" GroupName="Nav">
+                        <RadioButton Command="{Binding NavCommand}" Content="Trombi" GroupName="Nav" IsEnabled="False">
                             <RadioButton.CommandParameter>
                                 <views:NavType Type="views:ProfileView" />
                             </RadioButton.CommandParameter>

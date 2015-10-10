@@ -5,18 +5,6 @@ using System.Text;
 namespace WebTeamWindows10Universal.Resources.APIWebTeam
 {
     /// <summary>
-    /// Différents types de retour
-    /// </summary>
-    public enum ERROR
-    {
-        NO_ERR,
-        INCORRECT_LOGIN_OR_PWD,
-        ERR_UNKNOWN,
-        NOT_CONNECTED,
-        AUTHENTICATION_FAILED
-    }
-
-    /// <summary>
     /// Ensemble d'informations statiques (adresses, clefs, ...)
     /// Voir https://webteam.ensea.fr/api/doc/ pour plus d'informations (si l'adresse n'a pas changé)
     /// </summary>

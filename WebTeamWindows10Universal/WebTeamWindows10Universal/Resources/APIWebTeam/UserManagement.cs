@@ -18,8 +18,15 @@ namespace WebTeamWindows10Universal.Resources.APIWebTeam
         public async static Task<User> GetUserAsync(int id = -1)
         {
             //Vérification de l'âge de l'access_token
-            if (await APIWebTeam.Connection.CheckTokenAsync() != ERROR.NO_ERR)
-                return null;
+            try
+            {
+                await APIWebTeam.Connection.CheckTokenAsync();
+            }
+            catch
+            {
+                //Token incorrect, déconnexion
+                APIWebTeam.Connection.Disconnect();
+            }
 
             var roamingSettings = Windows.Storage.ApplicationData.Current.RoamingSettings;
 
@@ -38,7 +45,7 @@ namespace WebTeamWindows10Universal.Resources.APIWebTeam
 
             var httpResponseMessage = await httpClient.GetAsync(new Uri(request_url));
             string response = await httpResponseMessage.Content.ReadAsStringAsync();
-
+            System.Diagnostics.Debug.WriteLine(response);
             //lecture du JSON
             User user = ParseUser(response);
             
@@ -81,11 +88,14 @@ namespace WebTeamWindows10Universal.Resources.APIWebTeam
         public static async Task<IBuffer> GetUserImageAsyncAsBuffer(int id)
         {
             //Vérification de la connexion
-            if (await APIWebTeam.Connection.CheckTokenAsync() != ERROR.NO_ERR)
+            try
             {
+                await APIWebTeam.Connection.CheckTokenAsync();
+            }
+            catch
+            {
+                //Token incorrect, déconnexion
                 APIWebTeam.Connection.Disconnect();
-                (App.Current as App).NavigationService.Navigate(typeof(WebTeamWindows10Universal.View.LoginView));
-                return null;
             }
 
             var roamingSettings = Windows.Storage.ApplicationData.Current.RoamingSettings;

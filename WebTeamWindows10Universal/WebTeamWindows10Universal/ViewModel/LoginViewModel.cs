@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using WebTeamWindows10Universal.Model;
 using WebTeamWindows10Universal.Resources;
 using WebTeamWindows10Universal.Resources.APIWebTeam;
@@ -44,7 +45,7 @@ namespace WebTeamWindows10Universal.ViewModel
         {
             get
             {
-                if (Windows.ApplicationModel.DesignMode.DesignModeEnabled)
+                if (_isInDesignMode)
                     return true;
                 return loginModel.IsProgressRingActive;
             }
@@ -69,43 +70,57 @@ namespace WebTeamWindows10Universal.ViewModel
 
         public async void Connect()
         {
+            CanPerformAction = false;
             try
             {
-                CanPerformAction = false;
-                ERROR err = await loginModel.Connect();
-
+                await loginModel.Connect();
                 RaisePropertyChanged("Username");
                 RaisePropertyChanged("IsChangeUsernameVisible");
-
-                CanPerformAction = true;
-                if (err == ERROR.NO_ERR)
-                {
-#pragma warning disable CS4014 // Dans la mesure où cet appel n'est pas attendu, l'exécution de la méthode actuelle continue avant la fin de l'appel
-                    DispatchService.Invoke(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
-
-                    {
-                        Frame frame = new Frame();
-                        frame.Language = Windows.Globalization.ApplicationLanguages.Languages[0];
-                        (App.Current as App).NavigationService = new NavigationService(frame);
-
-                        Window.Current.Content = new View.WebTeamShell(frame);
-
-                    });
-                }
-
             }
             catch (Exception excep)
             {
-                DispatchService.Invoke(Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
+                string errMsg;
+                if (excep is APIWebteamException)
                 {
-                    string errMsg = "Une erreur est survenue :\n" + excep.StackTrace.ToString();
-                    MessageDialog dialog = new MessageDialog(errMsg);
-                    await dialog.ShowAsync();
+                    if (((APIWebteamException)excep).Error == APIWebteamException.ERROR.WEBTEAM_UNAVAILABLE)
+                    {
+                        errMsg = "Il semblerait que la Webteam soit hors ligne. Si le problème persiste, contactez webteam@ensea.fr";
+                    }
+                    else
+                    {
+                        errMsg = "Une erreur inconnue est survenue. Apparemment, cette application et la Webteam ne parlent pas la même langue." +
+                            "Assurez-vous que votre application est à jour, et contactez la webteam (webteam@ensea.fr) si le problème persiste";
+                    }
                 }
-                );
-#pragma warning restore CS4014 // Dans la mesure où cet appel n'est pas attendu, l'exécution de la méthode actuelle continue avant la fin de l'appel
-                IsProgressRingActive = false;
+                else
+                {
+                    errMsg = "Une erreur est survenue :\n" + excep.StackTrace.ToString();
+                }
+
+                DispatchService.Invoke(Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
+            {
+                Debugger.Break();
+                MessageDialog dialog = new MessageDialog(errMsg);
+                await dialog.ShowAsync();
             }
+        );
+                return;
+            }
+            finally
+            {
+                CanPerformAction = true;
+            }
+
+            DispatchService.Invoke(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+
+            {
+                Frame frame = new Frame();
+                frame.Language = Windows.Globalization.ApplicationLanguages.Languages[0];
+                (App.Current as App).NavigationService = new NavigationService(frame);
+
+                Window.Current.Content = new View.WebTeamShell(frame);
+
+            });
         }
 
         public void Disconnect()

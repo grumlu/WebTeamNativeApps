@@ -28,30 +28,29 @@ namespace WebTeamWindows10Universal.ViewModel
             {
                 for (int i = 1; i <= 3; i++)
                 {
-                    RelayCommand<int> rc = new RelayCommand<int>((x) =>{});
+                    RelayCommand<int> rc = new RelayCommand<int>((x) => { });
                     NewsPageNavCommandList.Add(new PageNavigationCommand(i.ToString(), rc));
                 }
+                return;
             }
 
-            else
+            int pageAmount = 0;
+            pageAmount = await Resources.APIWebTeam.NewsManagment.GetTotalPages();
+
+            for (int i = 1; i <= pageAmount; i++)
             {
-                int pageAmount = 0;
-                pageAmount = await Resources.APIWebTeam.NewsManagment.GetTotalPages();
-
-                for (int i = 1; i <= pageAmount; i++)
+                RelayCommand<int> rc = new RelayCommand<int>((x) =>
                 {
-                    RelayCommand<int> rc = new RelayCommand<int>((x) =>
-                    {
-                        IsLoading = true;
-                        RaisePropertyChanged("IsLoading");
+                    IsLoading = true;
+                    RaisePropertyChanged("IsLoading");
 
-                        ArticleList.Clear();
-                        RaisePropertyChanged("ArticleList");
-                        GetArticlesInPage(x);
-                    });
-                    NewsPageNavCommandList.Add(new PageNavigationCommand(i.ToString(), rc));
-                }
+                    ArticleList.Clear();
+                    RaisePropertyChanged("ArticleList");
+                    GetArticlesInPage(x);
+                });
+                NewsPageNavCommandList.Add(new PageNavigationCommand(i.ToString(), rc));
             }
+
             RaisePropertyChanged("NewsPageNavCommandList");
         }
         public async void GetArticlesInPage(int page)
@@ -77,16 +76,16 @@ namespace WebTeamWindows10Universal.ViewModel
                 IsLoading = false;
                 RaisePropertyChanged("IsLoading");
 
-                if(articleList != null)
-                foreach (Article art in articleList)
-                {
-                    ArticleList.Add(art);
+                if (articleList != null)
+                    foreach (Article art in articleList)
+                    {
+                        ArticleList.Add(art);
 
-                    //Façon de tricher pour avoir une animation plus fluide
-                    await Task.Delay(50);
+                        //Façon de tricher pour avoir une animation plus fluide
+                        await Task.Delay(50);
 
-                    RaisePropertyChanged("ArticleList");
-                }
+                        RaisePropertyChanged("ArticleList");
+                    }
             }
 
             return;
@@ -95,7 +94,7 @@ namespace WebTeamWindows10Universal.ViewModel
 
         public class PageNavigationCommand
         {
-            public string Text{get; set;}
+            public string Text { get; set; }
 
             public RelayCommand<int> Command { get; set; }
 

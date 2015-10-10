@@ -1,4 +1,5 @@
 ﻿using System;
+using WebTeamWindows10Universal.Resources.NavigationService;
 using WebTeamWindows10Universal.View;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
@@ -76,6 +77,10 @@ namespace WebTeamWindows10Universal
                 // parameter
                 rootFrame.Navigate(typeof(LoginView), e.Arguments);
             }
+
+            // Create the Navigation Service
+            NavigationService = new NavigationService(rootFrame);
+
             // Ensure the current window is active
             Window.Current.Activate();
         }

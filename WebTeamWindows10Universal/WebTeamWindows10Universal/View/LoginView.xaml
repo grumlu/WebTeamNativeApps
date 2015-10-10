@@ -48,10 +48,10 @@
                             </TransitionCollection>
                         </StackPanel.Transitions>
 
-                        <TextBlock Text="WebTeam" Margin="0 0 0 3" HorizontalAlignment="Center" Style="{StaticResource HeaderTextBlockStyle}" />
+                        <TextBlock Margin="0 0 0 3" HorizontalAlignment="Center" Style="{StaticResource HeaderTextBlockStyle}" Text="Webteam" />
                         <TextBlock Text="{Binding Username}" HorizontalAlignment="Center" Style="{StaticResource SubtitleTextBlockStyle}" TextAlignment="Center"/>
 
-                        <ProgressRing HorizontalAlignment="Center" VerticalAlignment="Top" Height="61" Width="61" Margin="0,45,0,35" Foreground="Black" IsActive="{Binding IsProgressRingActive}" />
+                        <ProgressRing HorizontalAlignment="Center" VerticalAlignment="Top" Height="61" Width="61" Margin="0,45,0,35" IsActive="{Binding IsProgressRingActive}"/>
                     </StackPanel>
 
                     <StackPanel Grid.Row="1" HorizontalAlignment="Center">

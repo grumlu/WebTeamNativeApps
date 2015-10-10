@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using WebTeamWindows10Universal.Resources;
 using WebTeamWindows10Universal.Resources.NavigationService;
 using WebTeamWindows10Universal.View;
+using Windows.ApplicationModel;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -18,16 +19,16 @@ namespace WebTeamWindows10Universal.ViewModel
             get; set;
         } = new RelayCommand(Disconnect);
 
+        public string Version { get
+            {
+                var version = Package.Current.Id.Version;
+                return version.Major + "."
+                + version.Minor + "." + version.Build + "." + version.Revision;
+            }
+        }
         private static void Disconnect()
         {
             Resources.APIWebTeam.Connection.Disconnect();
-
-            Frame frame = new Frame();
-            frame.Language = Windows.Globalization.ApplicationLanguages.Languages[0];
-            (App.Current as App).NavigationService = new NavigationService(frame);
-
-            Window.Current.Content = frame;
-            frame.Navigate(typeof(LoginView));
         }
     }
 }

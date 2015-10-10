@@ -13,15 +13,21 @@ namespace WebTeamWindows10Universal.Resources.APIWebTeam
     class NewsManagment
     {
         /// <summary>
-        /// !!UNTESTED CODE!!
         /// Récupère le nombre de page total
         /// </summary>
         /// <returns></returns>
         public async static Task<int> GetTotalPages()
         {
             //Vérification de l'âge de l'access_token
-            if (await APIWebTeam.Connection.CheckTokenAsync() != ERROR.NO_ERR)
-                return -1;
+            try
+            {
+                await APIWebTeam.Connection.CheckTokenAsync();
+            }
+            catch
+            {
+                //Token incorrect, déconnexion
+                APIWebTeam.Connection.Disconnect();
+            }
 
             var roamingSettings = Windows.Storage.ApplicationData.Current.RoamingSettings;
 
@@ -46,8 +52,15 @@ namespace WebTeamWindows10Universal.Resources.APIWebTeam
         public async static Task<List<Article>> GetArticlesListOnPage(int pageNumber)
         {
             //Vérification de l'âge de l'access_token
-            if (await APIWebTeam.Connection.CheckTokenAsync() != ERROR.NO_ERR)
-                return null;
+            try
+            {
+                await APIWebTeam.Connection.CheckTokenAsync();
+            }
+            catch
+            {
+                //Token incorrect, déconnexion
+                APIWebTeam.Connection.Disconnect();
+            }
 
             var roamingSettings = Windows.Storage.ApplicationData.Current.RoamingSettings;
 
@@ -62,10 +75,11 @@ namespace WebTeamWindows10Universal.Resources.APIWebTeam
 
             var httpResponseMessage = await httpClient.GetAsync(new Uri(request_url));
             string response = await httpResponseMessage.Content.ReadAsStringAsync();
-            System.Diagnostics.Debug.WriteLine(response);
+
             //Parse de la réponse
             JObject list = JObject.Parse(response);
 
+            //Création de la liste des articles
             List<Article> articleList = new List<Article>();
 
             foreach(JToken token in list["articles"].Children())

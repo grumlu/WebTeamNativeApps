@@ -27,9 +27,6 @@ namespace WebTeamWindows10Universal.View
         public SettingsView()
         {
             this.InitializeComponent();
-            var version = Package.Current.Id.Version;
-            BuildVersion.Text = "Version: " + version.Major + "."
-                + version.Minor + "." + version.Build + "." + version.Revision;
         }
     }
 }

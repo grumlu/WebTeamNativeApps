@@ -51,32 +51,31 @@ namespace WebTeamWindows10Universal.Model
             }
         }
 
-        public async Task<ERROR> Connect()
+        public async Task Connect()
         {
-            ERROR err = await Connection.CheckTokenAsync();
-
-            if (err == ERROR.NOT_CONNECTED)
+            try
             {
-                err = await Connection.RequestAccessTokenAsync();
+                await Connection.CheckTokenAsync();
+            }
+            catch (APIWebteamException exception)
+            {
+                if (exception.Error == APIWebteamException.ERROR.NOT_CONNECTED)
+                    await Connection.RequestAccessTokenAsync();
+                else
+                    return;
             }
 
-            if (err == ERROR.NO_ERR)
-            {
-                //Récupération de l'utilisateur de l'application
-                User user = await UserManagement.GetUserAsync();
+            //Récupération de l'utilisateur de l'application
+            User user = await UserManagement.GetUserAsync();
 
-                //Enregistrement de l'utilisateur dans le cloud
-                var roamingSettings = Windows.Storage.ApplicationData.Current.RoamingSettings;
-                roamingSettings.Values["user_firstName"] = user.prenom;
-                roamingSettings.Values["user_lastName"] = user.nom;
-                roamingSettings.Values["user_nickname"] = user.pseudo;
+            //Enregistrement de l'utilisateur dans le cloud
+            var roamingSettings = Windows.Storage.ApplicationData.Current.RoamingSettings;
+            roamingSettings.Values["user_firstName"] = user.prenom;
+            roamingSettings.Values["user_lastName"] = user.nom;
+            roamingSettings.Values["user_nickname"] = user.pseudo;
 
-                //Enregistrement de l'objet user en local pour ne pas le recharger plus tard
-                User.SaveUserToTemporaryStorage(user);
-            }
-
-            return err;
-
+            //Enregistrement de l'objet user en local pour ne pas le recharger plus tard
+            User.SaveUserToTemporaryStorage(user);
         }
 
         /// <summary>

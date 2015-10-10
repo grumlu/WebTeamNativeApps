@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
-using WebTeamWindows10Universal.View;
 using Windows.Security.Authentication.Web;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -15,7 +12,7 @@ namespace WebTeamWindows10Universal.Resources.APIWebTeam
         /// <summary>
         /// Demande de l'access_token et enregistrement dans les settings
         /// </summary>
-        public static async Task<ERROR> RequestAccessTokenAsync()
+        public static async Task RequestAccessTokenAsync()
         {
             string WeCASUrl = Constants.WTAuthUrl;
             WeCASUrl += "?" + "client_id=" + Constants.WTClientID;
@@ -34,12 +31,10 @@ namespace WebTeamWindows10Universal.Resources.APIWebTeam
                 string request_token = response.Substring(response.IndexOf("code")).Split('=')[1];
 
                 await RequestAccessTokenContinueAsync(request_token);
-
-                return ERROR.NO_ERR;
             }
 
             else
-                return ERROR.AUTHENTICATION_FAILED;
+                throw new APIWebteamException(APIWebteamException.ERROR.AUTHENTICATION_FAILED);
         }
 
 
@@ -76,12 +71,10 @@ namespace WebTeamWindows10Universal.Resources.APIWebTeam
 
             //Récupération du JSON avec le token
             HttpClient httpClient = new HttpClient();
-
+            
             try
             {
                 var httpResponseMessage = await httpClient.GetStringAsync(new Uri(request_url));
-                //string response = await httpResponseMessage.Content.ReadAsStringAsync();
-                //return response;
                 return httpResponseMessage;
             }
             catch (Exception e)
@@ -97,15 +90,22 @@ namespace WebTeamWindows10Universal.Resources.APIWebTeam
         /// Parse la réponse du serveur WebTeam et range ça dans les settings de l'app
         /// </summary>
         /// <param name="jsonString">réponse du serveur WT</param>
-        private static ERROR ParseTokenAndStore(string jsonString)
+        private static void ParseTokenAndStore(string jsonString)
         {
-
-            Newtonsoft.Json.Linq.JObject list = Newtonsoft.Json.Linq.JObject.Parse(jsonString);
+            Newtonsoft.Json.Linq.JObject list;
+            try
+            {
+                list = Newtonsoft.Json.Linq.JObject.Parse(jsonString);
+            }
+            catch
+            {
+                throw new APIWebteamException(APIWebteamException.ERROR.WEBTEAM_UNAVAILABLE);
+            }
 
             //S'il y a une erreur
             if (list.Value<string>("error") != null)
             {
-                return ERROR.NOT_CONNECTED;
+                throw new APIWebteamException(APIWebteamException.ERROR.ERR_UNKNOWN);
             }
 
             //Enregistrement des valeurs dans les settings de l'app
@@ -117,26 +117,16 @@ namespace WebTeamWindows10Universal.Resources.APIWebTeam
             //expiration date
             DateTime expirationDate = DateTime.Now.AddSeconds(list.Value<double>("expires_in"));
             roamingSettings.Values["expiration_date"] = expirationDate.Ticks;
-
-
-            return ERROR.NO_ERR;
-
         }
 
-        public static async Task<ERROR> CheckTokenAsync()
+        public static async Task CheckTokenAsync()
         {
             var roamingSettings = Windows.Storage.ApplicationData.Current.RoamingSettings;
 
             //S'il n'y a plus d'access_token, ou si on a pas de refresh, on recommence toute la procédure
             if (!IsConnected())
             {
-                Frame frame = new Frame();
-                frame.Language = Windows.Globalization.ApplicationLanguages.Languages[0];
-                (App.Current as App).NavigationService = new NavigationService.NavigationService(frame);
-
-                Window.Current.Content = frame;
-                frame.Navigate(typeof(LoginView));
-                return ERROR.NOT_CONNECTED;
+                throw new APIWebteamException(APIWebteamException.ERROR.NOT_CONNECTED);
             }
 
             ///Sinon, on vérifie que le token est toujours valable.
@@ -155,12 +145,8 @@ namespace WebTeamWindows10Universal.Resources.APIWebTeam
                 var httpResponseMessage = await httpClient.GetAsync(new Uri(request_url));
                 string response = await httpResponseMessage.Content.ReadAsStringAsync();
 
-                return ParseTokenAndStore(response);
+                ParseTokenAndStore(response);
             }
-
-            ///Sinon tout va bien
-            return ERROR.NO_ERR;
-
         }
 
         /// <summary>
@@ -171,10 +157,10 @@ namespace WebTeamWindows10Universal.Resources.APIWebTeam
         public static bool IsConnected()
         {
             var roamingSettings = Windows.Storage.ApplicationData.Current.RoamingSettings;
-            
-            return ((roamingSettings.Values.ContainsKey("access_token") && 
+
+            return ((roamingSettings.Values.ContainsKey("access_token") &&
                 roamingSettings.Values.ContainsKey("refresh_token") &&
-                roamingSettings.Values.ContainsKey("expiration_date")) );
+                roamingSettings.Values.ContainsKey("expiration_date")));
         }
 
         /// <summary>
@@ -188,6 +174,18 @@ namespace WebTeamWindows10Universal.Resources.APIWebTeam
             roamingSettings.Values["user_lastName"] = null;
 
             roamingSettings.Values["access_token"] = null;
+
+            //Nettoyer l'historique et charger la page de connexion si on n'est pas déjà dessus
+            (App.Current as App).NavigationService.ClearHistory();
+            if ((App.Current as App).NavigationService.CurrentPageType != typeof(View.LoginView))
+            {
+                Frame frame = new Frame();
+                frame.Language = Windows.Globalization.ApplicationLanguages.Languages[0];
+                (App.Current as App).NavigationService = new NavigationService.NavigationService(frame);
+
+                Window.Current.Content = frame;
+                frame.Navigate(typeof(View.LoginView));
+            }
         }
 
     }

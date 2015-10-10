@@ -72,5 +72,10 @@ namespace WebTeamWindows10Universal.View
         }
 
         #endregion
+
+        private void StackPanel_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        {
+
+        }
     }
 }

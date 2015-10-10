@@ -17,9 +17,9 @@
     <EnableDotNetNativeCompatibleProfile>true</EnableDotNetNativeCompatibleProfile>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
+    <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
     <PackageCertificateKeyFile>WebTeamUAP_StoreKey.pfx</PackageCertificateKeyFile>
-    <AppxBundle>Always</AppxBundle>
+    <AppxBundle>Auto</AppxBundle>
     <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
     <PackageCertificateThumbprint>EEB548CA36DD81AFFA30D92CCA375DB70FF60B2C</PackageCertificateThumbprint>
   </PropertyGroup>
@@ -108,6 +108,7 @@
     <Compile Include="Model\FUSEModel.cs" />
     <Compile Include="Model\LoginModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\APIWebTeam\APIWebteamException.cs" />
     <Compile Include="Resources\APIWebTeam\Connection.cs" />
     <Compile Include="Resources\APIWebTeam\NewsManagment.cs" />
     <Compile Include="Resources\APIWebTeam\Constants.cs" />
@@ -159,6 +160,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Background.png" />
+    <Content Include="Assets\BadgeLogo.scale-200.png" />
     <Content Include="Assets\BadgeLogo.scale-400.png" />
     <Content Include="Assets\FUSElogo.jpg" />
     <Content Include="Assets\Gribouillelogo.png" />
@@ -240,6 +242,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <SDKReference Include="BehaviorsXamlSDKManaged, Version=12.0">
+      <Name>Behaviors SDK %28XAML%29</Name>
+    </SDKReference>
     <SDKReference Include="WindowsDesktop, Version=10.0.10240.0">
       <Name>Windows Desktop Extensions for the UWP</Name>
     </SDKReference>
