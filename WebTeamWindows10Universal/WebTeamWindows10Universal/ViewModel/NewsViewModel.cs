@@ -77,6 +77,7 @@ namespace WebTeamWindows10Universal.ViewModel
                 IsLoading = false;
                 RaisePropertyChanged("IsLoading");
 
+                if(articleList != null)
                 foreach (Article art in articleList)
                 {
                     ArticleList.Add(art);

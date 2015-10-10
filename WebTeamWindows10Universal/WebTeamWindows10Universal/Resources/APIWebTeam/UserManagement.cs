@@ -67,7 +67,7 @@ namespace WebTeamWindows10Universal.Resources.APIWebTeam
             user.promo = (string)list["promo"];
 
             //Parse de la date de naissance sans l'heure (fournie également par la WT)
-           user.dateDeNaissance = ((string)list["birthday"]).Substring(0, 10);
+           user.dateDeNaissance = ((DateTime)list["birthday"]);
 
             return user;
 

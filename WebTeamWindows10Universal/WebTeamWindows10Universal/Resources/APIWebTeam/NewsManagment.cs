@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -61,7 +62,7 @@ namespace WebTeamWindows10Universal.Resources.APIWebTeam
 
             var httpResponseMessage = await httpClient.GetAsync(new Uri(request_url));
             string response = await httpResponseMessage.Content.ReadAsStringAsync();
-
+            System.Diagnostics.Debug.WriteLine(response);
             //Parse de la réponse
             JObject list = JObject.Parse(response);
 
@@ -76,6 +77,7 @@ namespace WebTeamWindows10Universal.Resources.APIWebTeam
                     article.AuthorName = (string)(token["asso_author"]["name"]);
                 }
                 article.Title = (string)token["title"];
+                article.PostTime = (DateTime)token["date"];
                 article.Content = Windows.Data.Html.HtmlUtilities.ConvertToText((string)token["content"]);
 
                 articleList.Add(article);

@@ -84,7 +84,7 @@ namespace WebTeamWindows10Universal.ViewModel
         {
             get
             {
-                return _appUser?.dateDeNaissance.ToString();
+                return _appUser?.dateDeNaissance.ToString("d");
             }
         }
         

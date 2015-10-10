@@ -15,7 +15,7 @@ namespace WebTeamWindows10Universal.Model
         public string nom { get; set; }
         public string promo { get; set; }
         public string groupe { get; set; }
-        public string dateDeNaissance { get; set; }
+        public DateTime dateDeNaissance { get; set; }
         public string numeroPortable { get; set; }
         public string email { get; set; }
         public string adresse { get; set; }
@@ -30,7 +30,7 @@ namespace WebTeamWindows10Universal.Model
             nom = "JARRE";
             promo = "53A";
             groupe = "53G12TP15";
-            dateDeNaissance = DateTime.Now.ToString();
+            dateDeNaissance = DateTime.Now;
             numeroPortable = "0611111111";
             email = "dummy@stupid.sx";
             adresse = "Nowhere";

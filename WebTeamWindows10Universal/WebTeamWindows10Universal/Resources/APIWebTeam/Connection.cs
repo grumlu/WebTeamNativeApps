@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using WebTeamWindows10Universal.View;
 using Windows.Security.Authentication.Web;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 using Windows.Web.Http;
 
 namespace WebTeamWindows10Universal.Resources.APIWebTeam
@@ -127,8 +130,13 @@ namespace WebTeamWindows10Universal.Resources.APIWebTeam
             //S'il n'y a plus d'access_token, ou si on a pas de refresh, on recommence toute la procédure
             if (!IsConnected())
             {
-                return ERROR.NOT_CONNECTED;
+                Frame frame = new Frame();
+                frame.Language = Windows.Globalization.ApplicationLanguages.Languages[0];
+                (App.Current as App).NavigationService = new NavigationService.NavigationService(frame);
 
+                Window.Current.Content = frame;
+                frame.Navigate(typeof(LoginView));
+                return ERROR.NOT_CONNECTED;
             }
 
             ///Sinon, on vérifie que le token est toujours valable.

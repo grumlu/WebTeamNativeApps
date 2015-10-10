@@ -5,10 +5,15 @@
     xmlns:local="using:WebTeamWindows10Universal.View"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewmodels="using:WebTeamWindows10Universal.ViewModel"
     mc:Ignorable="d">
 
     <Grid Margin="0 0 0 0">
         <Grid>
+            <Grid.DataContext>
+                <viewmodels:SettingsViewModel />
+            </Grid.DataContext>
+            
             <Grid.RowDefinitions>
                 <RowDefinition Height="140"/>
                 <RowDefinition Height="*" />
@@ -20,8 +25,7 @@
                 <StackPanel Margin="5">
                     <TextBlock Text="Avoir espoir d'un défilement infini des articles" Grid.Row="0" Grid.Column="0"/>
                     <ToggleSwitch  Grid.Column="1" />
-                    <TextBlock Text="Tenter de se déconnecter" />
-                    <Button Content="Déconnexion illusoire" />
+                    <Button Content="Déconnexion" Command="{Binding DisconnectCommand}"/>
                 </StackPanel>
             </Grid>
             <StackPanel Grid.Row="2" VerticalAlignment="Bottom" Margin="5">

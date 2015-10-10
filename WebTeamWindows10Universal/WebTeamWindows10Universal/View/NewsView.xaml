@@ -34,7 +34,7 @@
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Grid HorizontalAlignment="Stretch" Background="{StaticResource SystemControlHighlightAltBaseLowBrush}" Margin="10 10 10 0" Padding="5">
+                        <Grid HorizontalAlignment="Stretch" Background="{StaticResource SystemControlHighlightAltBaseLowBrush}"  Margin="10 10 10 0" Padding="5">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="auto"/>
@@ -45,10 +45,11 @@
                                 <RowDefinition />
                             </Grid.RowDefinitions>
 
-                            <TextBlock Text="{Binding Title}" Style="{StaticResource SubtitleTextBlockStyle}" Grid.Column="0" Grid.Row="0"/>
+                            <TextBlock Text="{Binding Title}" Style="{StaticResource SubtitleTextBlockStyle}"  Grid.Column="0" Grid.Row="0"/>
                             <TextBlock Text="{Binding AuthorName}" Style="{StaticResource BaseTextBlockStyle}" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Top" />
-                            <!--<WebView resources:HTMLExtension.HTML="{Binding Content}" Grid.Row="1" Grid.ColumnSpan="2" Height="250" />-->
-                            <TextBlock Text="{Binding Content}" TextWrapping="WrapWholeWords" TextAlignment="Justify" Grid.Row="1" Grid.ColumnSpan="2" Margin="0 5 0 5" />
+                            <Border Grid.Row="1" Grid.ColumnSpan="2" Background="{StaticResource SystemControlHighlightAltBaseLowBrush}" >
+                                <TextBlock Text="{Binding Content}" TextWrapping="WrapWholeWords" TextAlignment="Justify" Margin="5" />
+                            </Border>
                             <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Right">
                                 <TextBlock Text="Publié le" Grid.Row="2" Margin="0 0 4 0" Style="{StaticResource CaptionTextBlockStyle}" />
                                 <TextBlock Text="{Binding PostTime}" Style="{StaticResource CaptionTextBlockStyle}"/>
