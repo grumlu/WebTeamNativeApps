@@ -107,6 +107,7 @@
     <Compile Include="ApplicationSettingsConstants.cs" />
     <Compile Include="EnumHelper.cs" />
     <Compile Include="JsonHelper.cs" />
+    <Compile Include="Messages\StopPlaybackMessage.cs" />
     <Compile Include="Messages\StartPlaybackMessage.cs" />
     <Compile Include="Messages\UpdatePlaylistMessage.cs" />
     <Compile Include="Messages\BackgroundAudioTaskStartedMessage.cs" />

@@ -53,6 +53,8 @@ namespace WebTeamUAPBackgroundAudioTask
             if (foregroundAppState != AppState.Suspended)
                 MessageService.SendMessageToForeground(new BackgroundAudioTaskStartedMessage());
 
+            ApplicationSettingsHelper.SaveSettingsValue(ApplicationSettingsConstants.BackgroundTaskState, BackgroundTaskState.Running.ToString());
+
             deferral = taskInstance.GetDeferral(); // This must be retrieved prior to subscribing to events below which use it
 
             // Mark the background task as started to unblock SMTC Play operation (see related WaitOne on this signal)
@@ -86,6 +88,9 @@ namespace WebTeamUAPBackgroundAudioTask
             {
                 // immediately set not running
                 backgroundTaskStarted.Reset();
+
+                //save state
+                ApplicationSettingsHelper.SaveSettingsValue(ApplicationSettingsConstants.BackgroundTaskState, BackgroundTaskState.Canceled.ToString());
 
                 // unsubscribe event handlers
                 BackgroundMediaPlayer.MessageReceivedFromForeground -= BackgroundMediaPlayer_MessageReceivedFromForeground;
@@ -208,6 +213,12 @@ namespace WebTeamUAPBackgroundAudioTask
             {
                 CreateMediaSource(updateStreamURLMessage.streamURL);
                 return;
+            }
+
+            StopPlaybackMessage stopPlaybackMessage;
+            if(MessageService.TryParseMessage(e.Data, out stopPlaybackMessage))
+            {
+                //BackgroundMediaPlayer.Current.Position = BackgroundMediaPlayer.Current.
             }
         }
 

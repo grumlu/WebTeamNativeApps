@@ -70,16 +70,24 @@ namespace WebTeamWindows10Universal.Model
         public void Play()
         {
             Debug.WriteLine("Play button pressed from App");
-
-            StartBackgroundAudioTask();
+            if (!IsMyBackgroundTaskRunning)
+            {
+                StartBackgroundAudioTask();
+            }
+            else
+            {
+                MessageService.SendMessageToBackground(new StartPlaybackMessage());
+            }
         }
 
         public void Pause()
         {
+            BackgroundMediaPlayer.Current.Pause();
         }
 
         public void Stop()
         {
+            StopBackgroundAudioTask();
         }
         #endregion
 
@@ -125,6 +133,15 @@ namespace WebTeamWindows10Universal.Model
         /// <summary>
         /// Subscribes to MediaPlayer events
         /// </summary>
+        private void RemoveMediaPlayerEventHandlers()
+        {
+            BackgroundMediaPlayer.Current.CurrentStateChanged -= this.MediaPlayer_CurrentStateChanged;
+            BackgroundMediaPlayer.MessageReceivedFromBackground -= this.BackgroundMediaPlayer_MessageReceivedFromBackground;
+        }
+
+        /// <summary>
+        /// Subscribes to MediaPlayer events
+        /// </summary>
         private void AddMediaPlayerEventHandlers()
         {
             BackgroundMediaPlayer.Current.CurrentStateChanged += this.MediaPlayer_CurrentStateChanged;
@@ -153,6 +170,15 @@ namespace WebTeamWindows10Universal.Model
                 }
             });
         }
+
+        private void StopBackgroundAudioTask()
+        {
+            RemoveMediaPlayerEventHandlers();
+
+            MessageService.SendMessageToBackground(new StopPlaybackMessage());
+        }
         #endregion
+
+
     }
 }
