@@ -14,7 +14,6 @@ namespace WebTeamWindows10Universal.Resources.APIWebTeam
         public enum ERROR
         {
             NO_ERR,
-            INCORRECT_LOGIN_OR_PWD,
             ERR_UNKNOWN,
             WEBTEAM_UNAVAILABLE,
             NOT_CONNECTED,

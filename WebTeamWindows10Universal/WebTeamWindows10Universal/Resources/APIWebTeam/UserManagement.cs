@@ -1,8 +1,10 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using WebTeamWindows10Universal.Model;
 using Windows.Storage.Streams;
+using Windows.UI.Popups;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.Web.Http;
 
@@ -74,8 +76,20 @@ namespace WebTeamWindows10Universal.Resources.APIWebTeam
             user.promo = (string)list["promo"];
 
             //Parse de la date de naissance sans l'heure (fournie également par la WT)
-           user.dateDeNaissance = ((DateTime)list["birthday"]);
-
+            try {
+                user.dateDeNaissance = ((DateTime)list["birthday"]);
+            }
+            catch
+            {
+                DispatchService.Invoke(Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
+                {
+                    string errMsg = "Votre date de naissance est dans un format incorrect. Pour éviter ce message, changez votre date de naissance sur https://webteam.ensea.fr";
+                    Debugger.Break();
+                    MessageDialog dialog = new MessageDialog(errMsg);
+                    await dialog.ShowAsync();
+                });
+                user.dateDeNaissance = DateTime.MinValue;
+            }
             return user;
 
         }

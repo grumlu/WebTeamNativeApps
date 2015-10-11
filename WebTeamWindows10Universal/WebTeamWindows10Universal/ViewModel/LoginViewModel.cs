@@ -88,7 +88,7 @@ namespace WebTeamWindows10Universal.ViewModel
                     }
                     else
                     {
-                        errMsg = "Une erreur inconnue est survenue. Apparemment, cette application et la Webteam ne parlent pas la même langue." +
+                        errMsg = "Une erreur inconnue est survenue lors de la réception de votre profil." +
                             "Assurez-vous que votre application est à jour, et contactez la webteam (webteam@ensea.fr) si le problème persiste";
                     }
                 }
