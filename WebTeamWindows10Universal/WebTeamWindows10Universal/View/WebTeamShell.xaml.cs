@@ -31,7 +31,7 @@ namespace WebTeamWindows10Universal.View
         {
             this.InitializeComponent();
             this.ShellSplitView.Content = frame;
-            
+
             //Action réalisée lorsqu'on appuie sur un des boutons
             Action update = new Action(() =>
             {
@@ -125,6 +125,14 @@ namespace WebTeamWindows10Universal.View
                 list.AddRange(AllRadioButtons(child));
             }
             return list;
+        }
+
+        RelayCommand _suggestionOrBugReport;
+        public RelayCommand SuggestionOrBugReport { get { return _suggestionOrBugReport ?? (_suggestionOrBugReport = new RelayCommand(SendSuggestionOrBugCommand)); } }
+        private async void SendSuggestionOrBugCommand()
+        {
+            var mailto = new Uri("mailto:?to=webteam@ensea.fr&subject=[W10App] Suggestion or Bug Report");
+            await Windows.System.Launcher.LaunchUriAsync(mailto);
         }
     }
 
