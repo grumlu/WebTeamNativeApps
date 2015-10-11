@@ -13,7 +13,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="../Styles/SplitViewStyles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-            
+
             <Style TargetType="RadioButton" BasedOn="{StaticResource SplitViewRadioButtonStyle}"/>
         </ResourceDictionary>
     </Page.Resources>
@@ -32,7 +32,7 @@
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
-        
+
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
@@ -44,7 +44,7 @@
                     <EntranceThemeTransition FromHorizontalOffset="0" FromVerticalOffset="-30" />
                 </TransitionCollection>
             </StackPanel.Transitions>
-            
+
             <!-- hamburger -->
             <Button x:Name="HamburgerButton" Command="{Binding MenuCommand}" Width="48" Height="48" Background="{StaticResource HamburgerMenuBackgroundBrush}">
                 <TextBlock Text="{StaticResource MenuButtonText}" Style="{StaticResource SplitViewIconStyle}" FontSize="{StaticResource SplitViewLargeNavFontSize}"/>
@@ -53,13 +53,13 @@
         </StackPanel>
 
         <SplitView x:Name="ShellSplitView" IsPaneOpen="True" Grid.Row="1" DisplayMode="CompactOverlay">
-            
+
             <SplitView.Transitions>
                 <TransitionCollection>
                     <EntranceThemeTransition FromHorizontalOffset="-30" FromVerticalOffset="0" />
                 </TransitionCollection>
             </SplitView.Transitions>
-            
+
             <SplitView.Pane>
                 <Grid Background="{StaticResource SplitViewBackgroundBrush}">
                     <Grid.RowDefinitions>
@@ -68,74 +68,72 @@
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
-                    <StackPanel x:Name="RadioButtonContainer" Grid.Row="1">
+                        <StackPanel x:Name="RadioButtonContainer" Grid.Row="1">
 
-                        <!--Accueil / News-->
+                            <!--Accueil / News-->
 
-                        <RadioButton Command="{Binding NavCommand}" Content="Accueil" GroupName="Nav">
-                            <RadioButton.CommandParameter>
-                                <views:NavType Type="views:NewsView" />
-                            </RadioButton.CommandParameter>
-                            <RadioButton.Tag>
-                                <TextBlock Text="" Style="{StaticResource SplitViewIconStyle}" />
-                            </RadioButton.Tag>
-                        </RadioButton>
-
-
-                        <!--Profil-->
-
-                        <RadioButton Command="{Binding NavCommand}" Content="Profil" GroupName="Nav">
-                            <RadioButton.CommandParameter>
-                                <views:NavType Type="views:ProfileView" />
-                            </RadioButton.CommandParameter>
-                            <RadioButton.Tag>
-                                <TextBlock Text="" Style="{StaticResource SplitViewIconStyle}" />
-                            </RadioButton.Tag>
-                        </RadioButton>
+                            <RadioButton Command="{Binding NavCommand}" Content="Accueil" GroupName="Nav">
+                                <RadioButton.CommandParameter>
+                                    <views:NavType Type="views:NewsView" />
+                                </RadioButton.CommandParameter>
+                                <RadioButton.Tag>
+                                    <TextBlock Text="" Style="{StaticResource SplitViewIconStyle}" />
+                                </RadioButton.Tag>
+                            </RadioButton>
 
 
-                        <!--Events-->
+                            <!--Profil-->
 
-                        <RadioButton Command="{Binding NavCommand}" Content="Évènements" GroupName="Nav" Visibility="Collapsed">
-                            <RadioButton.CommandParameter>
-                                <views:NavType Type="views:ProfileView" />
-                            </RadioButton.CommandParameter>
-                            <RadioButton.Tag>
-                                <TextBlock Text="" Style="{StaticResource SplitViewIconStyle}" />
-                            </RadioButton.Tag>
-                        </RadioButton>
+                            <RadioButton Command="{Binding NavCommand}" Content="Profil" GroupName="Nav">
+                                <RadioButton.CommandParameter>
+                                    <views:NavType Type="views:ProfileView" />
+                                </RadioButton.CommandParameter>
+                                <RadioButton.Tag>
+                                    <TextBlock Text="" Style="{StaticResource SplitViewIconStyle}" />
+                                </RadioButton.Tag>
+                            </RadioButton>
 
 
+                            <!--Events-->
 
-                        <!--Ragots-->
-
-                        <RadioButton Command="{Binding NavCommand}" Content="Discussions" GroupName="Nav" IsEnabled="False">
-                            <RadioButton.CommandParameter>
-                                <views:NavType Type="views:ProfileView" />
-                            </RadioButton.CommandParameter>
-                            <RadioButton.Tag>
-                                <TextBlock Text="" Style="{StaticResource SplitViewIconStyle}" />
-                            </RadioButton.Tag>
-                        </RadioButton>
+                            <RadioButton Command="{Binding NavCommand}" Content="Évènements" GroupName="Nav" Visibility="Collapsed">
+                                <RadioButton.CommandParameter>
+                                    <views:NavType Type="views:ProfileView" />
+                                </RadioButton.CommandParameter>
+                                <RadioButton.Tag>
+                                    <TextBlock Text="" Style="{StaticResource SplitViewIconStyle}" />
+                                </RadioButton.Tag>
+                            </RadioButton>
 
 
 
-                        <!--Trombi-->
+                            <!--Ragots-->
 
-                        <RadioButton Command="{Binding NavCommand}" Content="Trombi" GroupName="Nav" IsEnabled="False">
-                            <RadioButton.CommandParameter>
-                                <views:NavType Type="views:ProfileView" />
-                            </RadioButton.CommandParameter>
-                            <RadioButton.Tag>
-                                <TextBlock Text=""  Style="{StaticResource SplitViewIconStyle}"/>
-                            </RadioButton.Tag>
-                        </RadioButton>
-
-                    </StackPanel>
-
-                    <StackPanel Grid.Row="2">
+                            <RadioButton Command="{Binding NavCommand}" Content="Discussions" GroupName="Nav" IsEnabled="False">
+                                <RadioButton.CommandParameter>
+                                    <views:NavType Type="views:ProfileView" />
+                                </RadioButton.CommandParameter>
+                                <RadioButton.Tag>
+                                    <TextBlock Text="" Style="{StaticResource SplitViewIconStyle}" />
+                                </RadioButton.Tag>
+                            </RadioButton>
 
 
+
+                            <!--Trombi-->
+
+                            <RadioButton Command="{Binding NavCommand}" Content="Trombi" GroupName="Nav" IsEnabled="False">
+                                <RadioButton.CommandParameter>
+                                    <views:NavType Type="views:ProfileView" />
+                                </RadioButton.CommandParameter>
+                                <RadioButton.Tag>
+                                    <TextBlock Text=""  Style="{StaticResource SplitViewIconStyle}"/>
+                                </RadioButton.Tag>
+                            </RadioButton>
+
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="2">
                         <!--Fuse-->
 
                         <RadioButton Command="{Binding NavCommand}" Content="Radio FUSE" GroupName="Nav">

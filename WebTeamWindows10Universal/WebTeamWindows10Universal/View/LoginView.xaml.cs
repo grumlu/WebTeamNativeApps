@@ -15,6 +15,10 @@ namespace WebTeamWindows10Universal.View
         public LoginView()
         {
             this.InitializeComponent();
+
+            //Taille minimale d'écran
+            Windows.UI.ViewManagement.ApplicationView.GetForCurrentView().SetPreferredMinSize(new Windows.Foundation.Size(400, 600));
+
             var titleBar = Windows.UI.ViewManagement.ApplicationView.GetForCurrentView().TitleBar;
             titleBar.BackgroundColor = Color.FromArgb(0, 183, 0, 80);
             titleBar.ButtonHoverBackgroundColor = Color.FromArgb(0, 131,0,42);

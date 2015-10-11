@@ -23,61 +23,61 @@
     -->
     <Grid x:Name="ProfileGrid" Margin="15 20 0 0">
 
-        <StackPanel>
-            <StackPanel.DataContext>
-                <viewmodels:ProfileViewModel />
-            </StackPanel.DataContext>
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+                <StackPanel.DataContext>
+                    <viewmodels:ProfileViewModel />
+                </StackPanel.DataContext>
 
-            <ScrollViewer>
-                <StackPanel>
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="180" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <ProgressRing IsActive="True" Foreground="Maroon" Height="70" Width="70"/>
-                        <Image Source="{Binding ProfilePicture}" Stretch="Fill" Width="144" Height="192" Grid.Column="0" Margin="15 15 15 15"/>
-                        <StackPanel Grid.Column="1" Margin="10 10 10 0" Visibility="{Binding IsLoaded, Converter={StaticResource TrueToVisibleConverter}}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="180" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <ProgressRing IsActive="True" Foreground="Maroon" Height="70" Width="70"/>
+                    <Image Source="{Binding ProfilePicture}" Stretch="Fill" Width="144" Height="192" Grid.Column="0" Margin="15 15 15 15"/>
+                    <StackPanel Grid.Column="1" Margin="10 10 10 0" Visibility="{Binding IsLoaded, Converter={StaticResource TrueToVisibleConverter}}">
 
-                            <TextBlock Text="{Binding Username}"  Style="{StaticResource SubheaderTextBlockStyle}" Margin="0 0 0 3"/>
-                            <TextBlock Text="{Binding Nickname}" Style="{StaticResource BaseTextBlockStyle}" />
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="{Binding Promo}" Style="{StaticResource BaseTextBlockStyle}" Margin="0 0 5 0"/>
-                                <TextBlock Text="{Binding Groupe}" Style="{StaticResource BaseTextBlockStyle}" />
-                            </StackPanel>
-                            <TextBlock Text="{Binding DateDeNaissance}" Style="{StaticResource BaseTextBlockStyle}" />
+                        <TextBlock Text="{Binding Username}"  Style="{StaticResource SubheaderTextBlockStyle}" Margin="0 0 0 3"/>
+                        <TextBlock Text="{Binding Nickname}" Style="{StaticResource BaseTextBlockStyle}" />
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding Promo}" Style="{StaticResource BaseTextBlockStyle}" Margin="0 0 5 0"/>
+                            <TextBlock Text="{Binding Groupe}" Style="{StaticResource BaseTextBlockStyle}" />
                         </StackPanel>
-                    </Grid>
+                        <TextBlock Text="{Binding DateDeNaissance}" Style="{StaticResource BaseTextBlockStyle}" />
+                    </StackPanel>
+                </Grid>
 
-                    <ListView x:Name="ActionList" ItemsSource="{Binding Path=ProfileCommands}" SelectionMode="None" HorizontalContentAlignment="Stretch" >
-                        <interactivity:Interaction.Behaviors>
-                            <core:EventTriggerBehavior EventName="Tapped">
-                                <core:InvokeCommandAction Command="{Binding ExecuteProfileCommand}" CommandParameter="{Binding SelectedItem, ElementName=ActionList}" />
-                            </core:EventTriggerBehavior>
-                        </interactivity:Interaction.Behaviors>
-                        <ListView.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <StackPanel HorizontalAlignment="Stretch" Margin="0,0,0,10" />
-                            </ItemsPanelTemplate>
-                        </ListView.ItemsPanel>
-                        <ListView.ItemTemplate>
-                            <DataTemplate >
-                                <StackPanel>
-                                    <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="{Binding HeaderText}"/>
-                                    <TextBlock Style="{StaticResource BodyTextBlockStyle}" Foreground="DimGray" Text="{Binding Text}" />
-                                </StackPanel>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
-                </StackPanel>
-            </ScrollViewer>
-        </StackPanel>
-
+                <ListView x:Name="ActionList" ItemsSource="{Binding Path=ProfileCommands}" SelectionMode="None" HorizontalContentAlignment="Stretch" >
+                    <interactivity:Interaction.Behaviors>
+                        <core:EventTriggerBehavior EventName="Tapped">
+                            <core:InvokeCommandAction Command="{Binding ExecuteProfileCommand}" CommandParameter="{Binding SelectedValuePath, ElementName=ActionList}" />
+                        </core:EventTriggerBehavior>
+                    </interactivity:Interaction.Behaviors>
+                    <ListView.ItemContainerTransitions>
+                        <TransitionCollection />
+                    </ListView.ItemContainerTransitions>
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel HorizontalAlignment="Stretch" Margin="0,0,0,10" />
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+                    <ListView.ItemTemplate>
+                        <DataTemplate >
+                            <StackPanel>
+                                <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="{Binding HeaderText}"/>
+                                <TextBlock Style="{StaticResource BodyTextBlockStyle}" Foreground="DimGray" Text="{Binding Text}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 </Page>

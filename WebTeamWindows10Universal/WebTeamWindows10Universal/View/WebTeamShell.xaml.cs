@@ -9,6 +9,7 @@ using WebTeamWindows10Universal.ViewModel;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Core;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -30,6 +31,8 @@ namespace WebTeamWindows10Universal.View
         {
             this.InitializeComponent();
             this.ShellSplitView.Content = frame;
+            
+            //Action réalisée lorsqu'on appuie sur un des boutons
             Action update = new Action(() =>
             {
                 // update radiobuttons after frame navigates
@@ -55,7 +58,11 @@ namespace WebTeamWindows10Universal.View
             frame.Navigated += (s, e) => update();
             this.Loaded += (s, e) => update();
             this.DataContext = this;
+
+            //Ajout du back button
             SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
+
+            //Navigation vers la page d'accueil
             (App.Current as App).NavigationService.Navigate(typeof(NewsView));
         }
 

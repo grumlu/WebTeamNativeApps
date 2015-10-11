@@ -1,16 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Threading.Tasks;
 using WebTeamWindows10Universal.Model;
 using WebTeamWindows10Universal.Resources;
 using Windows.ApplicationModel.Calls;
 using Windows.Devices.Geolocation;
 using Windows.Foundation.Metadata;
 using Windows.Services.Maps;
-using Windows.UI.Core;
 using Windows.UI.Popups;
-using Windows.UI.Xaml.Controls.Primitives;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media.Imaging;
 
@@ -26,6 +23,9 @@ namespace WebTeamWindows10Universal.ViewModel
             GetAppUser();
         }
 
+        /// <summary>
+        /// Chargement de l'utilisateur
+        /// </summary>
         public async void GetAppUser()
         {
             // On créé un dummy profile si on est en mode design
@@ -57,9 +57,11 @@ namespace WebTeamWindows10Universal.ViewModel
             RaisePropertyChanged("DateDeNaissance");
 
             //Mise en place des champs de commande
+            //Commande pour appeler
             if (!_appUser.numeroPortable.Equals(""))
             {
                 Action command;
+                //Si on peut appeler
                 if (ApiInformation.IsApiContractPresent("Windows.ApplicationModel.Calls.CallsPhoneContract", 1, 0))
                 {
                     command = new Action(() =>
@@ -67,6 +69,7 @@ namespace WebTeamWindows10Universal.ViewModel
                         PhoneCallManager.ShowPhoneCallUI(_appUser.numeroPortable, Username);
                     });
                 }
+                //Si le device ne peut passer d'appel
                 else
                 {
                     command = new Action(async () =>
@@ -78,13 +81,14 @@ namespace WebTeamWindows10Universal.ViewModel
                 }
                 ProfileCommands.Add(new ProfileCommand("Appeler", _appUser.numeroPortable, command));
             }
+            //Commande pour naviguer vers
             if (!_appUser.adresse.Equals(""))
             {
                 Action command = new Action(async () =>
                 {
                     var locFinderResult = await MapLocationFinder.FindLocationsAsync(_appUser.adresse, new Geopoint(new BasicGeoposition()));
 
-                    if(locFinderResult.Locations[0] == null)
+                    if (locFinderResult.Locations[0] == null)
                     {
                         string errMsg = "Désolé, impossible de trouver où " + _appUser.prenom + " habite";
                         MessageDialog dialog = new MessageDialog(errMsg);
@@ -98,7 +102,7 @@ namespace WebTeamWindows10Universal.ViewModel
                          "ms-drive-to:?destination.latitude={0}&destination.longitude={1}&destination.name={2}",
                          geoPos.Latitude,
                          geoPos.Longitude,
-                         _appUser.prenom + " " +_appUser.nom));
+                         _appUser.prenom + " " + _appUser.nom));
 
                     await Windows.System.Launcher.LaunchUriAsync(driveToUri);
                 });
@@ -106,6 +110,7 @@ namespace WebTeamWindows10Universal.ViewModel
                 ProfileCommands.Add(new ProfileCommand("Obtenir un itinéraire", _appUser.adresse, command));
             }
 
+            //Si on est en mode design, on ne charge pas l'image (plantage de la visu)
             if (!_isInDesignMode)
             {
                 //Récupération de l'avatar
@@ -172,16 +177,22 @@ namespace WebTeamWindows10Universal.ViewModel
             }
         }
 
+        /// <summary>
+        /// RelayCommand pour l'appui sur une des commandes du profil
+        /// </summary>
         public RelayCommand<TappedRoutedEventArgs> ExecuteProfileCommand
         {
             get; private set;
-        } = new RelayCommand<TappedRoutedEventArgs>(haha =>
+        } = new RelayCommand<TappedRoutedEventArgs>(selectedItem =>
         {
-            ListViewItemPresenter lvip = (ListViewItemPresenter)haha.OriginalSource;
+            FrameworkElement lvip = (FrameworkElement)selectedItem.OriginalSource;
             ProfileCommand pc = (ProfileCommand)lvip.DataContext;
             pc.Command.Invoke();
         });
 
+        /// <summary>
+        /// Liste des commades du profil
+        /// </summary>
         public ObservableCollection<ProfileCommand> ProfileCommands { get; private set; }
 
         public class ProfileCommand
