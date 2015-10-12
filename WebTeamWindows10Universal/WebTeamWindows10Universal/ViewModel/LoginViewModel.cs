@@ -1,9 +1,10 @@
-﻿using System;
+﻿using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Threading;
+using System;
 using System.Diagnostics;
 using WebTeamWindows10Universal.Model;
 using WebTeamWindows10Universal.Resources;
 using WebTeamWindows10Universal.Resources.APIWebTeam;
-using WebTeamWindows10Universal.Resources.NavigationService;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -97,7 +98,7 @@ namespace WebTeamWindows10Universal.ViewModel
                     errMsg = "Une erreur est survenue :\n" + excep.StackTrace.ToString();
                 }
 
-                DispatchService.Invoke(Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
+                await DispatcherHelper.RunAsync(async () =>
             {
                 Debugger.Break();
                 MessageDialog dialog = new MessageDialog(errMsg);
@@ -111,15 +112,10 @@ namespace WebTeamWindows10Universal.ViewModel
                 CanPerformAction = true;
             }
 
-            DispatchService.Invoke(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
-
+            await DispatcherHelper.RunAsync(() =>
             {
-                Frame frame = new Frame();
-                frame.Language = Windows.Globalization.ApplicationLanguages.Languages[0];
-                (App.Current as App).NavigationService = new NavigationService(frame);
-
-                Window.Current.Content = new View.WebTeamShell(frame);
-
+                var shell = new View.WebTeamShell();
+                Window.Current.Content = shell;
             });
         }
 

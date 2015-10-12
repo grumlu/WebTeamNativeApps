@@ -17,7 +17,7 @@
     <EnableDotNetNativeCompatibleProfile>true</EnableDotNetNativeCompatibleProfile>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
+    <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
     <PackageCertificateKeyFile>WebTeamUAP_StoreKey.pfx</PackageCertificateKeyFile>
     <AppxBundle>Auto</AppxBundle>
     <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
@@ -104,6 +104,10 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\NavMenuListView.cs" />
+    <Compile Include="Controls\PageHeader.xaml.cs">
+      <DependentUpon>PageHeader.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Model\AppUserModel.cs" />
     <Compile Include="Model\FUSEModel.cs" />
     <Compile Include="Model\LoginModel.cs" />
@@ -115,24 +119,17 @@
     <Compile Include="Resources\APIWebTeam\UserManagement.cs" />
     <Compile Include="Model\Article.cs" />
     <Compile Include="Resources\BooleanToVisibilityConverter.cs" />
-    <Compile Include="Resources\DispatchService.cs" />
-    <Compile Include="Resources\NavigationHelper.cs" />
-    <Compile Include="Resources\NavigationService\INavigatable.cs" />
-    <Compile Include="Resources\NavigationService\NavigationEventArgs.cs" />
-    <Compile Include="Resources\NavigationService\NavigationFacade.cs" />
-    <Compile Include="Resources\NavigationService\NavigationService.cs" />
+    <Compile Include="Resources\NavMenuItem.cs" />
     <Compile Include="Resources\ObjectStorageHelper.cs" />
-    <Compile Include="Resources\ObservableDictionary.cs" />
-    <Compile Include="Resources\RelayCommand.cs" />
     <Compile Include="Resources\StateTriggers\DeviceFamilyStateTrigger.cs" />
     <Compile Include="Resources\StateTriggers\ITriggerValue.cs" />
-    <Compile Include="Resources\SuspensionManager.cs" />
     <Compile Include="Model\User.cs" />
     <Compile Include="ViewModel\FUSEViewModel.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\NewsViewModel.cs" />
     <Compile Include="ViewModel\ProfileViewModel.cs" />
     <Compile Include="ViewModel\SettingsViewModel.cs" />
+    <Compile Include="ViewModel\TrombiViewModel.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
     <Compile Include="View\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
@@ -148,6 +145,9 @@
     </Compile>
     <Compile Include="View\SettingsView.xaml.cs">
       <DependentUpon>SettingsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\TrombiView.xaml.cs">
+      <DependentUpon>TrombiView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\WebTeamShell.xaml.cs">
       <DependentUpon>WebTeamShell.xaml</DependentUpon>
@@ -202,6 +202,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Controls\PageHeader.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\PageStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Styles\SplitViewStyles.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -225,6 +233,10 @@
     <Page Include="View\SettingsView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\TrombiView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\WebTeamShell.xaml">
       <Generator>MSBuild:Compile</Generator>

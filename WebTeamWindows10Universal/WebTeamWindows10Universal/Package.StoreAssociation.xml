@@ -361,8 +361,6 @@
       <ReservedName>Webteam ENSEA</ReservedName>
     </ReservedNames>
   </ProductReservedInfo>
-  <AccountPackageIdentityNames>
-    <MainPackageIdentityName>4908ThomasHAVY.GrumluTestAppReservation</MainPackageIdentityName>
-  </AccountPackageIdentityNames>
+  <AccountPackageIdentityNames />
   <PackageInfoList LandingUrl="https://dev.windows.com/dashboard/Application?appId=9NBLGGH6CFTR" />
 </StoreAssociation>

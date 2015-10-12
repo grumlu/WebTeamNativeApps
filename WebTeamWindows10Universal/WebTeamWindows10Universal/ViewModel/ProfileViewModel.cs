@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GalaSoft.MvvmLight.Command;
+using System;
 using System.Collections.ObjectModel;
 using WebTeamWindows10Universal.Model;
 using WebTeamWindows10Universal.Resources;

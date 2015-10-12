@@ -1,5 +1,6 @@
 ﻿using BackgroundAudioShared;
 using BackgroundAudioShared.Messages;
+using GalaSoft.MvvmLight.Threading;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -98,7 +99,7 @@ namespace WebTeamWindows10Universal.Model
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="args"></param>
-        async void MediaPlayer_CurrentStateChanged(MediaPlayer sender, object args)
+        void MediaPlayer_CurrentStateChanged(MediaPlayer sender, object args)
         {
             var currentState = sender.CurrentState; // cache outside of completion or you might get a different value
             //await uiFactory.StartNew(() =>
@@ -155,7 +156,7 @@ namespace WebTeamWindows10Universal.Model
         {
             AddMediaPlayerEventHandlers();
 
-            var startResult = DispatchService.Invoke(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+            var startResult = DispatcherHelper.RunAsync(() =>
             {
                 bool result = backgroundAudioTaskStarted.WaitOne(10000);
                 //Send message to initiate playback

@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using GalaSoft.MvvmLight.Threading;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
@@ -81,13 +82,6 @@ namespace WebTeamWindows10Universal.Resources.APIWebTeam
             }
             catch
             {
-                DispatchService.Invoke(Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
-                {
-                    string errMsg = "Votre date de naissance est dans un format incorrect. Pour éviter ce message, changez votre date de naissance sur https://webteam.ensea.fr";
-                    Debugger.Break();
-                    MessageDialog dialog = new MessageDialog(errMsg);
-                    await dialog.ShowAsync();
-                });
                 user.dateDeNaissance = DateTime.MinValue;
             }
             return user;
