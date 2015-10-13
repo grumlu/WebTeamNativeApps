@@ -9,6 +9,7 @@ namespace WebTeamWindows10Universal.View
         public NewsView()
         {
             this.InitializeComponent();
+            this.NavigationCacheMode = Windows.UI.Xaml.Navigation.NavigationCacheMode.Enabled;
         }
     }
 }

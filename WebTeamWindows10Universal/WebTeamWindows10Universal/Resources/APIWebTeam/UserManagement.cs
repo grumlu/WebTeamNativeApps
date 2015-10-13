@@ -38,7 +38,7 @@ namespace WebTeamWindows10Universal.Resources.APIWebTeam
 
             //Récupération de l'user qu'on veut
             if (id != -1)
-                request_url += "s/id";
+                request_url += "s/" + id;
 
             request_url += "?";
             request_url += "access_token" + "=" + roamingSettings.Values["access_token"];
@@ -48,7 +48,7 @@ namespace WebTeamWindows10Universal.Resources.APIWebTeam
 
             var httpResponseMessage = await httpClient.GetAsync(new Uri(request_url));
             string response = await httpResponseMessage.Content.ReadAsStringAsync();
-            System.Diagnostics.Debug.WriteLine(response);
+
             //lecture du JSON
             User user = ParseUser(response);
             

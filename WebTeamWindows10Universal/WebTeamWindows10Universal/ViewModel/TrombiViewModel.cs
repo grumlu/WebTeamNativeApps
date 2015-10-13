@@ -5,7 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WebTeamWindows10Universal.View;
 using Windows.UI.Popups;
+using Windows.UI.Xaml;
 
 namespace WebTeamWindows10Universal.ViewModel
 {
@@ -32,6 +34,15 @@ namespace WebTeamWindows10Universal.ViewModel
                     await dialog.ShowAsync();
                 });
             }
+
+            await DispatcherHelper.RunAsync(() =>
+           {
+               ((WebTeamShell)Window.Current.Content).AppFrame.Navigate(
+                   typeof(UserView),
+                   userID,
+                   new Windows.UI.Xaml.Media.Animation.DrillInNavigationTransitionInfo());
+           });
+            
         }
 
         

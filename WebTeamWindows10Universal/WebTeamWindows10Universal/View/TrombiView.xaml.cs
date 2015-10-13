@@ -12,6 +12,7 @@ namespace WebTeamWindows10Universal.View
         public TrombiView()
         {
             this.InitializeComponent();
+            this.NavigationCacheMode = Windows.UI.Xaml.Navigation.NavigationCacheMode.Enabled;
         }
     }
 }
