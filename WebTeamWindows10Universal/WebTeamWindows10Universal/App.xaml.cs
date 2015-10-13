@@ -1,5 +1,6 @@
-﻿using System;
-using WebTeamWindows10Universal.Resources.NavigationService;
+﻿using GalaSoft.MvvmLight.Threading;
+using GalaSoft.MvvmLight.Views;
+using System;
 using WebTeamWindows10Universal.View;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
@@ -16,7 +17,7 @@ namespace WebTeamWindows10Universal
     /// </summary>
     sealed partial class App : Application
     {
-        public Resources.NavigationService.NavigationService NavigationService { get; set; }
+        public NavigationService NavigationService { get; set; }
 
         /// <summary>
         /// Allows tracking page views, exceptions and other telemetry through the Microsoft Application Insights service.
@@ -79,10 +80,18 @@ namespace WebTeamWindows10Universal
             }
 
             // Create the Navigation Service
-            NavigationService = new NavigationService(rootFrame);
+            NavigationService = new NavigationService();
+            NavigationService.Configure("LoginView", typeof(LoginView));
+            NavigationService.Configure("WebTeamShell", typeof(WebTeamShell));
+            NavigationService.Configure("NewsView", typeof(NewsView));
+            NavigationService.Configure("ProfileView", typeof(ProfileView));
+            NavigationService.Configure("TrombiView", typeof(TrombiView));
+            NavigationService.Configure("SettingsView", typeof(SettingsView));
 
             // Ensure the current window is active
             Window.Current.Activate();
+
+            DispatcherHelper.Initialize();
         }
 
         /// <summary>

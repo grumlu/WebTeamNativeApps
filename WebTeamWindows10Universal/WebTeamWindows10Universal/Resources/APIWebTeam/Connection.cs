@@ -176,12 +176,13 @@ namespace WebTeamWindows10Universal.Resources.APIWebTeam
             roamingSettings.Values["access_token"] = null;
 
             //Nettoyer l'historique et charger la page de connexion si on n'est pas déjà dessus
-            (App.Current as App).NavigationService.ClearHistory();
-            if ((App.Current as App).NavigationService.CurrentPageType != typeof(View.LoginView))
+            //(App.Current as App).NavigationService.
+            var navService = (App.Current as App).NavigationService;
+            if (!navService.CurrentPageKey.Equals("LoginView"))
             {
                 Frame frame = new Frame();
                 frame.Language = Windows.Globalization.ApplicationLanguages.Languages[0];
-                (App.Current as App).NavigationService = new NavigationService.NavigationService(frame);
+                //(App.Current as App).NavigationService = new NavigationService.NavigationService(frame);
 
                 Window.Current.Content = frame;
                 frame.Navigate(typeof(View.LoginView));

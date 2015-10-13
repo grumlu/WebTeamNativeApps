@@ -6,6 +6,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:statetriggers="using:WindowsStateTriggers"
+    xmlns:resources="using:WebTeamWindows10Universal.Resources"
+    xmlns:controls="using:WebTeamWindows10Universal.Controls"
     mc:Ignorable="d">
 
     <Page.Resources>
@@ -14,7 +16,20 @@
                 <ResourceDictionary Source="../Styles/SplitViewStyles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
-            <Style TargetType="RadioButton" BasedOn="{StaticResource SplitViewRadioButtonStyle}"/>
+            <DataTemplate x:Key="NavMenuItemTemplate" x:DataType="resources:NavMenuItem">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="48" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <!-- Showing a ToolTip and the Label is redundant.  We put the ToolTip on the icon.
+                     It appears when the user hovers over the icon, but not the label which provides
+                     value when the SplitView is 'Compact' while reducing the likelihood of showing
+                     redundant information when the label is shown.-->
+                    <FontIcon x:Name="Glyph" FontSize="16" Glyph="{x:Bind SymbolAsChar}" VerticalAlignment="Center" HorizontalAlignment="Center" ToolTipService.ToolTip="{x:Bind Label}"/>
+                    <TextBlock x:Name="Text" Grid.Column="1" Text="{x:Bind Label}" />
+                </Grid>
+            </DataTemplate>
         </ResourceDictionary>
     </Page.Resources>
 
@@ -38,21 +53,36 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <!--Menu bar on top-->
-        <StackPanel Grid.Row="0" Orientation="Horizontal" Background="#333">
-            <StackPanel.Transitions>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Grid.Transitions>
                 <TransitionCollection>
                     <EntranceThemeTransition FromHorizontalOffset="0" FromVerticalOffset="-30" />
                 </TransitionCollection>
-            </StackPanel.Transitions>
+            </Grid.Transitions>
 
             <!-- hamburger -->
-            <Button x:Name="HamburgerButton" Command="{Binding MenuCommand}" Width="48" Height="48" Background="{StaticResource HamburgerMenuBackgroundBrush}">
+            <Button x:Name="HamburgerButton" Tapped="TogglePaneButton_Clicked" Width="48" Height="48" Background="{StaticResource HamburgerMenuBackgroundBrush}" Grid.Column="0">
                 <TextBlock Text="{StaticResource MenuButtonText}" Style="{StaticResource SplitViewIconStyle}" FontSize="{StaticResource SplitViewLargeNavFontSize}"/>
             </Button>
-            <TextBlock x:Name="PageHeader" Style="{StaticResource SubheaderTextBlockStyle}" FontFamily="Segoe UI" Text="Ehhmm.. There should be a Title here." RelativePanel.RightOf="HamburgerButton" Margin="10 0 0 0"/>
-        </StackPanel>
+            <CommandBar x:Name="CommandBar" VerticalAlignment="Top" Grid.Column="1">
+                <AppBarSeparator />
+                <AppBarButton Icon="LikeDislike" Label="Suggestions Bug report" Command="{Binding SuggestionOrBugReport}" />
+                <CommandBar.Content>
+                    <controls:PageHeader Grid.Column="1">
+                        <controls:PageHeader.HeaderContent>
+                            <TextBlock x:Name="PageTitle" Text="Title Here!" Style="{StaticResource PageTitleTextBlockStyle}" TextWrapping="NoWrap" />
+                        </controls:PageHeader.HeaderContent>
+                    </controls:PageHeader>
+                </CommandBar.Content>
+            </CommandBar>
+        </Grid>
 
-        <SplitView x:Name="ShellSplitView" IsPaneOpen="True" Grid.Row="1" DisplayMode="CompactOverlay">
+        <SplitView x:Name="ShellSplitView" IsPaneOpen="False" Grid.Row="1" DisplayMode="CompactOverlay">
 
             <SplitView.Transitions>
                 <TransitionCollection>
@@ -63,111 +93,46 @@
             <SplitView.Pane>
                 <Grid Background="{StaticResource SplitViewBackgroundBrush}">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
-                    <StackPanel x:Name="RadioButtonContainer" Grid.Row="1">
+                    <!-- A custom ListView to display the items in the pane.  The automation Name is set in the ContainerContentChanging event. -->
+                    <controls:NavMenuListView x:Name="NavMenuList" Grid.Row="0"
+                                          ContainerContentChanging="NavMenuItemContainerContentChanging"
+                                          SelectionChanged="NavMenuList_SelectionChanged"
+                                          ItemContainerStyle="{StaticResource NavMenuItemContainerStyle}"
+                                          ItemTemplate="{StaticResource NavMenuItemTemplate}"
+                                          ItemInvoked="NavMenuList_ItemInvoked">
+                    </controls:NavMenuListView>
 
-                        <!--Accueil / News-->
-
-                        <RadioButton Command="{Binding NavCommand}" Content="Accueil" GroupName="Nav">
-                            <RadioButton.CommandParameter>
-                                <views:NavType Type="views:NewsView" />
-                            </RadioButton.CommandParameter>
-                            <RadioButton.Tag>
-                                <TextBlock Text="" Style="{StaticResource SplitViewIconStyle}" />
-                            </RadioButton.Tag>
-                        </RadioButton>
-
-
-                        <!--Profil-->
-
-                        <RadioButton Command="{Binding NavCommand}" Content="Profil" GroupName="Nav">
-                            <RadioButton.CommandParameter>
-                                <views:NavType Type="views:ProfileView" />
-                            </RadioButton.CommandParameter>
-                            <RadioButton.Tag>
-                                <TextBlock Text="" Style="{StaticResource SplitViewIconStyle}" />
-                            </RadioButton.Tag>
-                        </RadioButton>
-
-
-                        <!--Events-->
-
-                        <RadioButton Command="{Binding NavCommand}" Content="Évènements" GroupName="Nav" Visibility="Collapsed">
-                            <RadioButton.CommandParameter>
-                                <views:NavType Type="views:ProfileView" />
-                            </RadioButton.CommandParameter>
-                            <RadioButton.Tag>
-                                <TextBlock Text="" Style="{StaticResource SplitViewIconStyle}" />
-                            </RadioButton.Tag>
-                        </RadioButton>
-
-
-
-                        <!--Ragots-->
-
-                        <RadioButton Command="{Binding NavCommand}" Content="Discussions" GroupName="Nav" IsEnabled="False">
-                            <RadioButton.CommandParameter>
-                                <views:NavType Type="views:ProfileView" />
-                            </RadioButton.CommandParameter>
-                            <RadioButton.Tag>
-                                <TextBlock Text="" Style="{StaticResource SplitViewIconStyle}" />
-                            </RadioButton.Tag>
-                        </RadioButton>
-
-
-
-                        <!--Trombi-->
-
-                        <RadioButton Command="{Binding NavCommand}" Content="Trombi" GroupName="Nav" IsEnabled="False">
-                            <RadioButton.CommandParameter>
-                                <views:NavType Type="views:ProfileView" />
-                            </RadioButton.CommandParameter>
-                            <RadioButton.Tag>
-                                <TextBlock Text=""  Style="{StaticResource SplitViewIconStyle}"/>
-                            </RadioButton.Tag>
-                        </RadioButton>
-
-                    </StackPanel>
-
-                    <StackPanel Grid.Row="2">
-                        <!--Fuse-->
-
-                        <RadioButton Command="{Binding NavCommand}" Content="Radio FUSE" GroupName="Nav">
-                            <RadioButton.CommandParameter>
-                                <views:NavType Type="views:FUSEView" />
-                            </RadioButton.CommandParameter>
-                            <RadioButton.Tag>
-                                <TextBlock Text="" Style="{StaticResource SplitViewIconStyle}" />
-                            </RadioButton.Tag>
-                        </RadioButton>
-
-
-                        <!--settings-->
-
-                        <RadioButton Command="{Binding NavCommand}" Content="Settings" GroupName="Nav">
-                            <RadioButton.CommandParameter>
-                                <views:NavType Type="views:SettingsView" />
-                            </RadioButton.CommandParameter>
-                            <RadioButton.Tag>
-                                <TextBlock Text="" Style="{StaticResource SplitViewIconStyle}" />
-                            </RadioButton.Tag>
-                        </RadioButton>
-
-                        <!-- bug report or suggestion -->
-
-                        <RadioButton Command="{Binding SuggestionOrBugReport}" Content="Suggestion / Bugs" GroupName="Nav">
-                            <RadioButton.Tag>
-                                <TextBlock Text="" Style="{StaticResource SplitViewIconStyle}" />
-                            </RadioButton.Tag>
-                        </RadioButton>
-                    </StackPanel>
+                    <controls:NavMenuListView x:Name="NavMenuListBottom" Grid.Row="1"
+                                          TabIndex="3"
+                                          ContainerContentChanging="NavMenuItemContainerContentChanging"
+                                          SelectionChanged="NavMenuList_SelectionChanged"
+                                          ItemContainerStyle="{StaticResource NavMenuItemContainerStyle}"
+                                          ItemTemplate="{StaticResource NavMenuItemTemplate}"
+                                          ItemInvoked="NavMenuList_ItemInvoked">
+                    </controls:NavMenuListView>
 
                 </Grid>
             </SplitView.Pane>
+
+            <!-- OnNavigatingToPage we synchronize the selected item in the nav menu with the current page.
+                 OnNavigatedToPage we move keyboard focus to the first item on the page after it's loaded. -->
+            <Frame x:Name="frame"
+                   Navigating="OnNavigatingToPage"
+                   Navigated="OnNavigatedToPage">
+                <Frame.ContentTransitions>
+                    <TransitionCollection>
+                        <NavigationThemeTransition>
+                            <NavigationThemeTransition.DefaultNavigationTransitionInfo>
+                                <EntranceNavigationTransitionInfo/>
+                            </NavigationThemeTransition.DefaultNavigationTransitionInfo>
+                        </NavigationThemeTransition>
+                    </TransitionCollection>
+                </Frame.ContentTransitions>
+            </Frame>
         </SplitView>
     </Grid>
 

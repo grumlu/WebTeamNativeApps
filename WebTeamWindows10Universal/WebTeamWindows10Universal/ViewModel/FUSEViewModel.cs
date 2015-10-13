@@ -1,4 +1,5 @@
 ﻿using BackgroundAudioShared.Messages;
+using GalaSoft.MvvmLight.Command;
 using System;
 using System.Diagnostics;
 using System.Threading;
